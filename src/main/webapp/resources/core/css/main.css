@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+}
+
+.backgroundNav{
+    background-color: rgb(215 139 73);
+}
+
+.btn{
+    background-color: transparent;
+    color: black;
+    border: none;
+}
+
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+/*.btn-custom-primary {
+        background-color: rgb(115, 116, 114);
+        color: #000000;
+        border-color: #ffffff;
+        border: 0;
+}*/
+
+.btn-custom-primary:hover{
+
+    background-color: #767d85f5;
+
+}
+
+.btn-custom-secondary{
+    border-color: #656d75f5;
+}
+
+.btn-custom-secondary:hover{
+    background-color: #656d75f5;
+    color: #ffffff;
+}
+
+.img-card{
+    width: 200px; /* Ancho fijo */
+    height: 300px; /* Altura fija */
+    object-fit: contain; /* Escala y recorta la imagen para ajustarla al tamaño fijo */
+}
+
+.btn-add-to-cart {
+    background-color: rgb(215 139 73);
+    color: white;
+    transition: transform 0.2s;
+}
+
+.btn-add-to-cart:hover {
+    background-color: rgb(199, 102, 17);
+    transform: scale(1.05);
+}
+
+.btn-details {
+    color: rgb(255, 255, 255);
+    background-color: #8f9294;
+    transition: transform 0.2s;
+}
+
+.btn-details:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+}
+
+.img-card {
+    transition: transform 0.2s;
+}
+
+.img-card:hover {
+    transform: scale(1.1);
+}
+
+.card-title {
+    max-height: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

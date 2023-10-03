@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LibrArte App</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/carrito.css}"/>
+
+    <!-- FontAwesome -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<header>
+    <nav class="navbar bg-body-tertiary backgroundNav">
+        <div class="container-fluid d-flex justify-content-between">
+            <div>
+                <button class="btn btn-light border-0" type="button" style="background-color: transparent;">
+                    <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+                         style="max-width: 100px; max-height: 100px;" class="img-lg">
+                </button>
+                <button class="btn btn-primary btn-custom-primary btn-lg mx-2" type="submit">
+                    <i class="fas fa-home"></i>
+                </button>
+                <button class="btn btn-primary btn-custom-primary btn-lg mx-2" type="submit">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="btn btn-primary btn-custom-primary btn-lg mx-2" type="submit">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+                <button class="btn btn-primary btn-custom-primary btn-lg mx-2" type="submit">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button class="btn btn-primary btn-custom-primary btn-lg mx-2" type="submit">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+            <div class="d-flex align-items-start">
+                <button class="btn btn-primary btn-custom-primary mt-1" type="submit">
+                    <i class="fas fa-filter"></i>
+                </button>
+                <form class="d-flex ml-2" role="search" action="">
+                    <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                    <button class="btn btn-custom-secondary" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container mt-5">
+    <h2>Mi carrito</h2>
+
+    <!-- Tabla de carrito de compras oculta por defecto -->
+    <div id="carritoTable">
+        <table class="table">
+            <!-- Encabezados de la tabla -->
+            <thead>
+            <tr>
+                <th>Cantidad</th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+            </thead>
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+            <!-- Producto 1 -->
+            <tr>
+                <td>
+                    <select id="cantidad" class="form-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <!--<td>1</td>-->
+                <td>Drácula</td>
+                <td>Terror</td>
+                <td>$30.00</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            <!-- Producto 2 -->
+            <tr>
+                <td>
+                    <select id="cantidad" class="form-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <td>Clean Code</td>
+                <td>Tecnología</td>
+                <td>$29.00</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            <!-- Producto 3 -->
+            <tr>
+                <td>
+                    <select id="cantidad" class="form-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <td>Harry Potter</td>
+                <td>Ficción</td>
+                <td>$25.99</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            <!-- Producto 4 -->
+            <tr>
+                <td>
+                    <select id="cantidad" class="form-select">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+                <td>El libro de la selva</td>
+                <td>Animado</td>
+                <td>$20.00</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Botón para proceder al pago -->
+        <button class="btn btn-success float-end btn-pagar">Pagar</button>
+    </div>
+</main>
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

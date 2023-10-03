@@ -1,0 +1,16 @@
+.delete-button {
+    transition: transform 0.2s;
+}
+
+.delete-button:hover {
+    transform: scale(1.2);
+}
+
+.btn-pagar {
+    transition: background-color 0.2s;
+    background-color: #28a745;
+}
+
+.btn-pagar:hover {
+    background-color: #218838;
+}

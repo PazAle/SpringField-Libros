@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>LibrArte App</title>
+
+  <!-- Boostrap core css -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+  <!-- FontAwesome -->
+  <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+
+</head>
+
+<body>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
+    <div class="container-fluid d-flex justify-content-between">
+      <div>
+        <a th:href="@{#}" class="btn btn-light border-0" style="background-color: transparent;">
+          <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+               style="max-width: 100px; max-height: 100px;" class="img-lg">
+        </a>
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-home"></i>
+        </a>
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-bell"></i>
+        </a>
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+      <div class="d-flex align-items-start">
+        <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
+          <i class="fas fa-filter"></i>
+        </a>
+        <form class="d-flex ml-2" role="search" action="#">
+          <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-custom-secondary" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!--CARROUSEL CON NOVEDADES-->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+            aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+            aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img th:src="@{/imagenes/portada-minibanner-arg-primavera-pg1222-png.webp}" class="d-block w-100" alt="..."
+           style="height: 250px;">
+    </div>
+    <div class="carousel-item">
+      <img th:src="@{/imagenes/Norlis-Bookstore-Unplug-with-a-book-Facebook.webp}" class="d-block w-100" alt="..." style="height: 250px;">
+    </div>
+    <div class="carousel-item">
+      <img th:src="@{/imagenes/Norlis-Bookstore-Unplug-with-a-book-Twitter.webp}" class="d-block w-100" alt="..." style="height: 250px;">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Seccion "Novedades-libros" -->
+<div class="container mt-5">
+  <h2 class="text-center">Últimas novedades</h2>
+  <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
+  <div class="row">
+
+    <div class="container mt-4">
+      <div class="row">
+
+            <!-- Card 1 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/Shell Programming in Unix, Linux and OS X (Developer's Library).jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Shell Programing in Unix, Linux and OS X</h5>
+                  <p class="card-text">Descripción breve del Libro 1.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/OOP - Learn Object Oriented Thinking and Programming - Free Download Books.jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Learn OPP and Programming</h5>
+                  <p class="card-text">Descripción breve del Libro 2.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/a737ec7d17bd80c5cffcf466d1a72256.webp}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Programación para Niños</h5>
+                  <p class="card-text">Descripción breve del Libro 3.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/Download C++ for Beginners_ An Introduction to C++ Programming and Object Oriented Programming with.jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">C++ For Beginners</h5>
+                  <p class="card-text">Descripción breve del Libro 4.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/PDF Books Free Download - My Ebooks BD.jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Clean Code</h5>
+                  <p class="card-text">Descripción breve del Libro 5.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/Phyton_Tricks.jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Phyton Tricks</h5>
+                  <p class="card-text">Descripción breve del Libro 6.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="col-md-3 mb-4">
+              <div class="card">
+                <img th:src="@{/imagenes/Practical Cryptography for Developers.jpg}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 1">
+                <div class="card-body">
+                  <h5 class="card-title">Practical Cryprography for Developers</h5>
+                  <p class="card-text">Descripción breve del Libro 7.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+            <!-- Card 8 -->
+            <div class="col-md-3 mb-4">
+              <div class="card h-100">
+                <img th:src="@{/imagenes/ProgramacionEnAndroid.webp}"
+                     class="card-img-top align-self-center img-card" alt="Imagen del Libro 8">
+                <div class="card-body">
+                  <h5 class="card-title">Programación en Android</h5>
+                  <p class="card-text">Descripción breve del Libro 8.</p>
+                  <p class="card-text"><strong>Precio: $19.99</strong></p>
+                  <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                  <a href="#" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Medios de Pago -->
+        <div class="container mt-5">
+          <h2 class="text-center">Medios de Pago Aceptados</h2>
+          <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
+          <ul class="list-group list-group-horizontal justify-content-center">
+            <li class="list-group-item border-0">
+              <img th:src="@{/imagenes/logo-mercado-pago-256.png}" alt="Visa" style="max-width: 100px;">
+            </li>
+            <li class="list-group-item border-0">
+              <img th:src="@{/imagenes/mastercard-logo.png}" alt="Mastercard" style="max-width: 100px;">
+            </li>
+            <li class="list-group-item border-0">
+              <img th:src="@{/imagenes/American_Express_Logo.png}" alt="American Express" style="max-width: 100px;">
+            </li>
+            <li class="list-group-item border-0">
+              <img th:src="@{/imagenes/Visa_Inc._logo.png}" alt="Visa" style="max-width: 100px;">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--Footer con links a secciones de interés-->
+    <footer class="backgroundNav">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <a href="#">
+              <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+                   style="max-width: 150px;" class="img-fluid">
+            </a>
+          </div>
+          <div class="col-md-6 text-end">
+            <a href="#" class="text-dark text-decoration-none mx-2">Mi perfil</a>
+            <a href="#" class="text-dark text-decoration-none mx-2">Mis libros</a>
+            <a href="#" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
+            <a href="#" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>

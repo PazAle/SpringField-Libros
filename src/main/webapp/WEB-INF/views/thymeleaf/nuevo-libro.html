@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Cargar nuevo libro</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">UNLAM</a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class = "container">
+        <div id="librobox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <form action="#" th:action="@{/alta-libro}" method="POST" th:object="${libro}">
+                <h3 class="form-signin-heading">Alta Libro</h3>
+                <hr class="colorgraph"><br>
+
+                <label>Nombre</label>
+                <input th:field="*{nombre}" id="nombre" type="text" class="form-control" required/><br>
+                <label>Precio</label>
+                <input th:field="*{precio}" type="number" id="precio" class="form-control" required/><br>
+                <label>Fecha de Lanzamiento</label>
+                <input th:field="*{fechaLanzamiento}" type="date" id="fechaLanzamiento" class="form-control" required/><br>
+
+                <button id="btn-login" class="btn btn-lg btn-primary btn-block" Type="Submit">Cargar</button>
+                <button id="btn-cancelar" class="btn btn-lg btn-primary btn-block" Type="Submit">Cancelar</button>
+
+                <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
+                </p>
+            </form>
+
+        </div>
+    </div>
+</main>
+<!-- /.container -->
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+</body>
+</html>
