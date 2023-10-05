@@ -1,3 +1,3 @@
 target
-src\main\java\com\tallerwebi\config
+/src/main/resources/database.properties
 .idea
