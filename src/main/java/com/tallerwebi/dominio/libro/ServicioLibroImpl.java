@@ -8,9 +8,11 @@ import com.tallerwebi.infraestructura.RepositorioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service("servicioLibro")
+@Transactional
 public class ServicioLibroImpl implements ServicioLibro {
 
     private RepositorioLibro repositorioLibro;

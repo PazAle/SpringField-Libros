@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -56,5 +57,25 @@ public class ControladorLibro {
         model.put("libros", libros);
         return new ModelAndView("home", model);
     }
+
+    @RequestMapping(path = "/home", method = RequestMethod.GET)
+    public ModelAndView irAHome() {
+        ModelMap modelo = new ModelMap();
+        modelo.put("datosLibro", new DatosLibro());
+        return new ModelAndView("home", modelo);
+    }
+
+    @RequestMapping(path = "/buscar-libros", method = RequestMethod.POST)
+    public ModelAndView buscarLibros(@ModelAttribute("datosLibro") DatosLibro datosLibro) {
+        ModelMap model = new ModelMap();
+
+        List <Libro> librosResultado = this.servicioLibro.obtenerLibroPorNombre(datosLibro.getNombre());
+
+        model.put("librosResultado", librosResultado);
+
+        return new ModelAndView("resultado_busqueda", model);
+
+    }
+
 
 }

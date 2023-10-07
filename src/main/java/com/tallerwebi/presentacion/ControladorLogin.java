@@ -66,11 +66,11 @@ public class ControladorLogin {
         model.put("usuario", new Usuario());
         return new ModelAndView("nuevo-usuario", model);
     }
-
-    @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
-        return new ModelAndView("home");
-    }
+/*Dos metodos que hacen lo mismo. Uno en Libro y otro en Login. El de libro crea el modelo para la busqueda*/
+//    @RequestMapping(path = "/home", method = RequestMethod.GET)
+//    public ModelAndView irAHome() {
+//        return new ModelAndView("home");
+//    }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
