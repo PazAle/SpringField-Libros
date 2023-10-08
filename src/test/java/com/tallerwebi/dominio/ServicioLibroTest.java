@@ -51,14 +51,14 @@ public class ServicioLibroTest {
         libro3.setID(8L);
         libro3.setNombre("Dr. Saturno");
 
-        Set <Libro> listaLibros = new HashSet<>();
+        List <Libro> listaLibros = new ArrayList<>();
         listaLibros.add(libro);
         listaLibros.add(libro2);
         listaLibros.add(libro3);
 
         when(this.repositorioLibro.getLibros()).thenReturn(listaLibros);
 
-        Set<Libro> librosObtenidos = this.servicioLibro.getLibros();
+        List<Libro> librosObtenidos = this.servicioLibro.getLibros();
 
         assertThat(librosObtenidos, not(empty()));
     }
@@ -78,14 +78,14 @@ public class ServicioLibroTest {
         libro3.setID(8L);
         libro3.setNombre("Dr. Saturno");
 
-        Set <Libro> listaLibros = new HashSet<>();
+        List <Libro> listaLibros = new ArrayList<>();
         listaLibros.add(libro);
         listaLibros.add(libro2);
         listaLibros.add(libro3);
 
         when(this.repositorioLibro.getLibros()).thenReturn(listaLibros);
 
-        Set<Libro> librosObtenidos = this.servicioLibro.getLibros();
+        List<Libro> librosObtenidos = this.servicioLibro.getLibros();
 
         assertThat(librosObtenidos.size(), is(3));
     }

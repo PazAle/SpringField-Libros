@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface RepositorioLibro {
-    Set<Libro> getLibros();
+    List<Libro> getLibros();
 
     Libro obtenerLibroPorId(Long id);
 

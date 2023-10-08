@@ -7,9 +7,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.query.Query;
 
 @Repository("repositorioLibro")
 public class RepositorioLibroImpl implements RepositorioLibro {
@@ -21,9 +23,13 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     }
 
     @Override
-    public Set<Libro> getLibros() {
-        Set<Libro> libros = new HashSet<>();
-        return libros;
+    public List<Libro> getLibros() {
+        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class).list();
+        /*List<Libro> libros = new ArrayList<>();
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Libro");
+        List<Libro> librosObtenidos = query.list();
+        return libros;*/
 
     }
 

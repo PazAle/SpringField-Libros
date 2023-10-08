@@ -22,7 +22,7 @@ public class ServicioLibroImpl implements ServicioLibro {
         this.repositorioLibro = repositorioLibro;
     }
     @Override
-    public Set<Libro> getLibros() {
+    public List<Libro> getLibros() {
         return repositorioLibro.getLibros();
     }
 
@@ -57,6 +57,7 @@ public class ServicioLibroImpl implements ServicioLibro {
         }
         this.repositorioLibro.modificar(libro);
     }
+
 
 
 }

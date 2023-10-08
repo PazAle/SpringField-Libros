@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface ServicioLibro {
 
-    Set<Libro> getLibros();
+    List<Libro> getLibros();
 
     Libro obtenerLibro(Long id);
 
@@ -18,6 +18,8 @@ public interface ServicioLibro {
     boolean eliminarLibro(Long id);
 
     void modificarLibro(Libro libro) throws LibroInexistente;
+
+
 
 
 }
