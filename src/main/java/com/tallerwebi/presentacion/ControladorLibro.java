@@ -71,7 +71,11 @@ public class ControladorLibro {
 
         List <Libro> librosResultado = this.servicioLibro.obtenerLibroPorNombre(datosLibro.getNombre());
 
-        model.put("librosResultado", librosResultado);
+        if (librosResultado.isEmpty()) {
+            model.put("error", "No se encontraron libros con ese nombre.");
+        } else {
+            model.put("librosResultado", librosResultado);
+        }
 
         return new ModelAndView("resultado_busqueda", model);
 

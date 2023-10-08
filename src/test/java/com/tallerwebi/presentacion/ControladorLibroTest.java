@@ -9,39 +9,78 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.hasSize;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ControladorLibroTest {
-    private ControladorLibro controladorLibro;
+
     private Libro libroMock;
-    private DatosLibro datosLibroMock;
     private ServicioLibro servicioLibroMock;
+    private ControladorLibro controladorLibro;
 
     @BeforeEach
     public void init(){
-        datosLibroMock = new DatosLibro();
-        libroMock = mock(Libro.class);
         servicioLibroMock = mock(ServicioLibro.class);
-        controladorLibro = new ControladorLibro(servicioLibroMock);
+        this.controladorLibro = new ControladorLibro(servicioLibroMock);
     }
 
     @Test
-    public void queAlRegistrarUnLibroMeRedirijaAlHome() throws LibroExistente {
-        ModelAndView modelAndView = this.controladorLibro.altaLibro(libroMock);
+    public void quelaBusquedaDevuelvaLaVistaResultadosDeBusqueda() {
 
-        assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/home"));
+        DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
+
+        List<Libro> librosResultadoMock = new ArrayList<>();
+
+        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
+        assertThat(modelAndView.getViewName(), is("resultado_busqueda"));
+    }
+
+    @Test
+    public void quelaBusquedaDevuelvaUnaListaNoVacia() {
+
+        DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
+        Libro libroEncontrado = dadoQueSeCreaUnLibro();
+
+
+        List<Libro> librosResultadoMock = new ArrayList<>();
+        librosResultadoMock.add(libroEncontrado);
+
+
+        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
+        assertThat(modelAndView.getModel().get("librosResultado"), is(notNullValue()));
 
     }
 
     @Test
-    public void queAlIntentarRegistrarUnLibroQueYaExisteMuestreErrorYVuelvaAlFormulario() throws LibroExistente {
-        doThrow(LibroExistente.class).when(servicioLibroMock).registrarLibro(libroMock);
+    public void quelaBusquedaDeUnLibroQueNoExisteIndiqueMensaje() {
 
-        ModelAndView modelAndView = this.controladorLibro.altaLibro(libroMock);
+        DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
 
-        assertThat(modelAndView.getViewName(), equalToIgnoringCase("nuevo-libro"));
-        assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("El libro ya existe"));
+        List<Libro> librosResultadoMock = new ArrayList<>();
+
+        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
+        assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("No se encontraron libros con ese nombre."));
+
+    }
+
+    private DatosLibro dadoQueSeCreaDatosDeUnLibro(){
+        DatosLibro datosLibro = new DatosLibro();
+        datosLibro.setNombre("NombrePrueba");
+        return datosLibro;
+    }
+
+    private Libro dadoQueSeCreaUnLibro(){
+        Libro libro = new Libro();
+        return libro;
     }
 }
