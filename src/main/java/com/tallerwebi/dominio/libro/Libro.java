@@ -1,13 +1,6 @@
 package com.tallerwebi.dominio.libro;
 
-import com.tallerwebi.dominio.autor.Autor;
-import com.tallerwebi.dominio.categoria.Categoria;
-import com.tallerwebi.dominio.comentario.Comentario;
-import com.tallerwebi.dominio.editorial.Editorial;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
 import java.util.Date;
 @Entity
 public class Libro {
@@ -17,13 +10,17 @@ public class Libro {
     private String nombre;
     //private Autor autor;
     private Double precio;
-    private Date fechaLanzamiento;
+    private Date fecha_lanzamiento;
     //private Categoria categoria;
     //private Editorial editorial;
     private String idioma;
-    private Integer cantidadPaginas;
+    private Integer cant_paginas;
     private String imagen;
     private String resenia;
+
+
+
+    private Integer stock;
 
     //private List<Comentario> comentarios;
 
@@ -51,12 +48,20 @@ public class Libro {
         this.precio = precio;
     }
 
-    public Date getFechaLanzamiento() {
-        return fechaLanzamiento;
+    public Date getFecha_lanzamiento() {
+        return fecha_lanzamiento;
     }
 
-    public void setFechaLanzamiento(Date fechaLanzamiento) {
-        this.fechaLanzamiento = fechaLanzamiento;
+    public void setFecha_lanzamiento(Date fechaLanzamiento) {
+        this.fecha_lanzamiento = fechaLanzamiento;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     /*
@@ -101,12 +106,12 @@ public class Libro {
         this.idioma = idioma;
     }
 
-    public Integer getCantidadPaginas() {
-        return this.cantidadPaginas;
+    public Integer getCant_paginas() {
+        return this.cant_paginas;
     }
 
-    public void setCantidadPaginas(Integer paginas) {
-        this.cantidadPaginas = paginas;
+    public void setCant_paginas(Integer paginas) {
+        this.cant_paginas = paginas;
     }
 
     public String getImagen() {
