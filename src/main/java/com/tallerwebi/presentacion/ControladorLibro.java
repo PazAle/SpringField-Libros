@@ -53,7 +53,7 @@ public class ControladorLibro {
     @RequestMapping(path = "/libros", method = RequestMethod.GET)
     public ModelAndView getTodosLosLibros(){
         ModelMap model = new ModelMap();
-        Set<Libro> libros= this.servicioLibro.getLibros();
+        List<Libro> libros= this.servicioLibro.getLibros();
         model.put("libros", libros);
         return new ModelAndView("home", model);
     }
@@ -61,6 +61,8 @@ public class ControladorLibro {
     @RequestMapping(path = "/home", method = RequestMethod.GET)
     public ModelAndView irAHome() {
         ModelMap modelo = new ModelMap();
+        List<Libro> librosObtenidosParaHome = this.servicioLibro.getLibros();
+        modelo.put("libros", librosObtenidosParaHome);
         modelo.put("datosLibro", new DatosLibro());
         return new ModelAndView("home", modelo);
     }
