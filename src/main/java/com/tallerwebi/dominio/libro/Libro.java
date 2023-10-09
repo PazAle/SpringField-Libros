@@ -20,7 +20,7 @@ public class Libro {
     private Autor autor;
     private Double precio;
     private Date fecha_lanzamiento;
-    @JoinColumn(name = "cateoria")
+    @JoinColumn(name = "categoria")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Categoria categoria;
     @JoinColumn(name = "editorial")
@@ -113,7 +113,7 @@ public class Libro {
         return this.cant_paginas;
     }
 
-    public void setCantidad_Paginas(Integer paginas) {
+    public void setCant_Paginas(Integer paginas) {
         this.cant_paginas = paginas;
     }
 
@@ -132,4 +132,13 @@ public class Libro {
     public void setResenia(String resenia) {
         this.resenia = resenia;
     }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
 }
