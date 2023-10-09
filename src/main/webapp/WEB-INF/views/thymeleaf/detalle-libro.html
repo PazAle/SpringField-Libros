@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>LibrArte App</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <!-- FontAwesome -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
+        <div class="container-fluid d-flex justify-content-between">
+            <div>
+                <a href="home" class="btn btn-light border-0" style="background-color: transparent;">
+                    <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+                         style="max-width: 100px; max-height: 100px;" class="img-lg">
+                </a>
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-bell"></i>
+                </a>
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-user"></i>
+                </a>
+            </div>
+            <div class="d-flex align-items-start">
+                <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
+                    <i class="fas fa-filter"></i>
+                </a>
+                <form class="d-flex ml-2" role="search" action="#">
+                    <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar">
+                    <button class="btn btn-custom-secondary" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="imagen_libro.jpg" alt="Portada del libro" class="img-fluid">
+        </div>
+        <div class="col-lg-8">
+            <h2>Nombre del Libro</h2>
+            <p>Autor: Autor del Libro</p>
+            <p>Precio: $XX.XX</p>
+            <p>Fecha de Lanzamiento: XX de Mes de Año</p>
+            <h4>Reseña</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h4>Comentarios</h4>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Usuario 1</h5>
+                    <p class="card-text">Excelente libro. Me encantó.</p>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Usuario 2</h5>
+                    <p class="card-text">Muy recomendado, definitivamente vale la pena leerlo.</p>
+                </div>
+            </div>
+
+            <!-- Agregar más comentarios aquí -->
+
+            <div class="mt-4">
+                <h5>Deja un comentario:</h5>
+                <form>
+                    <div class="mb-3">
+                        <label for="nombreUsuario" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombreUsuario" placeholder="Tu nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label for="comentario" class="form-label">Comentario</label>
+                        <textarea class="form-control" id="comentario" rows="3" placeholder="Escribe tu comentario"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="backgroundNav">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <a href="#">
+                    <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+                         style="max-width: 150px;" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="#" class="text-dark text-decoration-none mx-2">Mi perfil</a>
+                <a href="#" class="text-dark text-decoration-none mx-2">Mis libros</a>
+                <a href="#" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
+                <a href="#" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

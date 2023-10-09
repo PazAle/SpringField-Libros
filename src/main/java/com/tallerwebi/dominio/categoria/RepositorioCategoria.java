@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.categoria;
 
 import com.tallerwebi.dominio.categoria.Categoria;
 

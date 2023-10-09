@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+package com.tallerwebi.dominio.libro;
 
 import com.tallerwebi.dominio.libro.Libro;
 

@@ -3,7 +3,7 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.categoria.Categoria;
 import com.tallerwebi.dominio.categoria.ServicioCategoria;
 import com.tallerwebi.dominio.categoria.ServicioCategoriaImpl;
-import com.tallerwebi.infraestructura.RepositorioCategoria;
+import com.tallerwebi.dominio.categoria.RepositorioCategoria;
 import com.tallerwebi.dominio.excepcion.CategoriaExistente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
