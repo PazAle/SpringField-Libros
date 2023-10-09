@@ -2,7 +2,6 @@ package com.tallerwebi.dominio.categoria;
 
 import com.tallerwebi.dominio.excepcion.CategoriaExistente;
 import com.tallerwebi.dominio.excepcion.CategoriaInexistente;
-import com.tallerwebi.infraestructura.RepositorioCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

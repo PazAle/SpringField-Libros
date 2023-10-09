@@ -1,10 +1,8 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.excepcion.LibroExistente;
-import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
-import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,10 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class ControladorLibro {
@@ -32,7 +27,7 @@ public class ControladorLibro {
     public ModelAndView nuevoLibro(){
         ModelMap model = new ModelMap();
         model.put("libro", new Libro());
-        return new ModelAndView("nuevo-libro", model);
+        return new ModelAndView("detalle-libro", model);
 
     }
     @RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
@@ -42,10 +37,10 @@ public class ControladorLibro {
             servicioLibro.registrarLibro(libro);
         } catch (LibroExistente e){
             model.put("error", "El libro ya existe");
-            return new ModelAndView("nuevo-libro", model);
+            return new ModelAndView("detalle-libro", model);
         } catch (Exception e){
             model.put("error", "Error al registrar el nuevo libro");
-            return new ModelAndView("nuevo-libro", model);
+            return new ModelAndView("detalle-libro", model);
         }
 
         return new ModelAndView("redirect:/home");

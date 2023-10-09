@@ -4,14 +4,12 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import com.tallerwebi.dominio.libro.ServicioLibroImpl;
-import com.tallerwebi.infraestructura.RepositorioLibro;
+import com.tallerwebi.dominio.libro.RepositorioLibro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsNot.not;

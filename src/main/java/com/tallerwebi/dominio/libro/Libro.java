@@ -1,28 +1,39 @@
 package com.tallerwebi.dominio.libro;
 
+import com.tallerwebi.dominio.autor.Autor;
+import com.tallerwebi.dominio.categoria.Categoria;
+import com.tallerwebi.dominio.comentario.Comentario;
+import com.tallerwebi.dominio.editorial.Editorial;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String nombre;
-    //private Autor autor;
+    @JoinColumn(name = "autor")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Autor autor;
     private Double precio;
     private Date fecha_lanzamiento;
-    //private Categoria categoria;
-    //private Editorial editorial;
+    @JoinColumn(name = "cateoria")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Categoria categoria;
+    @JoinColumn(name = "editorial")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Editorial editorial;
     private String idioma;
     private Integer cant_paginas;
     private String imagen;
     private String resenia;
-
-
-
     private Integer stock;
-
-    //private List<Comentario> comentarios;
+    @JoinTable(name = "comentario")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios;
 
     public Long getID() {
         return this.ID;
@@ -56,15 +67,7 @@ public class Libro {
         this.fecha_lanzamiento = fechaLanzamiento;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    /*
     public Categoria getCategoria() {
         return categoria;
     }
@@ -96,7 +99,7 @@ public class Libro {
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-    */
+
 
     public String getIdioma() {
         return idioma;
@@ -110,7 +113,7 @@ public class Libro {
         return this.cant_paginas;
     }
 
-    public void setCant_paginas(Integer paginas) {
+    public void setCantidad_Paginas(Integer paginas) {
         this.cant_paginas = paginas;
     }
 

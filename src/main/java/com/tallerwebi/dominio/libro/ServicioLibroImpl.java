@@ -1,10 +1,7 @@
 package com.tallerwebi.dominio.libro;
 
-import com.tallerwebi.dominio.categoria.Categoria;
-import com.tallerwebi.dominio.excepcion.CategoriaInexistente;
 import com.tallerwebi.dominio.excepcion.LibroExistente;
 import com.tallerwebi.dominio.excepcion.LibroInexistente;
-import com.tallerwebi.infraestructura.RepositorioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
