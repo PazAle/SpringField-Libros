@@ -14,7 +14,6 @@ public class Autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
-    private Date fechaNacimiento;
 
     public Integer getId() {
         return id;
@@ -32,11 +31,4 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
 }
