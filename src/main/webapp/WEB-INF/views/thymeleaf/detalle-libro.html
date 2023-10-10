@@ -45,9 +45,9 @@
                 <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
                     <i class="fas fa-filter"></i>
                 </a>
-                <form class="d-flex ml-2" role="search" action="#">
-                    <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                    <button class="btn btn-custom-secondary" type="submit">Buscar</button>
+                <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}" accept-charset="UTF-8">
+                    <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar" th:field="*{nombre}">
+                    <button class="btn btn-custom-secondary" type="submit" th:method="post">Buscar</button>
                 </form>
             </div>
         </div>
