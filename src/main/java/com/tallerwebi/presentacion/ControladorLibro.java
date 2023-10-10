@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -23,8 +25,8 @@ public class ControladorLibro {
         this.servicioLibro = servicioLibro;
     }
 
-    @RequestMapping(path = "/nuevo-libro", method = RequestMethod.GET)
-    public ModelAndView nuevoLibro(){
+    @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
+    public ModelAndView detalleLibro(){
         ModelMap model = new ModelMap();
         model.put("libro", new Libro());
         return new ModelAndView("detalle-libro", model);
@@ -77,6 +79,5 @@ public class ControladorLibro {
         return new ModelAndView("resultado_busqueda", model);
 
     }
-
 
 }

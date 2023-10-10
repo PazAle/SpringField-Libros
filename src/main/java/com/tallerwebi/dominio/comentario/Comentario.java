@@ -12,8 +12,8 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
-    @JoinColumn(name = "usuario")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario")
     private Usuario usuario;
     private Date fecha;
 
