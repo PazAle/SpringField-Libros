@@ -6,6 +6,7 @@ import com.tallerwebi.dominio.comentario.Comentario;
 import com.tallerwebi.dominio.editorial.Editorial;
 
 import javax.persistence.*;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
 
@@ -15,24 +16,26 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String nombre;
-    @JoinColumn(name = "autor")
+
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "autor")
     private Autor autor;
     private Double precio;
     private Date fecha_lanzamiento;
-    @JoinColumn(name = "categoria")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "genero")
     private Categoria categoria;
-    @JoinColumn(name = "editorial")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "editorial")
     private Editorial editorial;
     private String idioma;
     private Integer cant_paginas;
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String imagen;
     private String resenia;
     private Integer stock;
-    @JoinTable(name = "comentario")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "comentario")
     private List<Comentario> comentarios;
 
     public Long getID() {
