@@ -29,6 +29,7 @@ public class ControladorLibro {
     public ModelAndView detalleLibro(){
         ModelMap model = new ModelMap();
         model.put("libro", new Libro());
+        model.put("datosLibro", new DatosLibro());
         return new ModelAndView("detalle-libro", model);
 
     }

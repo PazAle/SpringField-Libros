@@ -1,110 +1,137 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>LibrArte App</title>
+    <title>LibrArte App</title>
 
-  <!-- Boostrap core css -->
-  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
 
-  <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
-  <!-- FontAwesome -->
-  <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+    <!-- FontAwesome -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
 
-</head>
+  </head>
 
-<body>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
-    <div class="container-fluid d-flex justify-content-between">
-      <div>
-        <a th:href="@{#}" class="btn btn-light border-0" style="background-color: transparent;">
-          <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
-               style="max-width: 100px; max-height: 100px;" class="img-lg">
-        </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-home"></i>
-        </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-heart"></i>
-        </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-bell"></i>
-        </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-user"></i>
-        </a>
-      </div>
-      <div class="d-flex align-items-start">
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
-          <i class="fas fa-filter"></i>
-        </a>
-        <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}">
-          <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar" th:field="*{nombre}">
-          <button class="btn btn-custom-secondary" type="submit" th:method="post">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-</header>
-
-<!-- Seccion "Resultado de busqueda" -->
-<div class="container mt-5">
-  <h2 class="text-center">Resultados</h2>
-  <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
-  <div class="row">
-
-    <div class="container mt-4">
-      <div class="row">
-        <table>
-          <thead>
-          <tr>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Editorial</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr th:if="${error != null}">
-            <td colspan="3" th:text="${error}" style="color: red;"></td>
-          </tr>
-          <tr th:each="libro : ${librosResultado}">
-            <td th:text="${libro.nombre}"></td>
-            <td th:text="${libro.precio}"></td>
-            <td th:text="${libro.resenia}"></td>
-          </tr>
-          </tbody>
-        </table>
-        <!-- Section Medios de Pago -->
-        <div class="container mt-5">
-          <h2 class="text-center">Medios de Pago Aceptados</h2>
-          <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
-          <ul class="list-group list-group-horizontal justify-content-center">
-            <li class="list-group-item border-0">
-              <img th:src="@{/imagenes/logo-mercado-pago-256.png}" alt="Visa" style="max-width: 100px;">
-            </li>
-            <li class="list-group-item border-0">
-              <img th:src="@{/imagenes/mastercard-logo.png}" alt="Mastercard" style="max-width: 100px;">
-            </li>
-            <li class="list-group-item border-0">
-              <img th:src="@{/imagenes/American_Express_Logo.png}" alt="American Express" style="max-width: 100px;">
-            </li>
-            <li class="list-group-item border-0">
-              <img th:src="@{/imagenes/Visa_Inc._logo.png}" alt="Visa" style="max-width: 100px;">
-            </li>
-          </ul>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
+        <div class="container-fluid d-flex justify-content-between">
+          <div>
+            <a th:href="@{#}" class="btn btn-light border-0" style="background-color: transparent;">
+              <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+                   style="max-width: 100px; max-height: 100px;" class="img-lg">
+            </a>
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+              <i class="fas fa-home"></i>
+            </a>
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+              <i class="fas fa-heart"></i>
+            </a>
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+              <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+              <i class="fas fa-bell"></i>
+            </a>
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+              <i class="fas fa-user"></i>
+            </a>
+          </div>
+          <div class="d-flex align-items-start">
+            <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
+              <i class="fas fa-filter"></i>
+            </a>
+            <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}" accept-charset="UTF-8">
+              <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar" th:field="*{nombre}">
+              <button class="btn btn-custom-secondary" type="submit" th:method="post">Buscar</button>
+            </form>
+          </div>
         </div>
-      </div>
-    </div>
+      </nav>
+    </header>
 
-    <!--Footer con links a secciones de interés-->
+    <!-- Seccion "Resultado de busqueda" -->
+
+    <div class="container mt-5">
+      <div class="row">
+        <!-- Panel de filtros (izquierda) -->
+        <!-- Panel de filtros (izquierda) -->
+        <div class="col-md-3">
+          <h3>Filtrar resultados</h3>
+          <!-- Filtro por autor -->
+          <div>
+            <label for="autor">Autor:</label>
+            <select id="autor" name="autor">
+              <option value="" selected>Todos</option>
+              <th:block th:each="libro : ${librosResultado}">
+                <option th:value="${libro.autor.nombre}" th:text="${libro.autor.nombre}"></option>
+              </th:block>
+            </select>
+          </div>
+
+          <!-- Filtro por editorial -->
+          <div>
+            <label for="editorial">Editorial:</label>
+            <select id="editorial" name="editorial">
+              <option value="" selected>Todas</option>
+              <th:block th:each="libro : ${librosResultado}">
+                <option th:value="${libro.editorial.nombre}" th:text="${libro.editorial.nombre}"></option>
+              </th:block>
+            </select>
+          </div>
+
+          <!-- Filtro por fecha de lanzamiento -->
+          <div>
+            <label for="fechaLanzamiento">Fecha de Lanzamiento:</label>
+            <select id="fechaLanzamiento" name="fechaLanzamiento">
+              <option value="" selected>Todas</option>
+              <th:block th:each="libro : ${librosResultado}">
+                <option th:value="${libro.fecha_lanzamiento}" th:text="${libro.fecha_lanzamiento}"></option>
+              </th:block>
+            </select>
+          </div>
+        </div>
+
+
+        <!-- Resultados de la búsqueda (derecha) -->
+        <div class="col-md-9">
+          <h2 class="text-center heading">Resultados de búsqueda</h2>
+          <hr class="mx-auto divider">
+
+          <!-- Mostrar mensaje de error si no hay resultados -->
+          <div th:if="${error}" class="alert alert-danger" role="alert">
+            <strong th:text="${error}"></strong>
+          </div>
+
+          <div th:if="${librosResultado}">
+            <div class="row">
+              <!-- Itera sobre la lista de libros -->
+              <div th:each="libro : ${librosResultado}" class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <!-- Imagen más pequeña -->
+                  <img th:src="${libro.getImagen()}" class="card-img-top img-card" style="height: 120px;">
+                  <div class="card-body">
+                    <h5 th:text="${libro.nombre}" class="card-title title"></h5>
+                    <p th:text="${libro.autor.nombre}" class="card-text author"></p>
+                    <p th:text="${libro.editorial.nombre}" class="card-text publisher"></p>
+                    <p th:text="'Precio: $' + ${libro.precio}" class="card-text price"></p>
+                    <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                    <a href="detalle-libro.html" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!--Footer con links a secciones de interés-->
     <footer class="backgroundNav">
       <div class="container">
         <div class="row align-items-center">
@@ -124,7 +151,7 @@
       </div>
     </footer>
 
-<!-- Boostrap core js -->
-<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
-</body>
+    <!-- Boostrap core js -->
+    <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+  </body>
 </html>
