@@ -1,6 +1,5 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.excepcion.LibroExistente;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -35,7 +32,7 @@ public class ControladorLibro {
         return new ModelAndView("detalle-libro", model);
 
     }
-    @RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
     public ModelAndView altaLibro(@ModelAttribute("libro") Libro libro) throws LibroExistente {
         ModelMap model = new ModelMap();
         try{
@@ -49,7 +46,7 @@ public class ControladorLibro {
         }
 
         return new ModelAndView("redirect:/home");
-    }
+    }*/
     @RequestMapping(path = "/libros", method = RequestMethod.GET)
     public ModelAndView getTodosLosLibros(){
         ModelMap model = new ModelMap();

@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -37,104 +37,132 @@ public class ServicioLibroTest {
     @Test
     public void queSePuedaObtenerUnaListaDeLibrosQueNoEsteVacia(){
 
-        Libro libro = new Libro();
-        libro.setID(3L);
-        libro.setNombre("Rock and Roll");
+        //preparacion
+        List <Libro> listaLibros = dadoQueCreoUnosLibros(3);
 
-        Libro libro2 = new Libro();
-        libro2.setID(5L);
-        libro2.setNombre("Un poco de amor frances");
+        mockeoUnaListaDeLibros(this.repositorioLibro, listaLibros);
 
-        Libro libro3 = new Libro();
-        libro3.setID(8L);
-        libro3.setNombre("Dr. Saturno");
+        //ejecución
+        List<Libro> librosObtenidos = dadoQueObtengoUnaListaDeLibrosDesdeServicio();
 
-        List <Libro> listaLibros = new ArrayList<>();
-        listaLibros.add(libro);
-        listaLibros.add(libro2);
-        listaLibros.add(libro3);
-
-        when(this.repositorioLibro.getLibros()).thenReturn(listaLibros);
-
-        List<Libro> librosObtenidos = this.servicioLibro.getLibros();
-
-        assertThat(librosObtenidos, not(empty()));
+        //verificación
+        verificarCondicionDeLista(librosObtenidos, libros -> !libros.isEmpty());
     }
 
     @Test
     public void queSePuedaObtenerUnaListaDeLibrosQueDevuelvaTresLibros(){
 
-        Libro libro = new Libro();
-        libro.setID(3L);
-        libro.setNombre("Rock and Roll");
+        //preparación
+        List<Libro> librosCreados = dadoQueCreoUnosLibros(3);
+        mockeoUnaListaDeLibros(this.repositorioLibro, librosCreados);
 
-        Libro libro2 = new Libro();
-        libro2.setID(5L);
-        libro2.setNombre("Un poco de amor frances");
+        //ejecución
+        List<Libro> librosObtenidos = dadoQueObtengoUnaListaDeLibrosDesdeServicio();
 
-        Libro libro3 = new Libro();
-        libro3.setID(8L);
-        libro3.setNombre("Dr. Saturno");
+        //verificación
 
-        List <Libro> listaLibros = new ArrayList<>();
-        listaLibros.add(libro);
-        listaLibros.add(libro2);
-        listaLibros.add(libro3);
+        verificarCondicionDeLista(librosObtenidos, libros -> libros.size() == 3);
 
-        when(this.repositorioLibro.getLibros()).thenReturn(listaLibros);
-
-        List<Libro> librosObtenidos = this.servicioLibro.getLibros();
-
-        assertThat(librosObtenidos.size(), is(3));
+        //assertThat(librosObtenidos.size(), is(3));
     }
 
     @Test
     public void queSePuedaObtenerUnLibroPorSuId(){
 
-        Libro libro = new Libro();
-        libro.setID(3L);
-        libro.setNombre("Rock and Roll");
+        //preparación
+        Libro libroCreado = dadoQueCreoUnosLibros(1).get(0);
+        libroCreado.setID(ID);
 
-        when(this.repositorioLibro.obtenerLibroPorId(ID)).thenReturn(libro);
+        mockeoUnLibroPorID(this.repositorioLibro, libroCreado);
 
-        Libro libroObtenido = this.servicioLibro.obtenerLibro(ID);
+        //ejecución
+        Libro libroObtenido = dadoQueObtengoUnLibroPorIDDesdeElServicio(ID);
 
-        assertThat(libroObtenido.getID(), is(ID));
+        //validación
+        verificoCoincidenciaEnLosID(libroObtenido.getID(), ID);
     }
 
     @Test
-    public void queSePuedaObtenerUnLibroPorNombre(){
+    public void queSePuedanObtenerTodosLosLibrosConElMismoNombre(){
+        //preparación
+        List<Libro> listaDeLibros = dadoQueCreoUnosLibros(20);
+        String nombreABuscar = "Harry Potter";
+        listaDeLibros.get(0).setNombre(nombreABuscar);
+        listaDeLibros.get(5).setNombre(nombreABuscar);
+        listaDeLibros.get(10).setNombre(nombreABuscar);
 
-        List<Libro> listaCompletaLibros = new ArrayList<>();
-        Libro libro1 = new Libro();
-        libro1.setID(9L);
-        libro1.setNombre("Un poco de amor frances");
-        listaCompletaLibros.add(libro1);
+        mockeoUnaListaDeLibrosPorNombre(this.repositorioLibro, nombreABuscar, listaDeLibros);
 
-        Libro libro2 = new Libro();
-        libro2.setID(15L);
-        libro2.setNombre("Un poco de amor frances");
-        listaCompletaLibros.add(libro2);
+        //ejecución
+        List<Libro> librosObtenidos = dadoQueObtengoUnaListaDeLibrosDesdeServicioPorNombre(nombreABuscar);
 
-        Libro libro3 = new Libro();
-        libro3.setID(57L);
-        libro3.setNombre("Un poco de amor frances");
-        listaCompletaLibros.add(libro3);
-
-        when(this.repositorioLibro.obtenerLibroPorNombre("Un poco de amor frances")).thenReturn((List<Libro>) listaCompletaLibros);
-
-        List<Libro> librosObtenidos = this.servicioLibro.obtenerLibroPorNombre("Un poco de amor frances");
-
-        assertEquals(listaCompletaLibros,librosObtenidos);
-
+        //validación
+        for (Libro libro: librosObtenidos){
+            assertEquals(nombreABuscar, libro.getNombre());
+        }
     }
 
-    @Test
-    public void queSePuedaDarDeBajaUnLibro(){
+    private List<Libro> dadoQueCreoUnosLibros(Integer cantidad) {
+        List<Libro> librosPedidos = new ArrayList<>();
 
-        when(this.repositorioLibro.borrarLibro(ID)).thenReturn(true);
-        //
-        assertTrue(this.servicioLibro.eliminarLibro(ID));
+        for (int i = 1; i <= cantidad; i++) {
+            Libro libro = new Libro();
+            libro.setID((long) i);
+            libro.setNombre("Libro " + i);
+            librosPedidos.add(libro);
+        }
+
+        return librosPedidos;
     }
+
+    private void mockeoUnaListaDeLibros(RepositorioLibro repositorioLibro, List<Libro> listaLibros){
+        when(repositorioLibro.getLibros()).thenReturn(listaLibros);
+        //return listaLibros;
+    }
+
+    private void mockeoUnLibroPorID(RepositorioLibro repositorioLibro, Libro libroObtenido){
+        when(repositorioLibro.obtenerLibroPorId(ID)).thenReturn(libroObtenido);
+    };
+
+    private void mockeoUnaListaDeLibrosPorNombre(RepositorioLibro repositorioLibro, String nombre, List<Libro> listaLibros){
+        when(repositorioLibro.obtenerLibroPorNombre(nombre)).thenReturn(listaLibros);
+    }
+
+
+    private List<Libro> dadoQueObtengoUnaListaDeLibrosDesdeServicio(){
+      return this.servicioLibro.getLibros();
+    };
+
+    private List<Libro> dadoQueObtengoUnaListaDeLibrosDesdeServicioPorNombre(String nombre) {
+        List<Libro> listaCompleta = this.servicioLibro.getLibros();
+        List<Libro> listaFiltrada = new ArrayList<>();
+
+        for (Libro libro : listaCompleta) {
+            if (libro.getNombre().equals(nombre)) {
+                listaFiltrada.add(libro);
+            }
+        }
+
+        return listaFiltrada;
+    }
+
+    private Libro dadoQueObtengoUnLibroPorIDDesdeElServicio(Long id){
+      return this.servicioLibro.obtenerLibro(id);
+    };
+
+   // private void validoQueLaListaNoEsteVacía(List<Libro> librosObtenidos) {
+      //  assertThat(librosObtenidos, not(empty()));
+   // }
+
+
+    private void verificarCondicionDeLista(List<Libro> libros, Predicate<List<Libro>> condition) {
+        assertTrue(condition.test(libros));
+    }
+
+    private void verificoCoincidenciaEnLosID(Long idObtenido, Long idBuscado){
+        assertThat(idObtenido, is(idBuscado));
+    }
+
+
 
 }

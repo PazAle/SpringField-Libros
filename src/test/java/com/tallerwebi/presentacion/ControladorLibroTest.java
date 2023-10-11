@@ -1,7 +1,5 @@
 package com.tallerwebi.presentacion;
 
-import com.tallerwebi.dominio.excepcion.LibroExistente;
-import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,51 +23,61 @@ public class ControladorLibroTest {
     private ServicioLibro servicioLibroMock;
     private ControladorLibro controladorLibro;
 
+    private List<Libro> librosResultadoMock;
+
     @BeforeEach
     public void init(){
         servicioLibroMock = mock(ServicioLibro.class);
         this.controladorLibro = new ControladorLibro(servicioLibroMock);
+        this.librosResultadoMock = new ArrayList<>();
     }
+
 
     @Test
     public void quelaBusquedaDevuelvaLaVistaResultadosDeBusqueda() {
 
+        //preparación
         DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
+        //when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+        mockeoLaObtencionDeLibrosPorNombre(servicioLibroMock);
 
-        List<Libro> librosResultadoMock = new ArrayList<>();
+        //ejecución
+        ModelAndView modelAndView = dadoQueObtengoLaVistaResultadoBusqueda(datosLibro);
 
-        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
-        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
-        assertThat(modelAndView.getViewName(), is("resultado_busqueda"));
+        //verificación
+        verificoCoincidenciaDeNombresDeVistas(modelAndView);
+        //assertThat(modelAndView.getViewName(), is("resultado_busqueda"));
     }
 
     @Test
     public void quelaBusquedaDevuelvaUnaListaNoVacia() {
 
+        //preparación
         DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
-        Libro libroEncontrado = dadoQueSeCreaUnLibro();
+        Libro libroCreado = dadoQueSeCreaUnLibro();
+        dadoQueAgregoUnLibroALibrosResultadosMock(libroCreado);
+        mockeoLaObtencionDeLibrosPorNombre(servicioLibroMock);
 
+        //ejecución
+        ModelAndView modelAndView = dadoQueObtengoLaVistaResultadoBusqueda(datosLibro);
 
-        List<Libro> librosResultadoMock = new ArrayList<>();
-        librosResultadoMock.add(libroEncontrado);
-
-
-        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
-        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
-        assertThat(modelAndView.getModel().get("librosResultado"), is(notNullValue()));
+        //verificación
+        verificoQueLaListaResultanteNoSeaNula(modelAndView);
 
     }
 
     @Test
     public void quelaBusquedaDeUnLibroQueNoExisteIndiqueMensaje() {
 
+        //preparación
         DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
+        mockeoLaObtencionDeLibrosPorNombre(servicioLibroMock);
 
-        List<Libro> librosResultadoMock = new ArrayList<>();
+        //ejecución
+        ModelAndView modelAndView = dadoQueObtengoLaVistaResultadoBusqueda(datosLibro);
 
-        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
-        ModelAndView modelAndView = this.controladorLibro.buscarLibros(datosLibro);
-        assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("No se encontraron libros con ese nombre."));
+        //verificación
+        verificoMensajeDeErrorAlBuscarLibroNoExistente(modelAndView);
 
     }
 
@@ -82,5 +90,29 @@ public class ControladorLibroTest {
     private Libro dadoQueSeCreaUnLibro(){
         Libro libro = new Libro();
         return libro;
+    }
+
+    private void mockeoLaObtencionDeLibrosPorNombre(ServicioLibro servicioLibroMock){
+        when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+    }
+
+    private ModelAndView dadoQueObtengoLaVistaResultadoBusqueda(DatosLibro datosLibro){
+        return this.controladorLibro.buscarLibros(datosLibro);
+    }
+
+    private void dadoQueAgregoUnLibroALibrosResultadosMock(Libro libroCreado){
+        librosResultadoMock.add(libroCreado);
+    }
+
+    private void verificoCoincidenciaDeNombresDeVistas(ModelAndView modelAndView){
+        assertThat(modelAndView.getViewName(), is("resultado_busqueda"));
+    }
+
+    private void verificoQueLaListaResultanteNoSeaNula(ModelAndView modelAndView){
+        assertThat(modelAndView.getModel().get("librosResultado"), is(notNullValue()));
+    }
+
+    private void verificoMensajeDeErrorAlBuscarLibroNoExistente(ModelAndView modelAndView){
+        assertThat(modelAndView.getModel().get("error").toString(), equalToIgnoringCase("No se encontraron libros con ese nombre."));
     }
 }
