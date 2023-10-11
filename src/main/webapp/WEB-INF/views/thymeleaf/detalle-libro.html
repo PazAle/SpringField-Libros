@@ -60,15 +60,19 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-4">
-            <img src="imagen_libro.jpg" alt="Portada del libro" class="img-fluid">
+            <img th:src="${libro.imagen}" alt="Portada del libro" class="img-fluid">
         </div>
         <div class="col-lg-8">
-            <h2>Nombre del Libro</h2>
-            <p>Autor: Autor del Libro</p>
-            <p>Precio: $XX.XX</p>
-            <p>Fecha de Lanzamiento: XX de Mes de Año</p>
+            <h2 th:text="${libro.nombre}"></h2>
+            <p><strong>Autor:</strong> <span th:text="${libro.autor.nombre}"></span></p>
+            <p><strong>Precio:</strong> $<span th:text="${libro.precio}"></span></p>
+            <p><strong>Fecha de Lanzamiento:</strong> <span th:text="${libro.fecha_lanzamiento}"></span></p>
+            <p><strong>Editorial:</strong> <span th:text="${libro.editorial.nombre}"></span></p>
+            <p><strong>Idioma:</strong> <span th:text="${libro.idioma}"></span></p>
+            <p><strong>Cantidad de páginas:</strong> <span th:text="${libro.cant_paginas}"></span></p>
             <h4>Reseña</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+            <p><span th:text="${libro.resenia}"></span></p>
+            <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
         </div>
     </div>
 
@@ -113,7 +117,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <a href="#">
+                <a href="home.html">
                     <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
                          style="max-width: 150px;" class="img-fluid">
                 </a>
