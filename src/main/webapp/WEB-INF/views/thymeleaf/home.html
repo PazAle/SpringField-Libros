@@ -98,7 +98,7 @@
       <div class="row">
         <!-- Itera sobre la lista de libros -->
         <div th:each="libro : ${libros}" class="col-md-3 mb-4">
-          <div class="card h-100">
+          <div class="card h-100" th:id="${libro.ID}">
             <!-- Indica el tipo de imagen y que está codificada en Base64, lo concatena con el código de la imágen -->
             <img th:src="${libro.getImagen()}"
                  class="card-img-top align-self-center img-card" th:alt="'Imagen del libro ' + ${libro.ID}">
@@ -108,7 +108,7 @@
               <p th:text="${libro.autor.nombre}" class="card-text"></p>
               <p th:text="'Precio: $' + ${libro.precio}" class="card-text"></p>
               <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
-              <a href="detalle-libro.html" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+              <a th:href="@{'/detalle-libro?id=' + ${libro.ID}}" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
             </div>
           </div>
         </div>

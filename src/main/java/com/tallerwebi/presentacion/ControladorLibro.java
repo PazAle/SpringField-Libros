@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -26,9 +27,10 @@ public class ControladorLibro {
     }
 
     @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
-    public ModelAndView detalleLibro(){
+    public ModelAndView detalleLibro(@RequestParam("id") Long libroId){
         ModelMap model = new ModelMap();
-        model.put("libro", new Libro());
+        Libro libro = servicioLibro.obtenerLibro(libroId);
+        model.put("libro", libro);
         model.put("datosLibro", new DatosLibro());
         return new ModelAndView("detalle-libro", model);
 
