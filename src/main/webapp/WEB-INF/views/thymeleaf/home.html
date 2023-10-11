@@ -26,24 +26,24 @@
           <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
                style="max-width: 100px; max-height: 100px;" class="img-lg">
         </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-home"></i>
         </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-heart"></i>
         </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-shopping-cart"></i>
         </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-bell"></i>
+        <!--<a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-bell"></i>-->
         </a>
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-user"></i>
         </a>
       </div>
       <div class="d-flex align-items-start">
-        <a th:href="@{#}" class="btn btn-primary btn-custom-primary mt-1">
+        <a th:href="home" class="btn btn-primary btn-custom-primary mt-1">
           <i class="fas fa-filter"></i>
         </a>
         <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}" accept-charset="UTF-8">
@@ -147,10 +147,10 @@
             </a>
           </div>
           <div class="col-md-6 text-end">
-            <a href="#" class="text-dark text-decoration-none mx-2">Mi perfil</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">Mis libros</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
+            <a th:href="home" class="text-dark text-decoration-none mx-2">Mi perfil</a>
+            <a th:href="home" class="text-dark text-decoration-none mx-2">Mis libros</a>
+            <a th:href="home" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
+            <a th:href="home" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
           </div>
         </div>
       </div>
