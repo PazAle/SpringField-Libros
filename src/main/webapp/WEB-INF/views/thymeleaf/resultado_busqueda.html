@@ -55,12 +55,8 @@
       </nav>
     </header>
 
-    <!-- Seccion "Resultado de busqueda" -->
-
     <div class="container mt-5">
       <div class="row">
-        <!-- Panel de filtros (izquierda) -->
-        <!-- Panel de filtros (izquierda) -->
         <div class="col-md-3">
           <h3>Filtrar resultados</h3>
           <!-- Filtro por autor -->
@@ -97,13 +93,11 @@
           </div>
         </div>
 
-
         <!-- Resultados de la búsqueda (derecha) -->
         <div class="col-md-9">
           <h2 class="text-center heading">Resultados de búsqueda</h2>
           <hr class="mx-auto divider">
 
-          <!-- Mostrar mensaje de error si no hay resultados -->
           <div th:if="${error}" class="alert alert-danger" role="alert">
             <strong th:text="${error}"></strong>
           </div>
@@ -113,8 +107,7 @@
               <!-- Itera sobre la lista de libros -->
               <div th:each="libro : ${librosResultado}" class="col-md-4 mb-4">
                 <div class="card h-100">
-                  <!-- Imagen más pequeña -->
-                  <img th:src="${libro.getImagen()}" class="card-img-top img-card" style="height: 120px;">
+                  <img th:src="${libro.imagen}" class="card-img-top img-card" style="height: 120px;">
                   <div class="card-body">
                     <h5 th:text="${libro.nombre}" class="card-title title"></h5>
                     <p th:text="${libro.autor.nombre}" class="card-text author"></p>

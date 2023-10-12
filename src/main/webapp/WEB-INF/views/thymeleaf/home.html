@@ -99,8 +99,7 @@
         <!-- Itera sobre la lista de libros -->
         <div th:each="libro : ${libros}" class="col-md-3 mb-4">
           <div class="card h-100" th:id="${libro.ID}">
-            <!-- Indica el tipo de imagen y que está codificada en Base64, lo concatena con el código de la imágen -->
-            <img th:src="${libro.getImagen()}"
+            <img th:src="${libro.imagen}"
                  class="card-img-top align-self-center img-card" th:alt="'Imagen del libro ' + ${libro.ID}">
             <div class="card-body">
               <!-- Muestra los datos del libro -->
