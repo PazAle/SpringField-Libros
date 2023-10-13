@@ -22,8 +22,8 @@
       <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
         <div class="container-fluid d-flex justify-content-between">
           <div>
-            <a th:href="home" class="btn btn-light border-0" style="background-color: transparent;">
-              <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+            <a href="home.html" class="btn btn-light border-0" style="background-color: transparent;">
+              <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen"
                    style="max-width: 100px; max-height: 100px;" class="img-lg">
             </a>
             <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
@@ -114,7 +114,9 @@
                     <p th:text="${libro.editorial.nombre}" class="card-text publisher"></p>
                     <p th:text="'Precio: $' + ${libro.precio}" class="card-text price"></p>
                     <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+                    <!-- Enlace para ver detalles del libro -->
                     <a th:href="@{'/detalle-libro?id=' + ${libro.ID}}" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+                    <!--<a href="detalle-libro.html" class="btn btn-secondary btn-details ms-2">Ver detalle</a>-->
                   </div>
                 </div>
               </div>
@@ -129,8 +131,8 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-6">
-            <a href="#">
-              <img th:src="@{/imagenes/Conversations on Christ 3-fotor-bg-remover-2023092615466.png}" alt="Imagen"
+            <a th:href="home">
+              <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen"
                    style="max-width: 150px;" class="img-fluid">
             </a>
           </div>

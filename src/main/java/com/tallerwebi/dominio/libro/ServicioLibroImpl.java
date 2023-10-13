@@ -1,11 +1,14 @@
 package com.tallerwebi.dominio.libro;
 
 import com.tallerwebi.dominio.excepcion.LibroInexistente;
+import com.tallerwebi.dominio.imagen.Imagen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 @Service("servicioLibro")
 @Transactional

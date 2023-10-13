@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
 import org.hibernate.Session;
@@ -46,6 +47,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
         return sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.eq("nombre", nombre)).list();
     }
+
+    /*public List<Imagen> obtenerImagenesSecundarias() {
+        return this.sessionFactory.getCurrentSession().createCriteria(Imagen.class).list();
+    }*/
 
     @Override
     public boolean borrarLibro(Long id) {

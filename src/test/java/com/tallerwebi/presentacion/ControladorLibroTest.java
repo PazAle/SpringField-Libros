@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,14 +22,17 @@ public class ControladorLibroTest {
 
     private Libro libroMock;
     private ServicioLibro servicioLibroMock;
+    private ServicioImagen servicioImagenMock;
     private ControladorLibro controladorLibro;
+
 
     private List<Libro> librosResultadoMock;
 
     @BeforeEach
     public void init(){
         servicioLibroMock = mock(ServicioLibro.class);
-        this.controladorLibro = new ControladorLibro(servicioLibroMock);
+        servicioImagenMock = mock(ServicioImagen.class);
+        this.controladorLibro = new ControladorLibro(servicioLibroMock, servicioImagenMock);
         this.librosResultadoMock = new ArrayList<>();
     }
 

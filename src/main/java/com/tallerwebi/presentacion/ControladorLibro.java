@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.imagen.Imagen;
+import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +19,19 @@ import java.util.List;
 public class ControladorLibro {
 
     private ServicioLibro servicioLibro;
+    private ServicioImagen servicioImagen;
 
     @Autowired
-    public ControladorLibro(ServicioLibro servicioLibro){
-        this.servicioLibro = servicioLibro;
-    }
+    public ControladorLibro(ServicioLibro servicioLibro, ServicioImagen servicioImagen){this.servicioLibro = servicioLibro;
+        this.servicioImagen = servicioImagen;}
 
     @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
     public ModelAndView detalleLibro(@RequestParam("id") Long libroId){
         ModelMap model = new ModelMap();
         Libro libro = servicioLibro.obtenerLibro(libroId);
+        List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
+        Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+        model.put("imagenlogo", imagenLogo);
         model.put("libro", libro);
         model.put("datosLibro", new DatosLibro());
         return new ModelAndView("detalle-libro", model);
@@ -59,16 +64,26 @@ public class ControladorLibro {
     public ModelAndView irAHome() {
         ModelMap modelo = new ModelMap();
         List<Libro> librosObtenidosParaHome = this.servicioLibro.getLibros();
+        List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
+        List<Imagen> imagenesMetodosPago = this.servicioImagen.filtrarImagenesMetodosPago(imagenesTotalesObtenidas);
+        List<Imagen> imagenesCarrusel = this.servicioImagen.filtrarImagenesCarrusel(imagenesTotalesObtenidas);
+        Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+        modelo.put("imagenesCarrusel", imagenesCarrusel);
+        modelo.put("imagenlogo", imagenLogo);
+        modelo.put("imgMetodosPago", imagenesMetodosPago);
         modelo.put("libros", librosObtenidosParaHome);
         modelo.put("datosLibro", new DatosLibro());
+        //datosParaHome(modelo);
         return new ModelAndView("home", modelo);
     }
 
     @RequestMapping(path = "/buscar-libros", method = RequestMethod.POST)
     public ModelAndView buscarLibros(@ModelAttribute("datosLibro") DatosLibro datosLibro) {
         ModelMap model = new ModelMap();
-
         List <Libro> librosResultado = this.servicioLibro.obtenerLibroPorNombre(datosLibro.getNombre());
+        List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
+        Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+        model.put("imagenlogo", imagenLogo);
 
         if (librosResultado.isEmpty()) {
             model.put("error", "No se encontraron libros con ese nombre.");
