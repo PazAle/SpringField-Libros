@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.libro;
 
+import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.libro.Libro;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
+    //List<Imagen> obtenerImagenesSecundarias();
 }
