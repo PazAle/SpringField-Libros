@@ -57,20 +57,10 @@
 <!-- CONTENIDO -->
 <div class="container mt-5">
   <div class="row">
-    <div class="col-md-9">
+    <!-- Columna principal -->
+    <div class="col-md-9 col-main">
       <h2 class="text-center heading">Resultados de búsqueda</h2>
       <hr class="mx-auto divider">
-      <div class="col-md-3">
-        <h4>Filtrar por:</h4>
-        <h4>Editorial:</h4>
-        <ul id="editorialFilters">
-          <!-- Los enlaces de filtrado por editorial se generan dinámicamente en JavaScript -->
-        </ul>
-        <h4>Fecha de Lanzamiento:</h4>
-        <ul id="dateFilters">
-          <!-- Los enlaces de filtrado por fecha se generan dinámicamente en JavaScript -->
-        </ul>
-      </div>
 
       <!-- Resto del contenido -->
       <div th:if="${error}" class="alert alert-danger" role="alert">
@@ -102,30 +92,41 @@
       </div>
     </div>
 
-    <!-- CONTENIDO -->
-    <!-- Footer con links a secciones de interés -->
-    <footer class="backgroundNav">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <a th:href="home">
-              <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen" style="max-width: 150px;" class="img-fluid">
-            </a>
-          </div>
-          <div class="col-md-6 text-end">
-            <a href="#" class="text-dark text-decoration-none mx-2">Mi perfil</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">Mis libros</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
-            <a href="#" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
-          </div>
-        </div>
+    <!-- Columna de panel -->
+    <div class="col-md-3 col-panel">
+      <h4>Editorial:</h4>
+      <ul id="editorialFilters">
+        <!-- Los enlaces de filtrado por editorial se generan dinámicamente en JavaScript -->
+      </ul>
+      <h4>Fecha de Lanzamiento:</h4>
+      <ul id="dateFilters">
+        <!-- Los enlaces de filtrado por fecha se generan dinámicamente en JavaScript -->
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- CONTENIDO -->
+<!-- Footer con links a secciones de interés -->
+<footer class="backgroundNav">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <a th:href="home">
+          <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen" style="max-width: 150px;" class="img-fluid">
+        </a>
       </div>
-    </footer>
+      <div class="col-md-6 text-end">
+        <a href="#" class="text-dark text-decoration-none mx-2">Mi perfil</a>
+        <a href="#" class="text-dark text-decoration-none mx-2">Mis libros</a>
+        <a href="#" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
+        <a href="#" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
     <!-- Bootstrap core JS -->
     <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{js/funciones_busqueda.js}"></script>
-  </div>
-</div>
 </body>
 </html>

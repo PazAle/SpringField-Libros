@@ -1,0 +1,33 @@
+/* Estilos para la columna principal (derecha) */
+.col-main {
+    width: 75%; /* Ancho principal */
+    float: left; /* Flotar a la izquierda */
+}
+
+/* Estilos para la columna de panel (izquierda) */
+.col-panel {
+    width: 25%; /* Ancho del panel */
+    float: left; /* Flotar a la izquierda */
+    background-color: #f0f0f0; /* Color de fondo del panel */
+    padding: 20px; /* Espaciado interno */
+    box-sizing: border-box; /* Incluir relleno y borde en el ancho total */
+}
+
+#selectedFilters {
+    margin-bottom: 10px;
+}
+
+#selectedFilters span {
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #0066cc;
+    color: #fff;
+    border-radius: 15px;
+    display: inline-flex;
+    align-items: center;
+}
+
+#selectedFilters span .close-icon {
+    cursor: pointer;
+    margin-left: 5px;
+}
