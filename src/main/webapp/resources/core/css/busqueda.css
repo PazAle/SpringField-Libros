@@ -20,8 +20,8 @@
 #selectedFilters span {
     padding: 5px 10px;
     margin-right: 10px;
-    background-color: #0066cc;
-    color: #fff;
+    background-color: rgb(215 139 73);
+    color: black;
     border-radius: 15px;
     display: inline-flex;
     align-items: center;

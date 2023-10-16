@@ -80,7 +80,7 @@ public class ControladorLibro {
     @RequestMapping(path = "/buscar-libros", method = RequestMethod.POST)
     public ModelAndView buscarLibros(@ModelAttribute("datosLibro") DatosLibro datosLibro) {
         ModelMap model = new ModelMap();
-        List <Libro> librosResultado = this.servicioLibro.obtenerLibroPorNombre(datosLibro.getNombre());
+        List <Libro> librosResultado = this.servicioLibro.busqueda(datosLibro.getNombre());
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
         model.put("imagenlogo", imagenLogo);
