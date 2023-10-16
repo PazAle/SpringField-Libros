@@ -57,43 +57,10 @@
 <!-- CONTENIDO -->
 <div class="container mt-5">
   <div class="row">
-    <!-- Columna principal -->
-    <div class="col-md-9 col-main">
-      <h2 class="text-center heading">Resultados de búsqueda</h2>
-      <hr class="mx-auto divider">
-
-      <!-- Resto del contenido -->
-      <div th:if="${error}" class="alert alert-danger" role="alert">
-        <strong th:text="${error}"></strong>
-      </div>
-
-      <div id="selectedFilters"></div>
-
-      <div th:if="${librosResultado}">
-        <div class="row" id="resultsList">
-          <!-- Itera sobre la lista de libros -->
-          <div th:each="libro : ${librosResultado}" class="col-md-4 mb-4">
-            <div class="card h-100">
-              <img th:src="${libro.imagen}" class="card-img-top img-card" style="height: 120px;">
-              <div class="card-body">
-                <h5 th:text="${libro.nombre}" class="card-title title"></h5>
-                <p th:text="${libro.ID}" class="card-text id" style="display: none;"></p>
-                <p th:text="${libro.autor.nombre}" class="card-text author"></p>
-                <p th:text="${libro.editorial.nombre}" class="card-text publisher"></p>
-                <p th:text="${#dates.format(libro.fecha_lanzamiento, 'yyyy-MM-dd')}" class="card-text date"></p>
-                <p th:text="'Precio: $' + ${libro.precio}" class="card-text price"></p>
-                <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
-                <!-- Enlace para ver detalles del libro -->
-                <a th:href="@{'/detalle-libro?id=' + ${libro.ID}}" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Columna de panel -->
-    <div class="col-md-3 col-panel">
+    <!-- Panel de filtros -->
+    <div class="col-md-3">
+      <h3 class="text-center">Filtros:</h3>
+      <hr class="mx-auto" style="width: 100%; border-top: 2px solid #333;">
       <h4>Editorial:</h4>
       <ul id="editorialFilters">
         <!-- Los enlaces de filtrado por editorial se generan dinámicamente en JavaScript -->
@@ -102,6 +69,37 @@
       <ul id="dateFilters">
         <!-- Los enlaces de filtrado por fecha se generan dinámicamente en JavaScript -->
       </ul>
+    </div>
+
+    <!-- Sección de "Últimas novedades" -->
+    <div class="col-md-9">
+      <h2 class="text-center">Titulos</h2>
+      <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
+
+      <div id="selectedFilters"></div>
+
+      <div th:if="${error}" class="alert alert-danger" role="alert">
+        <strong th:text="${error}"></strong>
+      </div>
+
+      <div class="row" id="resultsList">
+        <div th:each="libro : ${librosResultado}" class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img th:src="${libro.imagen}" class="card-img-top img-card" style="height: 120px;">
+            <div class="card-body">
+              <h5 th:text="${libro.nombre}" class="card-title title"></h5>
+              <p th:text="${libro.ID}" class="card-text id" style="display: none;"></p>
+              <p th:text="${libro.autor.nombre}" class="card-text author"></p>
+              <p th:text="${libro.editorial.nombre}" class="card-text publisher"></p>
+              <p th:text="${#dates.format(libro.fecha_lanzamiento, 'yyyy-MM-dd')}" class="card-text date"></p>
+              <p th:text="'Precio: $' + ${libro.precio}" class="card-text price"></p>
+              <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+              <!-- Enlace para ver detalles del libro -->
+              <a th:href="@{'/detalle-libro?id=' + ${libro.ID}}" class="btn btn-secondary btn-details ms-2">Ver detalle</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

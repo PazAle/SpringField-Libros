@@ -22,11 +22,11 @@ function populateFilters() {
 
     // Obtener fechas únicas
     const uniqueDates = [...new Set(librosResultado.map(libro => libro.fechaLanzamiento))];
-    dateFilters.innerHTML = uniqueDates.map(date => `<li><a href="#" onclick="filterBy('fechaLanzamiento', '${date}')">${date}</a></li>`).join('');
+    dateFilters.innerHTML = uniqueDates.map(date => `<li class="list-group-item"><a href="#" onclick="filterBy('fechaLanzamiento', '${date}')">${date}</a></li>`).join('');
 
     // Obtener editoriales únicas
     const uniqueEditorials = [...new Set(librosResultado.map(libro => libro.editorial))];
-    editorialFilters.innerHTML = uniqueEditorials.map(editorial => `<li><a href="#" onclick="filterBy('editorial', '${editorial}')">${editorial}</a></li>`).join('');
+    editorialFilters.innerHTML = uniqueEditorials.map(editorial => `<li class="list-group-item"><a href="#" onclick="filterBy('editorial', '${editorial}')">${editorial}</a></li>`).join('');
 }
 
 function populateResults() {
@@ -81,11 +81,11 @@ function updateAvailableFilters() {
 
     // Obtener fechas únicas según los filtros aplicados
     const uniqueDates = [...new Set(filteredLibros.map(libro => libro.fechaLanzamiento))];
-    dateFilters.innerHTML = uniqueDates.map(date => `<li><a href="#" onclick="filterBy('fechaLanzamiento', '${date}')">${date}</a></li>`).join('');
+    dateFilters.innerHTML = uniqueDates.map(date => `<li class="list-group-item"><a href="#" onclick="filterBy('fechaLanzamiento', '${date}')">${date}</a></li>`).join('');
 
     // Obtener editoriales únicas según los filtros aplicados
     const uniqueEditorials = [...new Set(filteredLibros.map(libro => libro.editorial))];
-    editorialFilters.innerHTML = uniqueEditorials.map(editorial => `<li><a href="#" onclick="filterBy('editorial', '${editorial}')">${editorial}</a></li>`).join('');
+    editorialFilters.innerHTML = uniqueEditorials.map(editorial => `<li class="list-group-item"><a href="#" onclick="filterBy('editorial', '${editorial}')">${editorial}</a></li>`).join('');
 
     // Mostrar los filtros seleccionados
     const selectedFiltersElement = document.getElementById('selectedFilters');
