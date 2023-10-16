@@ -71,4 +71,9 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     public void modificar(Libro libro) {
         sessionFactory.getCurrentSession().update(libro);
     }
+
+    public List<Libro> obtenerLibrosPorTermino(String termino) {
+        return sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.ilike("nombre", "%" + termino + "%")).list();
+    }
 }

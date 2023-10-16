@@ -12,6 +12,8 @@ public interface ServicioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
+    List<Libro> busqueda(String termino);
+
    //List<Imagen> getImagenesSecundarias();
 
     //List<Imagen> filtrarImagenesMetodosPago(List<Imagen> imagenesTotalesObtenidas);

@@ -19,5 +19,7 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
+    List<Libro> obtenerLibrosPorTermino(String termino);
+
     //List<Imagen> obtenerImagenesSecundarias();
 }
