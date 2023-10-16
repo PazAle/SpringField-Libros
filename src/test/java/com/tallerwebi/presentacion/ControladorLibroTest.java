@@ -60,7 +60,7 @@ public class ControladorLibroTest {
         DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
         Libro libroCreado = dadoQueSeCreaUnLibro();
         dadoQueAgregoUnLibroALibrosResultadosMock(libroCreado);
-        mockeoLaObtencionDeLibrosPorNombre(servicioLibroMock);
+        mockeoLaBusqueda(servicioLibroMock);
 
         //ejecución
         ModelAndView modelAndView = dadoQueObtengoLaVistaResultadoBusqueda(datosLibro);
@@ -98,6 +98,10 @@ public class ControladorLibroTest {
 
     private void mockeoLaObtencionDeLibrosPorNombre(ServicioLibro servicioLibroMock){
         when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+    }
+
+    private void mockeoLaBusqueda(ServicioLibro servicioLibroMock){
+        when(servicioLibroMock.busqueda(anyString())).thenReturn(librosResultadoMock);
     }
 
     private ModelAndView dadoQueObtengoLaVistaResultadoBusqueda(DatosLibro datosLibro){
