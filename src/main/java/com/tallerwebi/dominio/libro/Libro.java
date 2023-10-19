@@ -30,7 +30,8 @@ public class Libro {
     private Editorial editorial;
     private String idioma;
     private Integer cant_paginas;
-    @Column(columnDefinition = "MEDIUMTEXT")
+    //@Column(columnDefinition = "MEDIUMTEXT")
+    @Lob
     private String imagen;
     private String resenia;
     private Integer stock;
