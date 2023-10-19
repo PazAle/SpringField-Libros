@@ -33,5 +33,10 @@ public class ServicioLoginImpl implements ServicioLogin {
         servicioLoginDao.guardar(usuario);
     }
 
+    @Override
+    public Usuario buscarUsuarioPorId(Long id) {
+        return servicioLoginDao.buscarUsuarioPorId(id);
+    }
+
 }
 

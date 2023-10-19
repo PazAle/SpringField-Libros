@@ -16,7 +16,6 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String nombre;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "autor")
     private Autor autor;

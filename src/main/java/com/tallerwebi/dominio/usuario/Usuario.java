@@ -1,9 +1,9 @@
 package com.tallerwebi.dominio.usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.tallerwebi.dominio.pedido.Pedido;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -17,6 +17,9 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedidos")
+    private List<Pedido> pedidos;
 
     public Long getId() {
         return id;
@@ -72,5 +75,14 @@ public class Usuario {
 
     public void activar() {
         activo = true;
+    }
+
+    public Pedido pedidoActivo(){
+        for(Pedido pedido: pedidos){
+            if(pedido.getActivo()){
+                return pedido;
+            }
+        }
+        return null;
     }
 }
