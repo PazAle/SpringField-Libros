@@ -75,41 +75,32 @@
             <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
         </div>
     </div>
-
     <div class="row mt-4">
         <div class="col">
             <h4>Comentarios</h4>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Usuario 1</h5>
-                    <p class="card-text">Excelente libro. Me encantó.</p>
+            <!-- Mostrar comentarios existentes -->
+            <div th:each="comentario : ${libro.comentarios}" id="comentarios">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${comentario.texto}"></p>
+                    </div>
                 </div>
             </div>
 
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Usuario 2</h5>
-                    <p class="card-text">Muy recomendado, definitivamente vale la pena leerlo.</p>
-                </div>
-            </div>
-
-            <!-- Agregar más comentarios aquí -->
-
+            <!-- Agregar un nuevo comentario -->
             <div class="mt-4">
                 <h5>Deja un comentario:</h5>
-                <form>
-                    <div class="mb-3">
-                        <label for="nombreUsuario" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombreUsuario" placeholder="Tu nombre">
-                    </div>
+                <form id="comentarioForm" method="post">
+                    <input type="hidden" id="libroID" name="libroId" th:value="${libro.ID}" />
                     <div class="mb-3">
                         <label for="comentario" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="comentario" rows="3" placeholder="Escribe tu comentario"></textarea>
+                        <textarea class="form-control" id="comentario" name="texto" rows="3" placeholder="Escribe tu comentario"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <input type="submit" class="btn btn-primary" id="enviarComentario" value="Enviar"/>
                 </form>
             </div>
         </div>
+    </div>
     </div>
 </div>
 
@@ -132,6 +123,8 @@
     </div>
 </footer>
 
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/js/comentarios.js}"></script>
 
 <!-- Boostrap core js -->
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>

@@ -10,7 +10,8 @@ public class Imagen {
     private Integer id;
     private String nombreImagen;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
+    //@Column(columnDefinition = "MEDIUMTEXT")
+    @Lob
     private String imagenBase64;
 
     public Integer getId() {

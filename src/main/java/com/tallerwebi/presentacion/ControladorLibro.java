@@ -1,10 +1,15 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.comentario.Comentario;
+import com.tallerwebi.dominio.comentario.ServicioComentario;
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
+import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -20,10 +26,13 @@ public class ControladorLibro {
 
     private ServicioLibro servicioLibro;
     private ServicioImagen servicioImagen;
+    private ServicioComentario servicioComentario;
 
     @Autowired
-    public ControladorLibro(ServicioLibro servicioLibro, ServicioImagen servicioImagen){this.servicioLibro = servicioLibro;
-        this.servicioImagen = servicioImagen;}
+    public ControladorLibro(ServicioLibro servicioLibro, ServicioImagen servicioImagen, ServicioComentario servicioComentario){this.servicioLibro = servicioLibro;
+        this.servicioImagen = servicioImagen;
+        this.servicioComentario = servicioComentario;
+    }
 
     @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
     public ModelAndView detalleLibro(@RequestParam("id") Long libroId){
@@ -35,8 +44,8 @@ public class ControladorLibro {
         model.put("libro", libro);
         model.put("datosLibro", new DatosLibro());
         return new ModelAndView("detalle-libro", model);
-
     }
+
     /*@RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
     public ModelAndView altaLibro(@ModelAttribute("libro") Libro libro) throws LibroExistente {
         ModelMap model = new ModelMap();
