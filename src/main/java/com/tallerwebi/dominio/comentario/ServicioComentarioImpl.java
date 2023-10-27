@@ -41,16 +41,6 @@ public class ServicioComentarioImpl implements ServicioComentario {
     }
 
     @Override
-    public boolean crearComentario(String textoComentario) {
-        Boolean guardado = false;
-        if(textoComentario != null && !textoComentario.isEmpty()){
-            comentario.setTexto(textoComentario);
-           guardado = this.repositorioComentario.guardar(comentario);
-        }
-        return guardado;
-    }
-
-    @Override
     public List<Comentario> getAllComentarios() {
         return this.repositorioComentario.getAllComentarios();
     }
