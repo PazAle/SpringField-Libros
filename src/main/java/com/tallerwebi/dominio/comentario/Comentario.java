@@ -9,14 +9,24 @@ import java.util.Date;
 @Entity
 public class Comentario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario")
-    private Usuario usuario;
+    //@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   // @JoinColumn(name = "usuario")
+   // private Usuario usuario;
+    @ManyToOne // Relación ManyToOne con Libro
+    @JoinColumn(name = "libro_id")// Nombre de la columna en la tabla de comentarios que hace referencia al libro
+    private Libro libro; // Agregar esta propiedad
     private Date fecha;
 
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public void setLibro(Libro libro) {
+        this.libro = libro;
+    }
 
     public Integer getId() {
         return id;
@@ -26,13 +36,13 @@ public class Comentario {
         return texto;
     }
 
-    public Usuario getUsuario() {
+    /*public Usuario getUsuario() {
         return usuario;
-    }
+    }*/
 
-    public void setUsuario(Usuario usuario) {
+    /*public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
+    }*/
 
     public Date getFecha() {
         return fecha;
