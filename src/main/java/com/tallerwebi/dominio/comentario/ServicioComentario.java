@@ -12,8 +12,6 @@ public interface ServicioComentario {
 
     void actualizarComentario(Integer id, String textoAActualizar);
 
-    boolean crearComentario(String textoComentario);
-
     List<Comentario> getAllComentarios();
 
     Comentario obtenerUltimoComentario();
