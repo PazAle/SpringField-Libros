@@ -7,6 +7,7 @@ import com.tallerwebi.dominio.libro.ServicioLibro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,23 +26,23 @@ public class ControladorComentario {
 
     @RequestMapping(path = "/agregar", method = RequestMethod.POST)
     public ResponseEntity<String> agregarComentario(@RequestParam Long libroId, @RequestParam String texto) {
-        //Map<String, String> response = new HashMap<>();
-        // Lógica para agregar un comentario y guardar en la base de datos
-        Comentario nuevoComentario = new Comentario();
-        nuevoComentario.setLibro(servicioLibro.obtenerLibro(libroId));
-        nuevoComentario.setTexto(texto);
-        Boolean guardadoComentario = false;
-        guardadoComentario = servicioComentario.guardarComentario(nuevoComentario);
+        Libro libro = servicioLibro.obtenerLibro(libroId);
+        if (libro != null) {
+            Comentario nuevoComentario = new Comentario();
+            nuevoComentario.setLibro(libro);
+            nuevoComentario.setTexto(texto);
+            boolean seGuardo = servicioComentario.guardarComentario(nuevoComentario);
 
-        if (guardadoComentario) {
-            String message = "Comentario enviado exitosamente";
-            return new ResponseEntity<>(message, HttpStatus.OK);
+            if (seGuardo) {
+                System.out.println("Se guardó el comentario");
+                return new ResponseEntity<>("Comentario agregado exitosamente", HttpStatus.OK);
+            } else {
+                System.out.println("No se guardó el comentario");
+                return new ResponseEntity<>("No se pudo agregar el comentario", HttpStatus.BAD_REQUEST);
+            }
         } else {
-            String message = "No se pudo enviar el comentario";
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Libro no encontrado", HttpStatus.NOT_FOUND);
         }
     }
 
-
-
-}
+    }

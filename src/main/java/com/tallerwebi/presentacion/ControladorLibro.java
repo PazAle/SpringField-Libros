@@ -34,7 +34,7 @@ public class ControladorLibro {
         this.servicioComentario = servicioComentario;
     }
 
-    @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
     public ModelAndView detalleLibro(@RequestParam("id") Long libroId){
         ModelMap model = new ModelMap();
         Libro libro = servicioLibro.obtenerLibro(libroId);
@@ -44,7 +44,34 @@ public class ControladorLibro {
         model.put("libro", libro);
         model.put("datosLibro", new DatosLibro());
         return new ModelAndView("detalle-libro", model);
+    }*/
+    @RequestMapping(path = "/detalle-libro", method = RequestMethod.GET)
+    public ModelAndView detalleLibro(@RequestParam("id") Long libroId, @RequestParam(name = "page", defaultValue = "1") int page) {
+        ModelMap model = new ModelMap();
+        Libro libro = servicioLibro.obtenerLibro(libroId);
+        List<Comentario> comentarios = servicioComentario.obtenerTodosLosComentarios(libro.getID());
+
+        int pageSize = 5; // Tamaño de página por defecto (5 comentarios por página)
+        int totalComentarios = comentarios.size();
+        int totalPages = (int) Math.ceil((double) totalComentarios / pageSize);
+
+        int startIndex = (page - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, totalComentarios);
+        List<Comentario> comentariosPaginados = comentarios.subList(startIndex, endIndex);
+
+        List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
+        Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+
+        model.addAttribute("imagenlogo", imagenLogo);
+        model.addAttribute("libro", libro);
+        model.addAttribute("comentarios", comentariosPaginados);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("datosLibro", new DatosLibro());
+
+        return new ModelAndView("detalle-libro", model);
     }
+
 
     /*@RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
     public ModelAndView altaLibro(@ModelAttribute("libro") Libro libro) throws LibroExistente {

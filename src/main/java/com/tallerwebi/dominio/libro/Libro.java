@@ -35,12 +35,12 @@ public class Libro {
     private String imagen;
     private String resenia;
     private Integer stock;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "comentario")
-   private List<Comentario> comentarios;
+   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JoinTable(name = "comentario")
+   //private List<Comentario> comentarios;
     // Agrega una lista de comentarios relacionados con este libro
-    //@OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private List<Comentario> comentarios;
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios;
 
     public Long getID() {
         return this.ID;

@@ -78,31 +78,69 @@
     <div class="row mt-4">
         <div class="col">
             <h4>Comentarios</h4>
-            <!-- Mostrar comentarios existentes -->
-            <div th:each="comentario : ${libro.comentarios}" id="comentarios">
+            <!-- Mostrar comentarios paginados -->
+            <div th:each="comentario : ${comentarios}" id="comentarios" class="mb-3">
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text" th:text="${comentario.texto}"></p>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Agregar un nuevo comentario -->
-            <div class="mt-4">
-                <h5>Deja un comentario:</h5>
-                <form id="comentarioForm" method="post">
-                    <input type="hidden" id="libroID" name="libroId" th:value="${libro.ID}" />
-                    <div class="mb-3">
-                        <label for="comentario" class="form-label">Comentario</label>
-                        <textarea class="form-control" id="comentario" name="texto" rows="3" placeholder="Escribe tu comentario"></textarea>
+    <!-- Agregar enlaces de paginación con estilo Bootstrap y margen superior -->
+    <div class="pagination-wrapper mt-3">
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-lg">
+                <li th:if="${currentPage > 1}" class="page-item">
+                    <a class="page-link" th:href="@{/detalle-libro(id=${libro.ID}, page=${currentPage - 1})}" aria-label="Pagina anterior" style="text-decoration: none;">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="page, iterStat : ${#numbers.sequence(1, totalPages)}" class="page-item">
+                    <a th:href="@{/detalle-libro(id=${libro.ID}, page=${page})}" th:class="${currentPage == page} ? 'page-link active' : 'page-link'" style="text-decoration: none;">
+                        <span th:text="${page}"></span>
+                    </a>
+                </li>
+                <li th:if="${currentPage < totalPages}" class="page-item">
+                    <a class="page-link" th:href="@{/detalle-libro(id=${libro.ID}, page=${currentPage + 1})}" aria-label="Pagina siguiente" style="text-decoration: none;">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+
+
+
+    <div class="mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Deja un comentario</h5>
+                        <form id="comentarioForm" method="post">
+                            <input type="hidden" id="libroID" name="libroId" th:value="${libro.ID}" />
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label visually-hidden">Comentario</label>
+                                <textarea class="form-control" id="comentario" name="texto" rows="3" placeholder="Escribe tu comentario"></textarea>
+                            </div>
+                            <button class="btn btn-primary btn-lg btn-outline-secondary mb-2 custom-enviarComentario" id="enviarComentario" type="button">
+                                Enviar
+                            </button>
+                            <div id="mensajeComentario"></div>
+                        </form>
                     </div>
-                    <input type="submit" class="btn btn-primary" id="enviarComentario" value="Enviar"/>
-                </form>
+                </div>
             </div>
+
+
         </div>
     </div>
     </div>
-</div>
 
 <footer class="backgroundNav">
     <div class="container">

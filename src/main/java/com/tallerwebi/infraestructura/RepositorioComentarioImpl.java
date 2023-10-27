@@ -58,7 +58,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
     @Override
     public List<Comentario> getAllComentariosPorLibro(Long idLibro) {
         return this.sessionFactory.getCurrentSession().createCriteria(Comentario.class).
-                add(Restrictions.eq("id", idLibro)).list();
+                add(Restrictions.eq("libro.id", idLibro)).list();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class RepositorioComentarioImpl implements RepositorioComentario {
 
     @Override
     public Comentario obtenerUltimoComentario() {
-        return (Comentario) this.sessionFactory.getCurrentSession().createCriteria(Comentario.class).addOrder(Order.desc("id")).
+        return (Comentario) this.sessionFactory.getCurrentSession().createCriteria(Comentario.class).addOrder(Order.desc("ID")).
                 setMaxResults(1).uniqueResult();
     }
 
