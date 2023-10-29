@@ -17,9 +17,13 @@ public class Usuario {
     private String password;
     private String rol;
     private Boolean activo = false;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pedidos")
-    private List<Pedido> pedidos;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedido")
+    private Pedido pedido;
+
+    public Usuario(){
+        this.pedido = new Pedido();
+    }
 
     public Long getId() {
         return id;
@@ -77,12 +81,11 @@ public class Usuario {
         activo = true;
     }
 
-    public Pedido pedidoActivo(){
-        for(Pedido pedido: pedidos){
-            if(pedido.getActivo()){
-                return pedido;
-            }
-        }
-        return null;
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

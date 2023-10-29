@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ContextConfiguration(classes = { SpringWebTestConfig.class, HibernateTestConfig.class })
 
 public class RepositorioLibroTest {
-/*
+
     @Autowired
     private RepositorioLibro repositorioLibro;
     private Libro libro;
@@ -76,5 +76,5 @@ public class RepositorioLibroTest {
     public void queSePuedaBorrarUnLibro(){
         assertTrue(repositorioLibro.borrarLibro(libro.getID()));
     }
-*/
+
 }

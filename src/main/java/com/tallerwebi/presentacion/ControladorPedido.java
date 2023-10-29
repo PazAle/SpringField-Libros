@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.excepcion.StockInsuficienteException;
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.libro.Libro;
@@ -10,9 +11,11 @@ import com.tallerwebi.dominio.pedido.ServicioPedido;
 import com.tallerwebi.dominio.usuario.ServicioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,48 +47,47 @@ public class ControladorPedido {
     public ModelAndView irAPedido(){
         ModelMap modelo = new ModelMap();
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
-        List<Imagen> imagenesMetodosPago = this.servicioImagen.filtrarImagenesMetodosPago(imagenesTotalesObtenidas);
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
-        Long idUsuario = obtenerIdDelUsuario();
-        Usuario usuario = this.servicioLogin.buscarUsuarioPorId(idUsuario);
+        modelo.put("imagenlogo", imagenLogo);
         if(validarUsuarioLogueado()){
-            Pedido pedido = this.servicioUsuario.buscarPedidoActivo(usuario);
-            modelo.put("pedido", pedido);
-            //modelo.put("imagenlogo", imagenLogo);
-            //modelo.put("imgMetodosPago", imagenesMetodosPago);
-            //Pedido pedidoActual= this.servicioPedido.obtenerPedidoPorCliente(idCliente);
-            //model.put("pedido", pedidoActual);
+            Pedido pedido = this.obtenerPedido();
+            List<Libro> libros =this.servicioPedido.obtenerLibrosDelPedido(pedido);
+            modelo.put("libros", libros);
         }
         return new ModelAndView("carrito", modelo);
     }
 
-    @RequestMapping(path = "/carrito", method = RequestMethod.GET)
-    public ModelAndView agregarLibroACarrito(@ModelAttribute("idLibro")Long idLibro){
-        ModelMap modelo = new ModelMap();
-        Usuario rolUsuario = (Usuario) request.getSession().getAttribute("ROL");
-
-        if(rolUsuario != null){
-            Libro libro = this.servicioLibro.obtenerLibro(idLibro);
-            Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
-            Usuario usuario = servicioLogin.buscarUsuarioPorId(idUsuario);
-            Pedido pedidoActual = usuario.pedidoActivo();
-            /*if(pedidoActual != null){
-                this.servicioPedido.agregarLibro();
-            }*/
-            this.servicioPedido.agregarLibro(libro, usuario);
+    @RequestMapping(path = "/agregarLibroACarrito/{idLibro}", method = RequestMethod.GET)
+    public String agregarLibroACarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
+        Libro libro = this.obtenerLibro(idLibro);
+        if(validarUsuarioLogueado()){
+            Pedido pedidoActual = this.obtenerPedido();
+            this.agregarLibro(libro, pedidoActual);
+            return "redirect:/home";
         }
+        return "redirect:/login";
 
-
-        //modelo.put("pedido", libro);
-        return new ModelAndView("home");
     }
 
+    private void agregarLibro(Libro libro, Pedido pedidoActual) throws StockInsuficienteException {
+        this.servicioPedido.agregarLibro(libro, pedidoActual);
+    }
+
+    private Libro obtenerLibro(Long idLibro) {
+        return servicioLibro.obtenerLibro(idLibro);
+    }
+
+    private Pedido obtenerPedido(){
+        Long idUsuario = (Long) request.getSession().getAttribute("IDUSUARIO");
+        Usuario usuario = servicioLogin.buscarUsuarioPorId(idUsuario);
+        return usuario.getPedido();
+    }
     public Long obtenerIdDelUsuario(){
-        return (Long) request.getSession().getAttribute("idUsuario");
+        return (Long) request.getSession().getAttribute("IDUSUARIO");
     }
     public Boolean validarUsuarioLogueado(){
-        Usuario rolUsuario = (Usuario) request.getSession().getAttribute("ROL");
-        if(rolUsuario != null){
+        Long idUsuario = (Long) request.getSession().getAttribute("IDUSUARIO");
+        if(idUsuario != null){
             return true;
         }
         return false;

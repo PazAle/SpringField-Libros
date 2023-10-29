@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.usuario.Usuario;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Pedido {
@@ -11,16 +12,14 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "libros")
-    private List<Producto> productos;
+    @JoinTable(name = "pedido_libro",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "libro_id"))
+    private List<Libro> libros;
     private Boolean activo;
 
-    public Pedido (Producto producto){
-        this.productos.add(producto);
-    }
-
     public Pedido() {
-
+        //this.libros = new ArrayList<>();
     }
 
     public Long getId() {
@@ -30,12 +29,12 @@ public class Pedido {
     public void setId(Long id) {
         this.id = id;
     }
-    public List<Producto> getProductos() {
-        return productos;
+    public List<Libro> getLibros() {
+        return libros;
     }
 
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public void setProductos(List<Libro> libros) {
+        this.libros = libros;
     }
 
     public Boolean getActivo() {

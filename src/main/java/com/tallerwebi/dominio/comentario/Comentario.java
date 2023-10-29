@@ -12,9 +12,9 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String texto;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario")
-    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "libro_id")
+    private Libro libro;
     private Date fecha;
 
 
@@ -24,14 +24,6 @@ public class Comentario {
 
     public String getTexto() {
         return texto;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public Date getFecha() {

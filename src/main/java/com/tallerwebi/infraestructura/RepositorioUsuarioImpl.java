@@ -36,11 +36,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
     @Override
     public Usuario buscar(String email) {
-        return (Usuario) sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-                .add(Restrictions.eq("email", email))
-                .uniqueResult();
+        String hql = "FROM Usuario u WHERE u.email = :email";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("email", email);
+        return (Usuario) query.uniqueResult();
     }
-
     @Override
     public void modificar(Usuario usuario) {
         sessionFactory.getCurrentSession().update(usuario);
