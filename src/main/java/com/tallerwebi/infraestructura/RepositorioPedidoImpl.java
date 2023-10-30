@@ -51,6 +51,25 @@ public class RepositorioPedidoImpl implements RepositorioPedido {
         Query query = session.createQuery("SELECT p.libros FROM Pedido p WHERE p.id = :pedidoId");
         query.setParameter("pedidoId", pedido.getId());
         List<Libro> libros = (List<Libro>) query.list();
-        return libros;    }
+        return libros;
+    }
+
+    @Override
+    public void eliminarLibro(Libro libro, Pedido pedidoActual) {
+        List<Libro> libros = this.obtenerLibrosDelPedido(pedidoActual);
+        Libro libroAEliminar = null;
+        for(Libro actual : libros){
+            if(actual.getID().equals(libro.getID())){
+                libroAEliminar = actual;
+            }
+        }
+        libros.remove(libroAEliminar);
+        this.actualizarListaDeLibros(libros, pedidoActual);
+    }
+
+    private void actualizarListaDeLibros(List<Libro> libros, Pedido pedidoActual) {
+        pedidoActual.setProductos(libros);
+        this.guardarPedido(pedidoActual);
+    }
 
 }

@@ -48,6 +48,11 @@ public class RepositorioLibroImpl implements RepositorioLibro {
                 .add(Restrictions.eq("nombre", nombre)).list();
     }
 
+    @Override
+    public void actualizarLibro(Libro libro) {
+        this.sessionFactory.getCurrentSession().update(libro);
+    }
+
     /*public List<Imagen> obtenerImagenesSecundarias() {
         return this.sessionFactory.getCurrentSession().createCriteria(Imagen.class).list();
     }*/

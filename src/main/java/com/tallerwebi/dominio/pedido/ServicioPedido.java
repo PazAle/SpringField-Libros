@@ -15,4 +15,6 @@ public interface ServicioPedido {
     void guardarPedido(Pedido pedidoActual);
 
     List<Libro> obtenerLibrosDelPedido(Pedido pedido);
+
+    void eliminarLibro(Libro libro, Pedido pedidoActual);
 }

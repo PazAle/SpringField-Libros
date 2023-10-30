@@ -69,6 +69,20 @@ public class ControladorPedido {
 
     }
 
+    @RequestMapping(path = "/eliminarLibroDeCarrito/{idLibro}", method = RequestMethod.GET)
+    public String eliminarLibroDelCarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
+        System.out.println("acá");
+        Libro libro = this.obtenerLibro(idLibro);
+        Pedido pedidoActual = this.obtenerPedido();
+        this.eliminarLibro(libro, pedidoActual);
+        return "redirect:/carrito";
+
+    }
+
+    private void eliminarLibro(Libro libro, Pedido pedidoActual) {
+        this.servicioPedido.eliminarLibro(libro, pedidoActual);
+    }
+
     private void agregarLibro(Libro libro, Pedido pedidoActual) throws StockInsuficienteException {
         this.servicioPedido.agregarLibro(libro, pedidoActual);
     }

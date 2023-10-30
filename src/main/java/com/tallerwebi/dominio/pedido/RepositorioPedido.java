@@ -16,4 +16,6 @@ public interface RepositorioPedido {
     void actualizarLibro(Libro libro, Pedido pedido);
 
     List<Libro> obtenerLibrosDelPedido(Pedido pedido);
+
+    void eliminarLibro(Libro libro, Pedido pedidoActual);
 }

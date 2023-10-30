@@ -19,5 +19,7 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
+    void actualizarLibro(Libro libro);
+
     //List<Imagen> obtenerImagenesSecundarias();
 }

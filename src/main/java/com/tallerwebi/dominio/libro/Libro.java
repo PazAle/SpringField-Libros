@@ -41,7 +41,7 @@ public class Libro {
     private List<Comentario> comentarios;
 
     public Libro(){
-        this.cantidad = 0;
+        this.cantidad = 1;
     }
     public Long getID() {
         return this.ID;

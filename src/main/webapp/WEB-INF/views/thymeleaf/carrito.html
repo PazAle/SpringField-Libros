@@ -51,7 +51,7 @@
 
 <!-- Boostrap core js -->
 <main class="container mt-5">
-    <h2>Mi carrito</h2>
+    <h2>Mi humilde carrito</h2>
 
             <!-- Tabla de carrito de compras oculta por defecto -->
         <div id="carritoTable">
@@ -68,24 +68,14 @@
                 </thead>
                 <!-- Cuerpo de la tabla -->
                 <tbody th:each="libro : ${libros}">
-                <tr>
-                    <td>
-                        <select id="c">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
+                <tr th:id="${libro.ID}">
+                    <td>1</td>
                     <!--<td>1</td>-->
                     <td th:text="${libro.nombre}"></td>
                     <td th:text="${libro.categoria.nombre}"></td>
                     <td th:text="'$ ' + ${libro.precio}"></td>
                     <td>
-                        <button class="btn btn-danger btn-sm delete-button">
-                            <i class="fas fa-times"></i>
-                        </button>
+                        <a  th:href="@{'/eliminarLibroDeCarrito/' + ${libro.ID}}" type="button" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
             <!-- Botón para proceder al pago -->
