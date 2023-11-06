@@ -12,16 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@SessionAttributes("isUsuarioLogueado")
 public class ControladorLibro {
 
     private ServicioLibro servicioLibro;
@@ -97,13 +96,15 @@ public class ControladorLibro {
     }
 
     @RequestMapping(path = "/home", method = RequestMethod.GET)
-    public ModelAndView irAHome() {
+    public ModelAndView irAHome(HttpSession session) {
         ModelMap modelo = new ModelMap();
+        Boolean isUsuarioLogueado = (Boolean) session.getAttribute("isUsuarioLogueado");
         List<Libro> librosObtenidosParaHome = this.servicioLibro.getLibros();
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
         List<Imagen> imagenesMetodosPago = this.servicioImagen.filtrarImagenesMetodosPago(imagenesTotalesObtenidas);
         List<Imagen> imagenesCarrusel = this.servicioImagen.filtrarImagenesCarrusel(imagenesTotalesObtenidas);
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+        modelo.put("isUsuarioLogueado", isUsuarioLogueado);
         modelo.put("imagenesCarrusel", imagenesCarrusel);
         modelo.put("imagenlogo", imagenLogo);
         modelo.put("imgMetodosPago", imagenesMetodosPago);
