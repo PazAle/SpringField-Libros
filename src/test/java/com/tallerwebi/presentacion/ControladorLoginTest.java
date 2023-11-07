@@ -1,6 +1,7 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.usuario.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,16 +24,23 @@ public class ControladorLoginTest {
 	private HttpSession sessionMock;
 	private ServicioLogin servicioLoginMock;
 
+	private ServicioImagen servicioImagenMock;
+
 
 	@BeforeEach
 	public void init(){
 		datosLoginMock = new DatosLogin("dami@unlam.com", "123");
 		usuarioMock = mock(Usuario.class);
 		when(usuarioMock.getEmail()).thenReturn("dami@unlam.com");
+		when(usuarioMock.getPassword()).thenReturn("passwordValida");  // Establecer una contraseña válida
+		when(usuarioMock.getRepetir_password()).thenReturn("passwordValida");  // Establecer la misma contraseña válida
 		requestMock = mock(HttpServletRequest.class);
 		sessionMock = mock(HttpSession.class);
+		requestMock = mock(HttpServletRequest.class);
+		when(requestMock.getSession()).thenReturn(sessionMock);
 		servicioLoginMock = mock(ServicioLogin.class);
-		controladorLogin = new ControladorLogin(servicioLoginMock);
+		servicioImagenMock = mock(ServicioImagen.class);
+		controladorLogin = new ControladorLogin(servicioLoginMock, servicioImagenMock);
 	}
 
 	@Test
@@ -69,11 +77,16 @@ public class ControladorLoginTest {
 	@Test
 	public void registrameSiUsuarioNoExisteDeberiaCrearUsuarioYVolverAlLogin() throws UsuarioExistente {
 
-		// ejecucion
+		// Preparación
+		when(usuarioMock.getPassword()).thenReturn("password"); // Agrega una contraseña para la verificación
+		when(usuarioMock.getRepetir_password()).thenReturn("password"); // Agrega la misma contraseña repetida
+		when(servicioLoginMock.consultarUsuario(anyString(), anyString())).thenReturn(null);
+
+		// Ejecución
 		ModelAndView modelAndView = controladorLogin.registrarme(usuarioMock);
 
-		// validacion
-		assertThat(modelAndView.getViewName(), equalToIgnoringCase("redirect:/login"));
+		// Validación
+		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
 		verify(servicioLoginMock, times(1)).registrar(usuarioMock);
 	}
 
