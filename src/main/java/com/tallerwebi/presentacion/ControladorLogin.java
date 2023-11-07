@@ -29,7 +29,7 @@ public class ControladorLogin {
         this.servicioImagen = servicioImagen;
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login")
     public ModelAndView irALogin() {
         ModelMap modelo = new ModelMap();
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
@@ -62,6 +62,7 @@ public class ControladorLogin {
         ModelMap model = new ModelMap();
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
+
         // Realiza la validación de contraseña y repetir contraseña
         if (!usuario.getPassword().equals(usuario.getRepetir_password())) {
             model.put("error", "Las contraseñas no coinciden");

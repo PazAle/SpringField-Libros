@@ -22,8 +22,8 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public Usuario consultarUsuario (String email, String password) {
-        String contraseniaaHasheada = hashPassword(password);
-        return servicioLoginDao.buscarUsuario(email, contraseniaaHasheada);
+        String contraseniaHasheada = hashPassword(password);
+        return servicioLoginDao.buscarUsuario(email, contraseniaHasheada);
     }
 
     @Override
@@ -48,8 +48,9 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public void actualizarUsuario(Usuario usuario, String nuevaPassword) {
-        usuario.setPassword(nuevaPassword);
-        usuario.setRepetir_password(nuevaPassword);
+        String contraseñaHasheada = hashPassword(usuario.getPassword());
+        usuario.setPassword(contraseñaHasheada);
+        usuario.setRepetir_password(contraseñaHasheada);
         this.servicioLoginDao.modificar(usuario);
     }
 
