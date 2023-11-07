@@ -11,6 +11,7 @@ import com.tallerwebi.dominio.pedido.ServicioPedido;
 import com.tallerwebi.dominio.usuario.ServicioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -56,22 +57,22 @@ public class ControladorPedido {
         }
         return new ModelAndView("carrito", modelo);
     }
-
+    //ResponseEntity<String>
     @RequestMapping(path = "/agregarLibroACarrito/{idLibro}", method = RequestMethod.GET)
-    public String agregarLibroACarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
+    public String  agregarLibroACarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
         Libro libro = this.obtenerLibro(idLibro);
         if(validarUsuarioLogueado()){
             Pedido pedidoActual = this.obtenerPedido();
             this.agregarLibro(libro, pedidoActual);
+            //return ResponseEntity.ok("Libro agregado al carrito con éxito");
             return "redirect:/home";
         }
         return "redirect:/login";
-
+        //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no autenticado");
     }
 
     @RequestMapping(path = "/eliminarLibroDeCarrito/{idLibro}", method = RequestMethod.GET)
     public String eliminarLibroDelCarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
-        System.out.println("acá");
         Libro libro = this.obtenerLibro(idLibro);
         Pedido pedidoActual = this.obtenerPedido();
         this.eliminarLibro(libro, pedidoActual);

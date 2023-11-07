@@ -39,13 +39,6 @@ public class RepositorioPedidoImpl implements RepositorioPedido {
     }
 
     @Override
-    public void actualizarLibro(Libro libro, Pedido pedido) {
-        pedido.getLibros().remove(libro.getID());
-        pedido.getLibros().add(libro);
-        this.guardarPedido(pedido);
-    }
-
-    @Override
     public List<Libro> obtenerLibrosDelPedido(Pedido pedido) {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("SELECT p.libros FROM Pedido p WHERE p.id = :pedidoId");

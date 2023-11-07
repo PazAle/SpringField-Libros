@@ -13,7 +13,6 @@ public interface RepositorioPedido {
 
     void agregarLibro(Libro libro, Pedido pedido);
 
-    void actualizarLibro(Libro libro, Pedido pedido);
 
     List<Libro> obtenerLibrosDelPedido(Pedido pedido);
 

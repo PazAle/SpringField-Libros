@@ -69,7 +69,7 @@
                 <!-- Cuerpo de la tabla -->
                 <tbody th:each="libro : ${libros}">
                 <tr th:id="${libro.ID}">
-                    <td>1</td>
+                    <td th:text="${libro.cantidad}"></td>
                     <!--<td>1</td>-->
                     <td th:text="${libro.nombre}"></td>
                     <td th:text="${libro.categoria.nombre}"></td>

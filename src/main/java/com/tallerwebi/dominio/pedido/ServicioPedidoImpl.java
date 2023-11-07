@@ -30,16 +30,17 @@ public class ServicioPedidoImpl implements ServicioPedido{
     @Override
     public void agregarLibro(Libro libro, Pedido pedido) throws StockInsuficienteException {
         Integer stock = libro.getStock();
-        System.out.println(libro.getCantidad());
         Boolean agregado = this.yaEstaEnElPedido(pedido, libro);
         Integer cantidad= libro.getCantidad();
         if (stock > 0) {
             if (agregado) {
                 cantidad = cantidad + 1;
                 libro.setCantidad(libro.getCantidad() + 1);
-                System.out.println("Cantidad del libro " + libro.getNombre() + " " + libro.getCantidad());
                 this.repositorioLibro.actualizarLibro(libro);
-                this.repositorioPedido.actualizarLibro(libro, pedido);
+                System.out.println("aca");
+                this.actualizarLibro(libro, pedido);
+                System.out.println("aca2");
+                System.out.println("el libro" + libro.getNombre() + "tiene " + libro.getCantidad());
             } else {
                 cantidad = 1;
                 libro.setCantidad(cantidad);
@@ -50,6 +51,12 @@ public class ServicioPedidoImpl implements ServicioPedido{
         }
     }
 
+    @Override
+    public void actualizarLibro(Libro libro, Pedido pedido) {
+        pedido.getLibros().remove(libro);
+        pedido.getLibros().add(libro);
+        this.repositorioPedido.guardarPedido(pedido);
+    }
     private Boolean yaEstaEnElPedido(Pedido pedido, Libro libro) {
         List<Libro> libros = pedido.getLibros();
         Boolean agregado = false;
