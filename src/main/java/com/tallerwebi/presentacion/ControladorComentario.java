@@ -24,6 +24,12 @@ public class ControladorComentario {
     @Autowired
     private ServicioLibro servicioLibro;
 
+    @Autowired
+    public ControladorComentario(ServicioComentario servicioComentario, ServicioLibro servicioLibro) {
+        this.servicioComentario = servicioComentario;
+        this.servicioLibro = servicioLibro;
+    }
+
     @RequestMapping(path = "/agregar", method = RequestMethod.POST)
     public ResponseEntity<String> agregarComentario(@RequestParam Long libroId, @RequestParam String texto) {
         Libro libro = servicioLibro.obtenerLibro(libroId);
@@ -41,6 +47,7 @@ public class ControladorComentario {
                 return new ResponseEntity<>("No se pudo agregar el comentario", HttpStatus.BAD_REQUEST);
             }
         } else {
+            System.out.println("No se encontró el libro");
             return new ResponseEntity<>("Libro no encontrado", HttpStatus.NOT_FOUND);
         }
     }
