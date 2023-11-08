@@ -48,7 +48,7 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public void actualizarUsuario(Usuario usuario, String nuevaPassword) {
-        String contraseñaHasheada = hashPassword(usuario.getPassword());
+        String contraseñaHasheada = hashPassword(nuevaPassword);
         usuario.setPassword(contraseñaHasheada);
         usuario.setRepetir_password(contraseñaHasheada);
         this.servicioLoginDao.modificar(usuario);
