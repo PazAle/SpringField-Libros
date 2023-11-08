@@ -11,11 +11,8 @@ import com.tallerwebi.dominio.pedido.ServicioPedido;
 import com.tallerwebi.dominio.usuario.ServicioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,6 +51,8 @@ public class ControladorPedido {
             Pedido pedido = this.obtenerPedido();
             List<Libro> libros =this.servicioPedido.obtenerLibrosDelPedido(pedido);
             modelo.put("libros", libros);
+            Double total = this.servicioPedido.calcularTotal(libros);
+            modelo.put("precioTotal", total);
         }
         return new ModelAndView("carrito", modelo);
     }
@@ -61,6 +60,7 @@ public class ControladorPedido {
     @RequestMapping(path = "/agregarLibroACarrito/{idLibro}", method = RequestMethod.GET)
     public String  agregarLibroACarrito(@PathVariable Long idLibro) throws StockInsuficienteException {
         Libro libro = this.obtenerLibro(idLibro);
+        ModelMap model = new ModelMap();
         if(validarUsuarioLogueado()){
             Pedido pedidoActual = this.obtenerPedido();
             this.agregarLibro(libro, pedidoActual);
@@ -86,6 +86,7 @@ public class ControladorPedido {
 
     private void agregarLibro(Libro libro, Pedido pedidoActual) throws StockInsuficienteException {
         this.servicioPedido.agregarLibro(libro, pedidoActual);
+
     }
 
     private Libro obtenerLibro(Long idLibro) {

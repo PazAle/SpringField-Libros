@@ -51,35 +51,38 @@
 
 <!-- Boostrap core js -->
 <main class="container mt-5">
-    <h2>Mi humilde carrito</h2>
+    <h2>Mi carrito</h2>
 
             <!-- Tabla de carrito de compras oculta por defecto -->
         <div id="carritoTable">
             <table class="table table-striped">
                 <!-- Encabezados de la tabla -->
                 <thead>
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Título</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Título</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <!-- Cuerpo de la tabla -->
                 <tbody th:each="libro : ${libros}">
-                <tr th:id="${libro.ID}">
-                    <td th:text="${libro.cantidad}"></td>
-                    <!--<td>1</td>-->
-                    <td th:text="${libro.nombre}"></td>
-                    <td th:text="${libro.categoria.nombre}"></td>
-                    <td th:text="'$ ' + ${libro.precio}"></td>
-                    <td>
-                        <a  th:href="@{'/eliminarLibroDeCarrito/' + ${libro.ID}}" type="button" class="btn btn-danger">Eliminar</a>
-                    </td>
-                </tr>
+                    <tr th:id="${libro.ID}">
+                        <td>1</td>
+                        <!--<td>1</td>-->
+                        <td th:text="${libro.nombre}"></td>
+                        <td th:text="${libro.categoria.nombre}"></td>
+                        <td th:text="'$ ' + ${libro.precio}"></td>
+                        <td>
+                            <a  th:href="@{'/eliminarLibroDeCarrito/' + ${libro.ID}}" type="button" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <!-- Botón para proceder al pago -->
         </div>
+    <p th:if="${precioTotal > 0.0}" class="d-grid gap-2 d-md-flex justify-content-md-end">Total: <span th:text="'$ ' + ${precioTotal}"></span></p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-outline-dark">Pagar</button>
     </div>

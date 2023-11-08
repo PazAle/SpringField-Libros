@@ -37,10 +37,7 @@ public class ServicioPedidoImpl implements ServicioPedido{
                 cantidad = cantidad + 1;
                 libro.setCantidad(libro.getCantidad() + 1);
                 this.repositorioLibro.actualizarLibro(libro);
-                System.out.println("aca");
                 this.actualizarLibro(libro, pedido);
-                System.out.println("aca2");
-                System.out.println("el libro" + libro.getNombre() + "tiene " + libro.getCantidad());
             } else {
                 cantidad = 1;
                 libro.setCantidad(cantidad);
@@ -57,6 +54,16 @@ public class ServicioPedidoImpl implements ServicioPedido{
         pedido.getLibros().add(libro);
         this.repositorioPedido.guardarPedido(pedido);
     }
+
+    @Override
+    public Double calcularTotal(List<Libro> libros) {
+        Double total = 0.0;
+        for(Libro libro : libros){
+            total+= Math.round(libro.getPrecio());
+        }
+        return total;
+    }
+
     private Boolean yaEstaEnElPedido(Pedido pedido, Libro libro) {
         List<Libro> libros = pedido.getLibros();
         Boolean agregado = false;

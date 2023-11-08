@@ -92,6 +92,7 @@
   <div class="row">
     <div class="container mt-4">
       <div class="row">
+
         <!-- Itera sobre la lista de libros -->
         <div th:each="libro : ${libros}" class="col-md-3 mb-4">
           <div class="card h-100 agregarLibroBtn" th:id="${libro.ID}" th:data-idLibro="${libro.ID}">
@@ -109,6 +110,8 @@
         </div>
       </div>
     </div>
+
+
     <div class="container mt-5">
           <h2 class="text-center">Medios de Pago Aceptados</h2>
           <hr class="mx-auto" style="width: 50%; border-top: 2px solid #333;">
