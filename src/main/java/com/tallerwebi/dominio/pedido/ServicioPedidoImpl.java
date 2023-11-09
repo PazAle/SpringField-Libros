@@ -36,11 +36,11 @@ public class ServicioPedidoImpl implements ServicioPedido{
             if (agregado) {
                 cantidad = cantidad + 1;
                 libro.setCantidad(libro.getCantidad() + 1);
-                this.repositorioLibro.actualizarLibro(libro);
-                this.actualizarLibro(libro, pedido);
+                this.actualizarLibro(libro);
             } else {
                 cantidad = 1;
                 libro.setCantidad(cantidad);
+                this.actualizarLibro(libro);
                 this.repositorioPedido.agregarLibro(libro, pedido);
             }
         } else {
@@ -49,17 +49,15 @@ public class ServicioPedidoImpl implements ServicioPedido{
     }
 
     @Override
-    public void actualizarLibro(Libro libro, Pedido pedido) {
-        pedido.getLibros().remove(libro);
-        pedido.getLibros().add(libro);
-        this.repositorioPedido.guardarPedido(pedido);
+    public void actualizarLibro(Libro libro) {
+        this.repositorioLibro.actualizarLibro(libro);
     }
 
     @Override
     public Double calcularTotal(List<Libro> libros) {
         Double total = 0.0;
         for(Libro libro : libros){
-            total+= Math.round(libro.getPrecio());
+            total+= Math.round(libro.getPrecio()*libro.getCantidad());
         }
         return total;
     }
@@ -87,6 +85,8 @@ public class ServicioPedidoImpl implements ServicioPedido{
 
     @Override
     public void eliminarLibro(Libro libro, Pedido pedidoActual) {
+        libro.setCantidad(0);
+        this.actualizarLibro(libro);
         this.repositorioPedido.eliminarLibro(libro, pedidoActual);
     }
 }

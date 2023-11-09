@@ -102,7 +102,7 @@ public class ControladorPedido {
         return (Long) request.getSession().getAttribute("IDUSUARIO");
     }
     public Boolean validarUsuarioLogueado(){
-        Long idUsuario = (Long) request.getSession().getAttribute("IDUSUARIO");
+        Long idUsuario = this.obtenerIdDelUsuario();
         if(idUsuario != null){
             return true;
         }
