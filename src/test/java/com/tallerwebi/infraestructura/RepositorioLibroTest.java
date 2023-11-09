@@ -1,7 +1,9 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
+import com.tallerwebi.dominio.usuario.Usuario;
 import com.tallerwebi.integracion.config.HibernateTestConfig;
 import com.tallerwebi.integracion.config.SpringWebTestConfig;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,10 +36,15 @@ public class RepositorioLibroTest {
     private Libro libro;
     private String nombre = "Recuerdos que mienten un poco";
 
+    private static final Long IDLIBRO = 1L;
+
+    private Integer VALORCALIFICACION = 4;
+
     @BeforeEach
     public void init(){
         libro = new Libro();
         libro.setNombre(nombre);
+        libro.setID(IDLIBRO);
         repositorioLibro.guardar(libro);
     }
 
@@ -76,5 +83,11 @@ public class RepositorioLibroTest {
     public void queSePuedaBorrarUnLibro(){
         assertTrue(repositorioLibro.borrarLibro(libro.getID()));
     }
+
+
+
+
+
+
 
 }

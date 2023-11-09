@@ -53,7 +53,7 @@ public class ControladorLibro {
 
         int pageSize = 5; // Tamaño de página por defecto (5 comentarios por página)
         int totalComentarios = comentarios.size();
-        int totalPages = (int) Math.ceil((double) totalComentarios / pageSize);
+        int totalPages = (int) Math.ceil((double) totalComentarios / pageSize); //cuernta del paginado cada 5 coment te cambia de pag
 
         int startIndex = (page - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalComentarios);

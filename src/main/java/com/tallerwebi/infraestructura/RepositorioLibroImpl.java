@@ -102,7 +102,7 @@ public class RepositorioLibroImpl implements RepositorioLibro {
         calificacion.setLibro(libroACalificar);
         calificacion.setValoracion(valor);
 
-        sessionFactory.getCurrentSession().save(calificacion);
+        session.save(calificacion);
 
     }
 
