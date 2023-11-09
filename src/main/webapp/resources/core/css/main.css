@@ -3,7 +3,7 @@
 }
 
 .backgroundNav{
-    background-color: rgb(215 139 73);
+    background-color: rgb(221, 117, 25);
 }
 
 .btn{
@@ -28,16 +28,16 @@
 
 .btn-custom-primary:hover{
 
-    background-color: #767d85f5;
+    background-color: rgb(50, 150, 200);
 
 }
 
 .btn-custom-secondary{
-    border-color: #656d75f5;
+    border-color: rgb(50, 150, 200);
 }
 
 .btn-custom-secondary:hover{
-    background-color: #656d75f5;
+    background-color: rgb(50, 150, 200);
     color: #ffffff;
 }
 
@@ -48,13 +48,23 @@
 }
 
 .btn-add-to-cart {
-    background-color: rgb(215 139 73);
+    background-color: rgb(221, 117, 25);
     color: white;
     transition: transform 0.2s;
 }
 
 .btn-add-to-cart:hover {
-    background-color: rgb(199, 102, 17);
+    background-color: rgb(50, 150, 200);
+    transform: scale(1.05);
+}
+
+.custom-enviarComentario{
+    transition: transform 0.2s;
+}
+
+.custom-enviarComentario:hover{
+    background-color: rgb(50, 150, 200);
+    color: #ffffff;
     transform: scale(1.05);
 }
 
@@ -82,4 +92,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.sessionButtomStyle{
+    border: 1.5px solid rgb(50, 150, 200);;
 }

@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.comentario.ServicioComentario;
 import com.tallerwebi.dominio.imagen.ServicioImagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
@@ -23,6 +24,7 @@ public class ControladorLibroTest {
     private Libro libroMock;
     private ServicioLibro servicioLibroMock;
     private ServicioImagen servicioImagenMock;
+    private ServicioComentario servicioComentarioMock;
     private ControladorLibro controladorLibro;
 
 
@@ -32,7 +34,8 @@ public class ControladorLibroTest {
     public void init(){
         servicioLibroMock = mock(ServicioLibro.class);
         servicioImagenMock = mock(ServicioImagen.class);
-        this.controladorLibro = new ControladorLibro(servicioLibroMock, servicioImagenMock);
+        servicioComentarioMock = mock(ServicioComentario.class);
+        this.controladorLibro = new ControladorLibro(servicioLibroMock, servicioImagenMock, servicioComentarioMock);
         this.librosResultadoMock = new ArrayList<>();
     }
 
@@ -60,7 +63,7 @@ public class ControladorLibroTest {
         DatosLibro datosLibro = dadoQueSeCreaDatosDeUnLibro();
         Libro libroCreado = dadoQueSeCreaUnLibro();
         dadoQueAgregoUnLibroALibrosResultadosMock(libroCreado);
-        mockeoLaObtencionDeLibrosPorNombre(servicioLibroMock);
+        mockeoLaBusqueda(servicioLibroMock);
 
         //ejecución
         ModelAndView modelAndView = dadoQueObtengoLaVistaResultadoBusqueda(datosLibro);
@@ -98,6 +101,10 @@ public class ControladorLibroTest {
 
     private void mockeoLaObtencionDeLibrosPorNombre(ServicioLibro servicioLibroMock){
         when(servicioLibroMock.obtenerLibroPorNombre(anyString())).thenReturn(librosResultadoMock);
+    }
+
+    private void mockeoLaBusqueda(ServicioLibro servicioLibroMock){
+        when(servicioLibroMock.busqueda(anyString())).thenReturn(librosResultadoMock);
     }
 
     private ModelAndView dadoQueObtengoLaVistaResultadoBusqueda(DatosLibro datosLibro){

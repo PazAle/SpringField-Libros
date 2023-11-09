@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.MessageDigest;
 
 @Service("servicioLogin")
 @Transactional
@@ -21,21 +22,59 @@ public class ServicioLoginImpl implements ServicioLogin {
 
     @Override
     public Usuario consultarUsuario (String email, String password) {
-        return servicioLoginDao.buscarUsuario(email, password);
+        String contraseniaHasheada = hashPassword(password);
+        return servicioLoginDao.buscarUsuario(email, contraseniaHasheada);
     }
 
     @Override
     public void registrar(Usuario usuario) throws UsuarioExistente {
-        Usuario usuarioEncontrado = servicioLoginDao.buscarUsuario(usuario.getEmail(), usuario.getPassword());
+        Usuario usuarioEncontrado = servicioLoginDao.buscar(usuario.getEmail());
         if(usuarioEncontrado != null){
             throw new UsuarioExistente();
         }
+        // Hashear la contraseña antes de guardarla
+        String contraseñaHasheada = hashPassword(usuario.getPassword());
+        usuario.setPassword(contraseñaHasheada);
+        String repetirContraseñaHasheada = hashPassword(usuario.getRepetir_password());
+        usuario.setRepetir_password(repetirContraseñaHasheada);
+        usuario.setRol("usuario");
         servicioLoginDao.guardar(usuario);
     }
 
     @Override
+
     public Usuario buscarUsuarioPorId(Long id) {
         return servicioLoginDao.buscarUsuarioPorId(id);
+
+    public Usuario buscarUsuarioPorEmail(String email) {
+        return servicioLoginDao.buscar(email);
+    }
+
+    @Override
+    public void actualizarUsuario(Usuario usuario, String nuevaPassword) {
+        String contraseñaHasheada = hashPassword(nuevaPassword);
+        usuario.setPassword(contraseñaHasheada);
+        usuario.setRepetir_password(contraseñaHasheada);
+        this.servicioLoginDao.modificar(usuario);
+    }
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            // Convertir el hash en representación hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+
+            return hexString.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 }

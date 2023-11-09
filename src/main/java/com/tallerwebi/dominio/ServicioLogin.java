@@ -9,4 +9,8 @@ public interface ServicioLogin {
     void registrar(Usuario usuario) throws UsuarioExistente;
     Usuario buscarUsuarioPorId(Long id);
 
+    Usuario buscarUsuarioPorEmail(String email);
+
+    void actualizarUsuario(Usuario usuario, String nuevaPassword);
+
 }

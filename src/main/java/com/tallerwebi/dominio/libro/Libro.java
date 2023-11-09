@@ -30,6 +30,8 @@ public class Libro {
     private Editorial editorial;
     private String idioma;
     private Integer cant_paginas;
+    //@Column(columnDefinition = "MEDIUMTEXT")
+
     @Lob
     private String imagen;
     private String resenia;
@@ -37,6 +39,12 @@ public class Libro {
     private Integer cantidad;
     @ManyToMany(mappedBy = "libros")
     private List<Pedido> pedidos;
+
+   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@JoinTable(name = "comentario")
+   //private List<Comentario> comentarios;
+    // Agrega una lista de comentarios relacionados con este libro
+
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios;
 

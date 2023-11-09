@@ -3,6 +3,7 @@ package com.tallerwebi.infraestructura;
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -22,7 +23,11 @@ public class RepositorioLibroImpl implements RepositorioLibro {
 
     @Override
     public List<Libro> getLibros() {
-        return this.sessionFactory.getCurrentSession().createCriteria(Libro.class).list();
+        //return this.sessionFactory.getCurrentSession().createCriteria(Libro.class).list();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Libro.class);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<Libro> libros = criteria.list();
+        return libros;
         /*List<Libro> libros = new ArrayList<>();
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("FROM Libro");
@@ -75,5 +80,10 @@ public class RepositorioLibroImpl implements RepositorioLibro {
     @Override
     public void modificar(Libro libro) {
         sessionFactory.getCurrentSession().update(libro);
+    }
+
+    public List<Libro> obtenerLibrosPorTermino(String termino) {
+        return sessionFactory.getCurrentSession().createCriteria(Libro.class)
+                .add(Restrictions.ilike("nombre", "%" + termino + "%")).list();
     }
 }

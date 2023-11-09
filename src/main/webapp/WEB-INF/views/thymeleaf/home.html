@@ -37,17 +37,32 @@
         <a th:href="carrito" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-shopping-cart"></i>
         </a>
+          <!-- Muestra el botón de notificaciones solo si el usuario está logueado -->
+          <a th:if="${isUsuarioLogueado}" th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+            <i class="fas fa-bell"></i>
+          </a>
+          <!-- Muestra el botón "Iniciar Sesión" solo si el usuario no está logueado -->
+          <a th:unless="${isUsuarioLogueado}" th:href="login" class="btn btn-primary btn-custom-primary btn-lg mx-2 sessionButtomStyle">
+            Iniciar Sesión
+          </a>
+          <!-- Muestra el botón de usuario solo si el usuario está logueado -->
+          <a th:if="${isUsuarioLogueado}" th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+            <i class="fas fa-user"></i>
+          </a>
+        <a th:if="${isUsuarioLogueado}" th:href="@{/cerrar-sesion}" class="btn btn-primary btn-custom-primary btn-lg mx-2 sessionButtomStyle">
+          Cerrar Sesion
+        </a>
         <!--<a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
-          <i class="fas fa-bell"></i>-->
-        </a>
-        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-bell"></i>
+        </a>-->
+        <!--<a th:href="login" class="btn btn-primary btn-custom-primary btn-lg mx-2">
           <i class="fas fa-user"></i>
-        </a>
+        </a>-->
       </div>
-      <div class="d-flex align-items-start">
+      <!--<div class="d-flex align-items-start">
         <a th:href="home" class="btn btn-primary btn-custom-primary mt-1">
           <i class="fas fa-filter"></i>
-        </a>
+        </a>-->
         <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}" accept-charset="UTF-8">
           <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar" th:field="*{nombre}">
           <button class="btn btn-custom-secondary" type="submit" th:method="post">Buscar</button>

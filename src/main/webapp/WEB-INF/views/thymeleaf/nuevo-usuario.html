@@ -4,43 +4,92 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Taller Web I</title>
+  <title>Registrarse - LibrArte</title>
 
   <!-- Boostrap core css -->
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
 
   <!-- custom style -->
-  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/css/loginAndRegister.css}"/>
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">UNLAM</a>
-</nav>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
 
-<main role="main" class="container">
+                <div class="text-center">
+                  <img th:src="${imagenlogo.getImagenBase64()}"
+                       style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Únete a LibrArte</h4>
+                </div>
 
-  <div class = "container">
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-      <form action="#" th:action="@{/registrarme}" method="POST" th:object="${usuario}">
-        <h3 class="form-signin-heading">Nuevo Usuario</h3>
-        <hr class="colorgraph"><br>
+                <form th:action="@{/registrarme}" method="POST" th:object="${usuario}">
+                  <p>Complete su registro</p>
 
-        <input th:field="*{email}" id="email" class="form-control" required/>
-        <input th:field="*{password}" type="password" id="password" class="form-control" required/>
+                  <div class="form-outline mb-4">
+                    <div class="row">
+                      <div class="col">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input th:field="*{nombre}" type="text" id="nombre" class="form-control" />
+                      </div>
+                      <div class="col">
+                        <label class="form-label" for="apellido">Apellido</label>
+                        <input th:field="*{apellido}" type="text" id="apellido" class="form-control" />
+                      </div>
+                    </div>
+                  </div>
 
-        <button id="btn-registrarme" class="btn btn-lg btn-primary btn-block" Type="Submit">Registrarme</button>
-        <p th:if="${error != null}" class="alert alert-danger" th:text="'Error ' + ${error}">
-        </p>
-      </form>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="email">Correo</label>
+                    <input th:field="*{email}" type="email" id="email" class="form-control" />
+                  </div>
 
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="password">Contraseña</label>
+                    <input th:field="*{password}" type="password" id="password" class="form-control" />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="repetirPassword">Repetir Contraseña</label>
+                    <input th:field="*{repetir_password}" type="password" id="repetirPassword" class="form-control" />
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block btn-lg customColor buttonHover mb-3" type="Submit">Registrarme</button>
+                    <p th:if="${error != null}" class="alert alert-danger" th:text="'Error: ' + ${error}"></p>
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Ya tienes una cuenta?</p>
+                    <a class="btn btn-outline-danger buttonHover secondaryButtom" id="ir-a-registrarme" href="login">Iniciar Sesión</a>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center customColor">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h3 class="mb-4">Al registrarte en nuestra web podrás:</h3>
+                <p>Explorar un catálogo diverso de libros
+                <p>Guardar tus libros favoritas</p>
+                <p>Ser parte de una comunidad de amantes a la lectura</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-</main>
-<!-- /.container -->
+</section>
 
 <!-- Boostrap core js -->
 <script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>

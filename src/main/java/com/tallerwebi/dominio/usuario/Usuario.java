@@ -15,6 +15,7 @@ public class Usuario {
     private String apellido;
     private String email;
     private String password;
+    private String repetir_password;
     private String rol;
     private Boolean activo = false;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -30,6 +31,14 @@ public class Usuario {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRepetir_password() {
+        return repetir_password;
+    }
+
+    public void setRepetir_password(String repetir_password) {
+        this.repetir_password = repetir_password;
     }
 
     public String getNombre() {
