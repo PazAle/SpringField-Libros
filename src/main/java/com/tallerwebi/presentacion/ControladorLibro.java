@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.comentario.Comentario;
 import com.tallerwebi.dominio.comentario.ServicioComentario;
 import com.tallerwebi.dominio.imagen.Imagen;
@@ -57,6 +58,8 @@ public class ControladorLibro {
         int startIndex = (page - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalComentarios);
         List<Comentario> comentariosPaginados = comentarios.subList(startIndex, endIndex);
+        Integer calificacioObtenida = servicioLibro.obtenerPromedioCalificacionesPorLibro(libroId);
+        //////////////////////////////////////////////
 
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
@@ -67,6 +70,8 @@ public class ControladorLibro {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
         model.addAttribute("datosLibro", new DatosLibro());
+        model.put("calificacion", new Calificacion());
+        model.put("calificacionObtenida", calificacioObtenida);
 
         return new ModelAndView("detalle-libro", model);
     }
@@ -130,6 +135,20 @@ public class ControladorLibro {
 
         return new ModelAndView("resultado_busqueda", model);
 
+    }
+
+    @RequestMapping(path = "/calificar-libro", method = RequestMethod.POST)
+    public ModelAndView calificarLibro(@RequestParam("id") Long libroId, @RequestParam Integer valoracion){
+
+        ModelMap modelo = new ModelMap();
+
+        Long idLibro = libroId;
+        Long idUsuario = 1L;
+        Integer valor = valoracion;
+
+        servicioLibro.calificarLibro(idLibro,idUsuario,valor);
+
+        return new ModelAndView("redirect://detalle-libro?id=" + idLibro, modelo);
     }
 
 

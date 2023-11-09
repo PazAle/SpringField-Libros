@@ -97,3 +97,34 @@
 .sessionButtomStyle{
     border: 1.5px solid rgb(50, 150, 200);;
 }
+
+/* detalle de libro- estilos calificacion*/
+
+
+.star {
+    color: #ddd; /* Color de estrella no resaltada */
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-hover {
+    color: #ffbb00; /* Color de estrella resaltada al pasar el ratón */
+}
+
+.star-selected {
+    color: #f39c12; /* Color de estrella seleccionada al hacer clic */
+}
+
+.div-classification {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.rating{
+    margin-left: 10px;
+}
+
+#btn-calif{
+    margin-left: 10px;
+}

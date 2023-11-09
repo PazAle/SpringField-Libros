@@ -9,6 +9,12 @@
     <!-- Boostrap core css -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
 
+  <!-- jquery js calificacion -->
+  <script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+
+  <!-- js calificacion -->
+  <script type="text/javascript" th:src="@{/js/calificacion.js}"></script>
+
     <!-- custom style -->
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
@@ -73,6 +79,23 @@
             <h4>Reseña</h4>
             <p><span th:text="${libro.resenia}"></span></p>
             <a href="#" class="btn btn-primary btn-add-to-cart">Añadir al carrito</a>
+           
+            <form th:action="@{'/calificar-libro?id=' + ${libro.ID}}" th:object="${calificacion}" method="post">
+                <div class="div-classification">
+                    <h5 th:text="${calificacionObtenida}"></h5>
+                    <input type="number" class="d-none" id="valoracion" name="valoracion" th:field="*{valoracion}" value="0">
+                    <div class="rating ">
+                        <i class="star fa fa-star" data-index="1"></i>
+                        <i class="star fa fa-star" data-index="2"></i>
+                        <i class="star fa fa-star" data-index="3"></i>
+                        <i class="star fa fa-star" data-index="4"></i>
+                        <i class="star fa fa-star" data-index="5"></i>
+                    </div>
+                    <button class="btn btn-primary btn-add-to-cart btn-sm " id="btn-calif" type="submit">Calificar</button>
+                </div>
+            </form>
+        
+        
         </div>
     </div>
     <div class="row mt-4">

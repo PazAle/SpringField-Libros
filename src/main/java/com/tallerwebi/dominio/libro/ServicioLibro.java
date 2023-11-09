@@ -1,4 +1,5 @@
 package com.tallerwebi.dominio.libro;
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.excepcion.LibroInexistente;
 import com.tallerwebi.dominio.imagen.Imagen;
 
@@ -13,6 +14,15 @@ public interface ServicioLibro {
     List<Libro> obtenerLibroPorNombre(String nombre);
 
     List<Libro> busqueda(String termino);
+
+    void calificarLibro(Long idLibro, Long idUsuario, Integer valor);
+
+    Calificacion buscarCalificacion(Long libroId, Long idUsuario);
+
+    List<Calificacion> buscarCalificaciones(Long libroId);
+
+    Integer obtenerPromedioCalificacionesPorLibro(Long libroId);
+
 
    //List<Imagen> getImagenesSecundarias();
 

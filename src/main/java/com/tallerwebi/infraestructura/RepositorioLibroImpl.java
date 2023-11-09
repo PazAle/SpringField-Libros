@@ -1,8 +1,11 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
+import com.tallerwebi.dominio.usuario.Usuario;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -81,4 +84,53 @@ public class RepositorioLibroImpl implements RepositorioLibro {
         return sessionFactory.getCurrentSession().createCriteria(Libro.class)
                 .add(Restrictions.ilike("nombre", "%" + termino + "%")).list();
     }
+
+
+    @Override
+    public void calificarLibro(Long idLibro, Long idUsuario, Integer valor) {
+
+        final Session session= this.sessionFactory.getCurrentSession();
+
+        Calificacion calificacion = new Calificacion();
+
+        Usuario usuarioCalifica = new Usuario();
+        usuarioCalifica.setId(1L);
+
+        Libro libroACalificar = obtenerLibroPorId(idLibro);
+
+        calificacion.setUsuario(usuarioCalifica);
+        calificacion.setLibro(libroACalificar);
+        calificacion.setValoracion(valor);
+
+        sessionFactory.getCurrentSession().save(calificacion);
+
+    }
+
+    @Override
+    public Calificacion buscarCalificacion(Long idLibro, Long idUsuario) {
+
+        Usuario usuarioCalificador = new Usuario();
+        usuarioCalificador.setId(idUsuario);
+
+        Libro libroACalificar = obtenerLibroPorId(idLibro);
+
+        return (Calificacion) this.sessionFactory.getCurrentSession().createCriteria(Calificacion.class)
+                .add(Restrictions.eq("usuario", usuarioCalificador))
+                .add(Restrictions.eq("libro", libroACalificar)).uniqueResult();
+    }
+
+    @Override
+    public void actualizarCalificacion(Calificacion calificacion) {
+        this.sessionFactory.getCurrentSession().update(calificacion);
+    }
+
+    @Override
+    public List<Calificacion> obtenerCalificacionesPorLibro(Long libroId) {
+
+        Libro libroObtenido = obtenerLibroPorId(libroId);
+        return this.sessionFactory.getCurrentSession().createCriteria(Calificacion.class)
+                .add(Restrictions.eq("libro",libroObtenido))
+                .list();
+    }
+
 }
