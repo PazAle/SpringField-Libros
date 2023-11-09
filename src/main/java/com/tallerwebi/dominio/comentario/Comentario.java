@@ -18,6 +18,7 @@ public class Comentario {
     @ManyToOne // Relación ManyToOne con Libro
     @JoinColumn(name = "libro_id")// Nombre de la columna en la tabla de comentarios que hace referencia al libro
     private Libro libro; // Agregar esta propiedad
+
     private Date fecha;
 
     public Libro getLibro() {
@@ -43,6 +44,7 @@ public class Comentario {
     /*public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }*/
+
 
     public Date getFecha() {
         return fecha;

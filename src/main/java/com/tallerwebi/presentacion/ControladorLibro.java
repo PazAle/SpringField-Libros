@@ -70,23 +70,6 @@ public class ControladorLibro {
 
         return new ModelAndView("detalle-libro", model);
     }
-
-
-    /*@RequestMapping(path = "/alta-libro", method = RequestMethod.GET)
-    public ModelAndView altaLibro(@ModelAttribute("libro") Libro libro) throws LibroExistente {
-        ModelMap model = new ModelMap();
-        try{
-            servicioLibro.registrarLibro(libro);
-        } catch (LibroExistente e){
-            model.put("error", "El libro ya existe");
-            return new ModelAndView("detalle-libro", model);
-        } catch (Exception e){
-            model.put("error", "Error al registrar el nuevo libro");
-            return new ModelAndView("detalle-libro", model);
-        }
-
-        return new ModelAndView("redirect:/home");
-    }*/
     @RequestMapping(path = "/libros", method = RequestMethod.GET)
     public ModelAndView getTodosLosLibros(){
         ModelMap model = new ModelMap();
