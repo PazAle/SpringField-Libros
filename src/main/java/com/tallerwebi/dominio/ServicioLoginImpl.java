@@ -38,6 +38,8 @@ public class ServicioLoginImpl implements ServicioLogin {
         String repetirContraseñaHasheada = hashPassword(usuario.getRepetir_password());
         usuario.setRepetir_password(repetirContraseñaHasheada);
         usuario.setRol("usuario");
+        usuario.setActivo(true);
+        usuario.getPedido().setActivo(true);
         servicioLoginDao.guardar(usuario);
     }
 
