@@ -46,7 +46,7 @@
             Iniciar Sesión
           </a>
           <!-- Muestra el botón de usuario solo si el usuario está logueado -->
-          <a th:if="${isUsuarioLogueado}" th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <a th:if="${isUsuarioLogueado}" th:href="perfil" class="btn btn-primary btn-custom-primary btn-lg mx-2">
             <i class="fas fa-user"></i>
           </a>
         <a th:if="${isUsuarioLogueado}" th:href="@{/cerrar-sesion}" class="btn btn-primary btn-custom-primary btn-lg mx-2 sessionButtomStyle">
