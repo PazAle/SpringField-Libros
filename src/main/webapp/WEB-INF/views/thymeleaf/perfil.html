@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>LibrArte App</title>
+
+    <!-- Boostrap core css -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+    <!-- custom style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <!-- FontAwesome -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
+    <style>
+        /* Estilo personalizado para el panel principal */
+        .main-panel {
+            min-height: 500px; /* Altura mínima del panel principal */
+            margin-top: 20px;
+        }
+
+        /* Estilo para distinguir el título de la sección */
+        .section-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .list-group-item-action.active {
+            background-color: rgb(221, 117, 25); /* Reemplaza "YourColor" con el color que desees */
+            color: #fff; /* Cambia el color del texto si es necesario */
+            /* Otros estilos que desees aplicar a la opción activa */
+        }
+    </style>
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
+        <div class="container-fluid d-flex justify-content-between">
+            <div>
+                <a href="home.html" class="btn btn-light border-0" style="background-color: transparent;">
+                    <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen"
+                         style="max-width: 100px; max-height: 100px;" class="img-lg">
+                </a>
+                <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <a th:href="carrito" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <!-- Muestra el botón de notificaciones solo si el usuario está logueado -->
+                <a th:if="${isUsuarioLogueado}" th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-bell"></i>
+                </a>
+                <!-- Muestra el botón "Iniciar Sesión" solo si el usuario no está logueado -->
+                <a th:unless="${isUsuarioLogueado}" th:href="login" class="btn btn-primary btn-custom-primary btn-lg mx-2 sessionButtomStyle">
+                    Iniciar Sesión
+                </a>
+                <!-- Muestra el botón de usuario solo si el usuario está logueado -->
+                <a th:if="${isUsuarioLogueado}" th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a th:if="${isUsuarioLogueado}" th:href="@{/cerrar-sesion}" class="btn btn-primary btn-custom-primary btn-lg mx-2 sessionButtomStyle">
+                    Cerrar Sesion
+                </a>
+                <!--<a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                  <i class="fas fa-bell"></i>
+                </a>-->
+                <!--<a th:href="login" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+                  <i class="fas fa-user"></i>
+                </a>-->
+            </div>
+            <!--<div class="d-flex align-items-start">
+              <a th:href="home" class="btn btn-primary btn-custom-primary mt-1">
+                <i class="fas fa-filter"></i>
+              </a>-->
+            <form class="d-flex ml-2" th:action="@{/buscar-libros}" method="post" th:object="${datosLibro}" accept-charset="UTF-8">
+                <input class="form-control me-2 ms-2" type="search" placeholder="Buscar" aria-label="Buscar" th:field="*{nombre}">
+                <button class="btn btn-custom-secondary" type="submit" th:method="post">Buscar</button>
+            </form>
+        </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Panel izquierdo -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <!-- Sección de Productos Digitales -->
+                <span class="list-group-item list-group-item-action section-title">
+                    Productos Digitales
+                </span>
+                <a href="#mis-libros" class="list-group-item list-group-item-action">Mis Libros</a>
+                <a href="#mis-audiolibros" class="list-group-item list-group-item-action">Mis Audiolibros</a>
+
+                <!-- Sección de Mis Datos -->
+                <span class="list-group-item list-group-item-action section-title">
+                    Mis Datos
+                </span>
+                <a href="#" class="list-group-item list-group-item-action active" onclick="ejecutarServicio('obtenerDatos')">Ajustar Datos Personales</a>
+                <a href="#cambio-clave" class="list-group-item list-group-item-action">Cambio de Clave</a>
+                <a href="#cambiar-email" class="list-group-item list-group-item-action">Cambiar Email Principal</a>
+                <span class="list-group-item list-group-item-action section-title">
+                    Mis Géneros
+                </span>
+                <!-- Puedes agregar géneros aquí -->
+            </div>
+        </div>
+
+        <!-- Panel principal -->
+        <div class="col-md-9 main-panel" id="panel-principal">
+            <!-- Contenido dinámico según la selección en el panel izquierdo -->
+            <!-- Puedes agregar contenido específico aquí -->
+        </div>
+    </div>
+</div>
+
+<!--Footer con links a secciones de interés-->
+<footer class="backgroundNav">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <a th:href="home">
+                    <img th:src="${imagenlogo.getImagenBase64()}" alt="Imagen"
+                         style="max-width: 150px;" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-6 text-end">
+                <a th:href="home" class="text-dark text-decoration-none mx-2">Mi perfil</a>
+                <a th:href="home" class="text-dark text-decoration-none mx-2">Mis libros</a>
+                <a th:href="home" class="text-dark text-decoration-none mx-2">¿Cómo comprar?</a>
+                <a th:href="home" class="text-dark text-decoration-none mx-2">Carrito de compras</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Boostrap core js -->
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script th:src="@{/js/perfil.js}"></script>
+
+</body>
+</html>
