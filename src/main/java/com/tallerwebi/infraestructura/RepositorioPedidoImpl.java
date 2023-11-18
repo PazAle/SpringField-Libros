@@ -41,7 +41,7 @@ public class RepositorioPedidoImpl implements RepositorioPedido {
     @Override
     public List<Libro> obtenerLibrosDelPedido(Pedido pedido) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("SELECT p.libros FROM Pedido p WHERE p.id = :pedidoId");
+        Query query = session.createQuery("SELECT DISTINCT p.libros FROM Pedido p WHERE p.id = :pedidoId");
         query.setParameter("pedidoId", pedido.getId());
         List<Libro> libros = (List<Libro>) query.list();
         return libros;
