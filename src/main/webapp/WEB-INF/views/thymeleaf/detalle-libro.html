@@ -82,7 +82,7 @@
            
             <form th:action="@{'/calificar-libro?id=' + ${libro.ID}}" th:object="${calificacion}" method="post">
                 <div class="div-classification">
-                    <h5 th:text="${calificacionObtenida}"></h5>
+                    <h5 id="valorPromedio" th:text="${calificacionObtenida}"></h5>
                     <input type="number" class="d-none" id="valoracion" name="valoracion" th:field="*{valoracion}" value="0">
                     <div class="rating ">
                         <i class="star fa fa-star" data-index="1"></i>

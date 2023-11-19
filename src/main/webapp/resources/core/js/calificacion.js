@@ -15,6 +15,14 @@ $(document).ready(function () {
         $(".star").removeClass("star-hover");
     });
 
+    //retiene el color promediado
+    let index = $("#valorPromedio").text();
+    $(".star").removeClass("star-selected");
+
+    for (let i = 1; i <= index; i++) {
+        $(".star[data-index=" + i + "]").addClass("star-selected");
+    }
+
     // Al hacer clic en una estrella, guarda la calificación y retiene el color.
     $(".star").on("click", function () {
 

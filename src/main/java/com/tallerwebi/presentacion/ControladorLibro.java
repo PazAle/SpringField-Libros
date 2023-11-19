@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,7 @@ public class ControladorLibro {
     private ServicioLibro servicioLibro;
     private ServicioImagen servicioImagen;
     private ServicioComentario servicioComentario;
+    private HttpServletRequest request;
 
     @Autowired
     public ControladorLibro(ServicioLibro servicioLibro, ServicioImagen servicioImagen, ServicioComentario servicioComentario){this.servicioLibro = servicioLibro;
@@ -143,6 +145,8 @@ public class ControladorLibro {
         ModelMap modelo = new ModelMap();
 
         Long idLibro = libroId;
+        //Usuario usuario = servicioLogin.buscarUsuarioPorId(idUsuario);
+       // Long idUsuario = (Long) request.getSession().getAttribute("IDUSUARIO");
         Long idUsuario = 1L;
         Integer valor = valoracion;
 
