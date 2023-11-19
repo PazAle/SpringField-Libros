@@ -4,8 +4,8 @@ let librosResultado =[];
 document.querySelectorAll('.card').forEach(card => {
     let libro = {
         nombre: card.querySelector('.title').innerText,
-        id: document.querySelector('.card-text.id').innerText,
-        imagen: document.querySelector('.img-card').getAttribute('src'),
+        id: card.querySelector('.card-text.id').innerText,
+        imagen: card.querySelector('.img-card').getAttribute('src'),
         autor: card.querySelector('.author').innerText,
         editorial: card.querySelector('.publisher').innerText,
         fechaLanzamiento: card.querySelector('.date').innerText,
@@ -128,4 +128,4 @@ function applyFilters() {
 
 // Llama a las funciones para inicializar los filtros y los resultados
 populateFilters();
-populateResults();
+//populateResults();

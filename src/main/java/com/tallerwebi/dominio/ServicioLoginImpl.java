@@ -38,9 +38,17 @@ public class ServicioLoginImpl implements ServicioLogin {
         String repetirContraseñaHasheada = hashPassword(usuario.getRepetir_password());
         usuario.setRepetir_password(repetirContraseñaHasheada);
         usuario.setRol("usuario");
+        usuario.setActivo(true);
+        usuario.getPedido().setActivo(true);
         servicioLoginDao.guardar(usuario);
     }
 
+    @Override
+
+    public Usuario buscarUsuarioPorId(Long id) {
+        return servicioLoginDao.buscarUsuarioPorId(id);
+    }
+    
     @Override
     public Usuario buscarUsuarioPorEmail(String email) {
         return servicioLoginDao.buscar(email);
@@ -70,6 +78,7 @@ public class ServicioLoginImpl implements ServicioLogin {
             e.printStackTrace();
             return null;
         }
+
     }
 
 }

@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.autor.Autor;
 import com.tallerwebi.dominio.categoria.Categoria;
 import com.tallerwebi.dominio.comentario.Comentario;
 import com.tallerwebi.dominio.editorial.Editorial;
+import com.tallerwebi.dominio.pedido.Pedido;
 
 import javax.persistence.*;
 import java.lang.reflect.Type;
@@ -16,32 +17,40 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     private String nombre;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "autor")
     private Autor autor;
     private Double precio;
     private Date fecha_lanzamiento;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "genero")
     private Categoria categoria;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "editorial")
     private Editorial editorial;
     private String idioma;
     private Integer cant_paginas;
     //@Column(columnDefinition = "MEDIUMTEXT")
+
     @Lob
     private String imagen;
     private String resenia;
     private Integer stock;
+    private Integer cantidad;
+    @ManyToMany(mappedBy = "libros")
+    private List<Pedido> pedidos;
+
    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinTable(name = "comentario")
    //private List<Comentario> comentarios;
     // Agrega una lista de comentarios relacionados con este libro
+
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios;
 
+    public Libro(){
+        this.cantidad = 1;
+    }
     public Long getID() {
         return this.ID;
     }
@@ -148,4 +157,11 @@ public class Libro {
         this.stock = stock;
     }
 
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
 }

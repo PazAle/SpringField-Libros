@@ -47,6 +47,9 @@ public class ControladorLogin {
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
         if (usuarioBuscado != null) {
             request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+            request.getSession().setAttribute("NOMBRE", usuarioBuscado.getNombre());
+            request.getSession().setAttribute("IDUSUARIO", usuarioBuscado.getId());
+            request.getSession().setAttribute("APELLIDO", usuarioBuscado.getApellido());
             request.getSession().setAttribute("isUsuarioLogueado", true);
             return new ModelAndView("redirect:/home");
         } else {

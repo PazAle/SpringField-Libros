@@ -20,7 +20,11 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
+
+    void actualizarLibro(Libro libro);
+
     List<Libro> obtenerLibrosPorTermino(String termino);
+
 
     void calificarLibro(Long idLibro, Long idUsuario, Integer valor);
 
@@ -29,6 +33,7 @@ public interface RepositorioLibro {
     void actualizarCalificacion(Calificacion calificacionObtenida);
 
     List<Calificacion> obtenerCalificacionesPorLibro(Long libroId);
+
 
     //List<Imagen> obtenerImagenesSecundarias();
 }
