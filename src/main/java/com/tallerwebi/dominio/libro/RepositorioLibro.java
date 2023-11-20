@@ -19,7 +19,6 @@ public interface RepositorioLibro {
 
     List<Libro> obtenerLibroPorNombre(String nombre);
 
-
     void actualizarLibro(Libro libro);
 
     List<Libro> obtenerLibrosPorTermino(String termino);
