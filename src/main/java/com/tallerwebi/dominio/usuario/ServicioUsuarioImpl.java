@@ -54,6 +54,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         return this.repositorioUsuario.actualizarEmail(id,datos);
     }
 
+    @Override
+    public Boolean eliminarUsuario(Long id) {
+        return this.repositorioUsuario.eliminar(id);
+    }
+
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

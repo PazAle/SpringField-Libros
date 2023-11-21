@@ -104,7 +104,18 @@ public class ControladorPerfil {
         Long idUsuario = datos.getIdUsuario();
         Boolean resultado = this.servicioUsuario.actualizarEmail(idUsuario,datos);
         if (resultado) {
-            return new ResponseEntity<>(true,HttpStatus.OK);
+            return new ResponseEntity<>(resultado,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(path = "/eliminarUsuario", method = RequestMethod.POST)
+    public ResponseEntity<String> eliminarUsuario(@RequestParam("idUsuario") Long idUsuario,HttpSession session) {
+        Boolean resultado = this.servicioUsuario.eliminarUsuario(idUsuario);
+        if (resultado) {
+            session.invalidate();
+            return new ResponseEntity<>("{\"success\": true}", HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

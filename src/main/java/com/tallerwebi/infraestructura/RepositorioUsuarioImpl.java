@@ -1,5 +1,6 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import com.tallerwebi.presentacion.DatosFormulario;
@@ -108,6 +109,22 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
             return false;
         }
 
+    }
+
+    @Override
+    public Boolean eliminar(Long id) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+        final Session session = sessionFactory.getCurrentSession();
+
+        if (usuarioObtenido != null) {
+            session.delete(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

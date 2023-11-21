@@ -17,5 +17,7 @@ public interface RepositorioUsuario {
     Boolean actualizarContrasenia(Long id, DatosFormulario datos);
 
     Boolean actualizarEmail(Long id, DatosFormulario datos);
+
+    Boolean eliminar(Long id);
 }
 

@@ -13,4 +13,6 @@ public interface ServicioUsuario {
 
     Boolean actualizarEmail (Long id, DatosFormulario datos);
 
+    Boolean eliminarUsuario (Long id);
+
 }

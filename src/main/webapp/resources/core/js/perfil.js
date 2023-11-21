@@ -1,23 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Obtener todas las opciones del panel izquierdo
+
     var opciones = document.querySelectorAll(".list-group-item-action");
 
-    // Agregar evento de clic a cada opción
+
     opciones.forEach(function (opcion) {
         opcion.addEventListener("click", function () {
-            // Eliminar la clase activa de todas las opciones
             opciones.forEach(function (o) {
                 o.classList.remove("active");
             });
 
-            // Agregar la clase activa a la opción clicada
             opcion.classList.add("active");
         });
     });
 });
 
 window.onload = function () {
-    // Este bloque de código se ejecuta cuando la página completa se ha cargado
     ejecutarServicio("obtenerDatos");
 };
 function ejecutarServicio(metodo) {
@@ -27,7 +24,7 @@ function ejecutarServicio(metodo) {
     idUsuario = obtenerIdUsuario();
 
     $.ajax({
-        url: '/spring/'+ metodo, // Reemplaza con la ruta real de tu servicio
+        url: '/spring/'+ metodo,
         method: 'POST',
         dataType: 'json',
         data: {idUsuario:idUsuario},
@@ -263,4 +260,34 @@ function mostrarMensajeError() {
         </div>
     `;
     $('#panel-principal').append(mensajeError);
+}
+
+function mostrarConfirmacionEliminarCuenta() {
+    var confirmacionHTML = `
+        <div id="confirmacionEliminarCuenta">
+            <p>¿Estas seguro de que deseas eliminar tu cuenta? Recuerde que perdera los productos adquiridos. Esta accion no se puede deshacer.</p>
+            <button class="btn btn-danger" onclick="ejecutarEliminacion('eliminarUsuario')">Confirmar</button>
+        </div>
+    `;
+    $('#panel-principal').html(confirmacionHTML);
+}
+
+/*Funcion similar a ejecutarServicio, pero con una sola accion en el success*/
+function ejecutarEliminacion(metodo) {
+
+    var idUsuario ="";
+    idUsuario = obtenerIdUsuario();
+
+    $.ajax({
+        url: '/spring/'+ metodo,
+        method: 'POST',
+        dataType: 'json',
+        data: {idUsuario:idUsuario},
+        success: function (response) {
+            window.location.href = '/spring/home';
+        },
+        error: function () {
+            alert('Error al obtener datos en ajax');
+        }
+    });
 }

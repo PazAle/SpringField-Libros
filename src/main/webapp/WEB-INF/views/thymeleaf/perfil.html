@@ -80,6 +80,7 @@
             <div class="list-group">
                 <!-- Sección de Productos Digitales -->
                 <span class="list-group-item list-group-item-action section-title">
+                    <i class="fas fa-tablet-alt margin-right-5 fa-lg"></i>
                     Productos Digitales
                 </span>
                 <a href="#mis-libros" class="list-group-item list-group-item-action">Mis Libros</a>
@@ -87,6 +88,7 @@
 
                 <!-- Sección de Mis Datos -->
                 <span class="list-group-item list-group-item-action section-title second_child">
+                    <i class="fas fa-cog margin-right-10 fa-lg"></i>
                     Mis Datos
                 </span>
                 <a href="#" class="list-group-item list-group-item-action active" onclick="ejecutarServicio('obtenerDatos')">Ajustar Datos Personales</a>
@@ -98,6 +100,11 @@
                 <input type="hidden" id="nombreUsuario" th:value="${nombreUsuario}">
                 <input type="hidden" id="apellidoUsuario" th:value="${apellidoUsuario}">
                 <input type="hidden" id="idUsuario" th:value="${idUsuario}">
+                <a href="#" class="list-group-item list-group-item-action section-title" onclick="mostrarConfirmacionEliminarCuenta()">
+                    <i class="fas fa-trash margin-right-10 fa-lg"></i>
+                    Eliminar cuenta
+                </a>
+
             </div>
         </div>
 
