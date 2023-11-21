@@ -91,7 +91,7 @@ public class ControladorPerfil {
     public ResponseEntity<Boolean> cambiarClave(@RequestBody DatosFormulario datos) {
         Long idUsuario = datos.getIdUsuario();
         Boolean resultado = this.servicioUsuario.actualizarContrasenia(idUsuario,datos);
-        if (resultado) {
+        if (resultado!=null) {
             return new ResponseEntity<>(resultado,HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

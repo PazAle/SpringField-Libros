@@ -56,7 +56,7 @@ function ejecutarServicio(metodo) {
 function obtenerIdUsuario(){
     return $("#idUsuario").val();
 }
-
+/*
 function mostrarFormularioModificarPerfil(response) {
     var formulario = `
         <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'actualizarPerfil'); return false;" >
@@ -122,7 +122,95 @@ function mostrarFormularioCambioEmail(response) {
 
     $('#panel-principal').html(formulario);
 }
+*/
 
+function mostrarFormularioModificarPerfil(response) {
+    var formulario = `
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'actualizarPerfil'); return false;">
+            <h2>Modificar Perfil</h2>
+            <hr>
+            <div class="form-group row">
+                <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="${response.nombre}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="apellido" class="col-sm-2 col-form-label">Apellido:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="apellido" name="apellido" value="${response.apellido}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control non-editable" id="email" name="email" value="${response.email}" readonly>
+                </div>
+            </div>
+            <hr>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    `;
+    $('#panel-principal').html(formulario);
+}
+
+<!-- Modificaciones en el formulario de cambio de clave -->
+function mostrarFormularioCambioClave() {
+    var formulario = `
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'cambiarClave'); return false;">
+            <h2>Cambio de Clave</h2>
+            <hr>
+            <div class="form-group row">
+                <label for="claveActual" class="col-sm-3 col-form-label">Clave Actual:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="claveActual" name="claveActual">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="nuevaClave" class="col-sm-3 col-form-label">Nueva Clave:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="nuevaClave" name="nuevaClave">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="confirmarClave" class="col-sm-3 col-form-label">Confirmar Nueva Clave:</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="confirmarClave" name="confirmarClave">
+                </div>
+            </div>
+            <hr>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    `;
+
+    $('#panel-principal').html(formulario);
+}
+
+<!-- Modificaciones en el formulario de cambio de email -->
+function mostrarFormularioCambioEmail(response) {
+    var formulario = `
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'actualizarEmail'); return false;">
+            <h2>Cambio de Email</h2>
+            <hr>
+            <div class="form-group row">
+                <label for="nuevoEmail" class="col-sm-3 col-form-label">Nuevo Email:</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" id="nuevoEmail" name="nuevoEmail" value="${response.email}">
+                </div>
+            </div>
+            <hr>
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    `;
+
+    $('#panel-principal').html(formulario);
+}
 
 function obtenerDatosFormulario(formulario) {
     var datos = {};
@@ -146,11 +234,33 @@ function realizarActualizacion(datos, metodo) {
         contentType: 'application/json',
         data: JSON.stringify(datos),
         success: function (response) {
-            console.log("Actualización exitosa");
+            if(response){
+                console.log("Actualización exitosa");
+                mostrarMensajeExito();
+            }else{
+                mostrarMensajeError();
+            }
         },
         error: function () {
             alert('Error al obtener datos en ajax');
         }
     });
+}
 
+function mostrarMensajeExito() {
+    var mensajeExito = `
+        <div class="alert alert-success mt-3" role="alert">
+            Cambios realizados con exito.
+        </div>
+    `;
+    $('#panel-principal').append(mensajeExito);
+}
+
+function mostrarMensajeError() {
+    var mensajeError = `
+        <div class="alert alert-danger mt-3" role="alert">
+            Los datos ingresados no son validos.
+        </div>
+    `;
+    $('#panel-principal').append(mensajeError);
 }

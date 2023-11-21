@@ -33,6 +33,14 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
     @Override
     public Boolean actualizarContrasenia(Long id, DatosFormulario datos) {
 
+        String contraseñaActualHasheada = hashPassword(datos.getClaveActual());
+        Usuario usuarioActual = this.obtenerDatosDeUsuario(id);
+        String contraseñaAlmacenada = usuarioActual.getPassword();
+
+        if(!contraseñaActualHasheada.equals(contraseñaAlmacenada)){
+            return false;
+        }
+
         String contraseñaHasheada = hashPassword(datos.getNuevaClave());
         datos.setNuevaClave(contraseñaHasheada);
         String repetirContraseñaHasheada = hashPassword(datos.getConfirmarClave());
