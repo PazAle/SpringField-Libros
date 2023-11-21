@@ -2,6 +2,7 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
+import com.tallerwebi.presentacion.DatosFormulario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -53,6 +54,60 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         query.setParameter("id", id);
         Usuario usuario = (Usuario) query.uniqueResult();
         return usuario;
+    }
+
+    @Override
+    public Boolean actualizarPerfil(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setNombre(datos.getNombre());
+            usuarioObtenido.setApellido(datos.getApellido());
+
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean actualizarContrasenia(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setPassword(datos.getNuevaClave());
+            usuarioObtenido.setRepetir_password(datos.getConfirmarClave());
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean actualizarEmail(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setEmail(datos.getNuevoEmail());
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

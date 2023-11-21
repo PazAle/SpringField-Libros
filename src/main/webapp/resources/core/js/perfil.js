@@ -21,19 +21,29 @@ window.onload = function () {
     ejecutarServicio("obtenerDatos");
 };
 function ejecutarServicio(metodo) {
-    // Aquí puedes hacer una solicitud AJAX para obtener los datos del usuario del servicio
-    // y luego llenar el formulario con los datos obtenidos.
+
+    var idUsuario ="";
+
+    idUsuario = obtenerIdUsuario();
+
     $.ajax({
         url: '/spring/'+ metodo, // Reemplaza con la ruta real de tu servicio
         method: 'POST',
         dataType: 'json',
+        data: {idUsuario:idUsuario},
         success: function (response) {
             switch (metodo){
                 case "obtenerDatos":
-                    modificarPerfil(response);
+                    mostrarFormularioModificarPerfil(response);
+                    break;
+                case 'cambioClave':
+                    mostrarFormularioCambioClave();
+                    break;
+                case 'cambiarEmail':
+                    mostrarFormularioCambioEmail(response);
                     break;
                 default:
-                    modificarPerfil(response);
+                    mostrarFormularioModificarPerfil(response);
                     break;
             }
         },
@@ -43,22 +53,104 @@ function ejecutarServicio(metodo) {
     });
 }
 
+function obtenerIdUsuario(){
+    return $("#idUsuario").val();
+}
 
-function modificarPerfil(response){
+function mostrarFormularioModificarPerfil(response) {
     var formulario = `
-        <form>
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'actualizarPerfil'); return false;" >
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" value="${response.nombre}">
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="${response.email}">
+                <label for="apellido">Apellido:</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" value="${response.apellido}">
             </div>
-            <!-- Agrega más campos según sea necesario -->
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="${response.email}" readonly>
+            </div>
+            <hr>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
         </form>
     `;
-    // Muestra el formulario en el panel principal
     $('#panel-principal').html(formulario);
+}
+
+function mostrarFormularioCambioClave() {
+    var formulario = `
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'cambiarClave'); return false;">
+            <div class="form-group">
+                <label for="claveActual">Clave Actual:</label>
+                <input type="password" class="form-control" id="claveActual" name="claveActual">
+            </div>
+            <div class="form-group">
+                <label for="nuevaClave">Nueva Clave:</label>
+                <input type="password" class="form-control" id="nuevaClave" name="nuevaClave">
+            </div>
+            <div class="form-group">
+                <label for="confirmarClave">Confirmar Nueva Clave:</label>
+                <input type="password" class="form-control" id="confirmarClave" name="confirmarClave">
+            </div>
+            <hr>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    `;
+
+    $('#panel-principal').html(formulario);
+}
+
+function mostrarFormularioCambioEmail(response) {
+    var formulario = `
+        <form onsubmit="realizarActualizacion(obtenerDatosFormulario(this), 'actualizarEmail'); return false;">
+            <div class="form-group">
+                <label for="nuevoEmail">Nuevo Email:</label>
+                <input type="email" class="form-control" id="nuevoEmail" name="nuevoEmail" value="${response.email}">
+            </div>
+            <hr>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    `;
+
+    $('#panel-principal').html(formulario);
+}
+
+
+function obtenerDatosFormulario(formulario) {
+    var datos = {};
+
+    $(formulario).serializeArray().forEach(function (item) {
+        datos[item.name] = item.value;
+    });
+    return datos;
+}
+
+function realizarActualizacion(datos, metodo) {
+    var idUsuario ="";
+
+    idUsuario = obtenerIdUsuario();
+
+    datos.idUsuario = idUsuario;
+
+    $.ajax({
+        url: '/spring/'+ metodo,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(datos),
+        success: function (response) {
+            console.log("Actualización exitosa");
+        },
+        error: function () {
+            alert('Error al obtener datos en ajax');
+        }
+    });
+
 }

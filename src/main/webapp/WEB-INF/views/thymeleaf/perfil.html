@@ -25,7 +25,7 @@
         /* Estilo para distinguir el título de la sección */
         .section-title {
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 35px;
         }
 
         .list-group-item-action.active {
@@ -107,19 +107,21 @@
                     Mis Datos
                 </span>
                 <a href="#" class="list-group-item list-group-item-action active" onclick="ejecutarServicio('obtenerDatos')">Ajustar Datos Personales</a>
-                <a href="#cambio-clave" class="list-group-item list-group-item-action">Cambio de Clave</a>
-                <a href="#cambiar-email" class="list-group-item list-group-item-action">Cambiar Email Principal</a>
-                <span class="list-group-item list-group-item-action section-title">
-                    Mis Géneros
+                <a href="#" class="list-group-item list-group-item-action" onclick="ejecutarServicio('cambioClave')">Cambio de Clave</a>
+                <a href="#" class="list-group-item list-group-item-action" onclick="ejecutarServicio('cambiarEmail')">Cambiar Email Principal</a>
+                <span class="list-group-item list-group-item-action section-title" hidden>
+                    Datos ocultos
                 </span>
-                <!-- Puedes agregar géneros aquí -->
+                <input type="hidden" id="nombreUsuario" th:value="${nombreUsuario}">
+                <input type="hidden" id="apellidoUsuario" th:value="${apellidoUsuario}">
+                <input type="hidden" id="idUsuario" th:value="${idUsuario}">
             </div>
         </div>
 
         <!-- Panel principal -->
         <div class="col-md-9 main-panel" id="panel-principal">
             <!-- Contenido dinámico según la selección en el panel izquierdo -->
-            <!-- Puedes agregar contenido específico aquí -->
+
         </div>
     </div>
 </div>
