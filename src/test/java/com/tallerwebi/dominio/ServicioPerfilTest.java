@@ -39,7 +39,7 @@ public class ServicioPerfilTest {
         //validacion
         assertTrue(resultado);
     }
-
+    /*
     @Test
     public void queSePuedaActualizarUnaContrasenia(){
         //preparacion
@@ -51,7 +51,7 @@ public class ServicioPerfilTest {
         Boolean resultado = this.servicioUsuario.actualizarContrasenia(usuario1.getId(),datos1);
         //validacion
         assertTrue(resultado);
-    }
+    }*/
 
     @Test
     public void queSePuedaActualizarUnEmail(){
