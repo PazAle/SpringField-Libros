@@ -265,7 +265,7 @@ function mostrarMensajeError() {
 function mostrarConfirmacionEliminarCuenta() {
     var confirmacionHTML = `
         <div id="confirmacionEliminarCuenta">
-            <p>¿Estas seguro de que deseas eliminar tu cuenta? Recuerde que perdera los productos adquiridos. Esta accion no se puede deshacer.</p>
+            <p>Estas seguro de que deseas eliminar tu cuenta? Recuerde que perdera los productos adquiridos. Esta accion no se puede deshacer.</p>
             <button class="btn btn-danger" onclick="ejecutarEliminacion('eliminarUsuario')">Confirmar</button>
         </div>
     `;
