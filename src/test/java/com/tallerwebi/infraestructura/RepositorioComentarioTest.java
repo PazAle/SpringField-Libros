@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+/*package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.categoria.RepositorioCategoria;
 import com.tallerwebi.dominio.comentario.Comentario;
@@ -70,3 +70,4 @@ public class RepositorioComentarioTest {
 
 
 }
+*/

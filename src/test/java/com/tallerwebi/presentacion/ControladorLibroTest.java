@@ -38,7 +38,29 @@ public class ControladorLibroTest {
         this.controladorLibro = new ControladorLibro(servicioLibroMock, servicioImagenMock, servicioComentarioMock);
         this.librosResultadoMock = new ArrayList<>();
     }
+    @Test
+    public void queCalificarLibroDevuelvaLavistaDetalleLibro(){
+        //preparacion
+        Long libroId = 1L;
+        Integer valoracion = 5;
 
+        //ejecucion
+        ModelAndView modelAndView = dadoQueObtengoLaVistaDetalleLibro(libroId,valoracion);
+
+        //validacion
+
+        verificoCoincidenciaDeNombresDeVistadeCalificacion(modelAndView);
+
+
+    }
+
+    private void verificoCoincidenciaDeNombresDeVistadeCalificacion(ModelAndView modelAndView) {
+        assertThat(modelAndView.getViewName(), is("redirect://detalle-libro?id="+1L));
+    }
+    private ModelAndView dadoQueObtengoLaVistaDetalleLibro(Long libroId, Integer valoracion) {
+
+        return this.controladorLibro.calificarLibro(libroId,valoracion);
+    }
 
     @Test
     public void quelaBusquedaDevuelvaLaVistaResultadosDeBusqueda() {

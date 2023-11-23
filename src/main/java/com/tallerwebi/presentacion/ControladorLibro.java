@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.comentario.Comentario;
 import com.tallerwebi.dominio.comentario.ServicioComentario;
 import com.tallerwebi.dominio.imagen.Imagen;
@@ -15,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +28,7 @@ public class ControladorLibro {
     private ServicioLibro servicioLibro;
     private ServicioImagen servicioImagen;
     private ServicioComentario servicioComentario;
+    private HttpServletRequest request;
 
     @Autowired
     public ControladorLibro(ServicioLibro servicioLibro, ServicioImagen servicioImagen, ServicioComentario servicioComentario){this.servicioLibro = servicioLibro;
@@ -52,11 +55,13 @@ public class ControladorLibro {
 
         int pageSize = 5; // Tamaño de página por defecto (5 comentarios por página)
         int totalComentarios = comentarios.size();
-        int totalPages = (int) Math.ceil((double) totalComentarios / pageSize);
+        int totalPages = (int) Math.ceil((double) totalComentarios / pageSize); //cuernta del paginado cada 5 coment te cambia de pag
 
         int startIndex = (page - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalComentarios);
         List<Comentario> comentariosPaginados = comentarios.subList(startIndex, endIndex);
+        Integer calificacioObtenida = servicioLibro.obtenerPromedioCalificacionesPorLibro(libroId);
+        //////////////////////////////////////////////
 
         List<Imagen> imagenesTotalesObtenidas = this.servicioImagen.getImagenesSecundarias();
         Imagen imagenLogo = this.servicioImagen.ObtenerImagenLogo(imagenesTotalesObtenidas);
@@ -67,6 +72,8 @@ public class ControladorLibro {
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
         model.addAttribute("datosLibro", new DatosLibro());
+        model.put("calificacion", new Calificacion());
+        model.put("calificacionObtenida", calificacioObtenida);
 
         return new ModelAndView("detalle-libro", model);
     }
@@ -113,6 +120,22 @@ public class ControladorLibro {
 
         return new ModelAndView("resultado_busqueda", model);
 
+    }
+
+    @RequestMapping(path = "/calificar-libro", method = RequestMethod.POST)
+    public ModelAndView calificarLibro(@RequestParam("id") Long libroId, @RequestParam Integer valoracion){
+
+        ModelMap modelo = new ModelMap();
+
+        Long idLibro = libroId;
+        //Usuario usuario = servicioLogin.buscarUsuarioPorId(idUsuario);
+       // Long idUsuario = (Long) request.getSession().getAttribute("IDUSUARIO");
+        Long idUsuario = 1L;
+        Integer valor = valoracion;
+
+        servicioLibro.calificarLibro(idLibro,idUsuario,valor);
+
+        return new ModelAndView("redirect://detalle-libro?id=" + idLibro, modelo);
     }
 
 

@@ -1,9 +1,14 @@
 package com.tallerwebi.infraestructura;
 
+
 import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.hibernate.Hibernate;
+import com.tallerwebi.dominio.libro.Libro;
+import com.tallerwebi.dominio.usuario.RepositorioUsuario;
+import com.tallerwebi.presentacion.DatosFormulario;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -58,10 +63,80 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+
     public void generarCompra(Compra compra, Usuario usuario) {
         //Hibernate.initialize(usuario.getCompras());
         usuario.getCompras().add(compra);
         this.sessionFactory.getCurrentSession().update(usuario);
+
+    public Boolean actualizarPerfil(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setNombre(datos.getNombre());
+            usuarioObtenido.setApellido(datos.getApellido());
+
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean actualizarContrasenia(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setPassword(datos.getNuevaClave());
+            usuarioObtenido.setRepetir_password(datos.getConfirmarClave());
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean actualizarEmail(Long id, DatosFormulario datos) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+
+        if (usuarioObtenido != null) {
+            usuarioObtenido.setEmail(datos.getNuevoEmail());
+            this.sessionFactory.getCurrentSession().update(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    @Override
+    public Boolean eliminar(Long id) {
+        Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
+                .createCriteria(Usuario.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+        final Session session = sessionFactory.getCurrentSession();
+
+        if (usuarioObtenido != null) {
+            session.delete(usuarioObtenido);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }
