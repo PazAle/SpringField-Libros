@@ -1,9 +1,14 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.libro.Libro;
+
+import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
+import org.hibernate.Hibernate;
+import com.tallerwebi.dominio.libro.Libro;
+import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.presentacion.DatosFormulario;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -58,6 +63,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
+
+    public void generarCompra(Compra compra, Usuario usuario) {
+        //Hibernate.initialize(usuario.getCompras());
+        usuario.getCompras().add(compra);
+        this.sessionFactory.getCurrentSession().update(usuario);
+    }
     public Boolean actualizarPerfil(Long id, DatosFormulario datos) {
         Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
                 .createCriteria(Usuario.class)
@@ -125,6 +136,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         }else{
             return false;
         }
+
     }
 
 }

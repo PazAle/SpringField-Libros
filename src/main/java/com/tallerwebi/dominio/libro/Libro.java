@@ -37,8 +37,8 @@ public class Libro {
     private String resenia;
     private Integer stock;
     private Integer cantidad;
-   /* @ManyToMany(mappedBy = "libros")
-    private List<Pedido> pedidos;*/
+    //@ManyToMany(mappedBy = "libros")
+    //private List<Pedido> pedidos;
 
    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinTable(name = "comentario")

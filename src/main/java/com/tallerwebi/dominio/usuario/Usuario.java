@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.usuario;
 
+import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.pedido.Pedido;
 
 import javax.persistence.*;
@@ -21,6 +22,8 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido")
     private Pedido pedido;
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Compra> compras;
 
     public Usuario(){
         this.pedido = new Pedido();
@@ -96,5 +99,13 @@ public class Usuario {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }

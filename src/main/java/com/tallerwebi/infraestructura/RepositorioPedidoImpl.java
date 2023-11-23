@@ -60,6 +60,15 @@ public class RepositorioPedidoImpl implements RepositorioPedido {
         this.actualizarListaDeLibros(libros, pedidoActual);
     }
 
+    @Override
+    public void vaciarPedido(Pedido pedido) {
+        List<Libro> libros = this.obtenerLibrosDelPedido(pedido);
+        for(Libro libro : libros){
+            libros.remove(libro);
+        }
+        this.actualizarListaDeLibros(libros, pedido);
+    }
+
     private void actualizarListaDeLibros(List<Libro> libros, Pedido pedidoActual) {
         pedidoActual.setProductos(libros);
         this.guardarPedido(pedidoActual);
