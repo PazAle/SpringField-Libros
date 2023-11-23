@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.libro;
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.libro.Libro;
 
@@ -25,5 +26,12 @@ public interface RepositorioLibro {
     List<Libro> obtenerLibrosPorTermino(String termino);
 
 
-    //List<Imagen> obtenerImagenesSecundarias();
+    void calificarLibro(Long idLibro, Long idUsuario, Integer valor);
+
+    Calificacion buscarCalificacion(Long idLibro, Long idUsuario);
+
+    void actualizarCalificacion(Calificacion calificacionObtenida);
+
+    List<Calificacion> obtenerCalificacionesPorLibro(Long libroId);
+
 }

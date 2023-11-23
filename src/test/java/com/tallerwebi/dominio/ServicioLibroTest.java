@@ -1,10 +1,12 @@
 package com.tallerwebi.dominio;
 
 
+import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.ServicioLibro;
 import com.tallerwebi.dominio.libro.ServicioLibroImpl;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
+import com.tallerwebi.dominio.usuario.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,11 @@ import static org.mockito.Mockito.when;
 public class ServicioLibroTest {
 
     public static final Long ID = 3L;
+    public static final Long IDLIBRO = 1L;
+    public static final Long IDUSUARIO = 123L;
+
+    public static final Integer VALORACION = 4;
+
     private ServicioLibro servicioLibro;
     private RepositorioLibro repositorioLibro;
 
@@ -101,6 +108,59 @@ public class ServicioLibroTest {
             assertEquals(nombreABuscar, libro.getNombre());
         }
     }
+    @Test
+    public void queSePuedaBuscarUnaCalificacion(){
+        //preparación
+        Calificacion calificacionAbuscar = dadoQueCreoUnaCalificacion();
+
+        Libro libroCreado = dadoQueCreoUnosLibros(1).get(0);
+        libroCreado.setID(IDLIBRO);
+
+        Usuario usuarioCreado = dadoQueCreoUnUsuario(IDUSUARIO);
+
+        calificacionAbuscar.setUsuario(usuarioCreado);
+        calificacionAbuscar.setLibro(libroCreado);
+        calificacionAbuscar.setValoracion(VALORACION);
+
+        mockeoBuscarUnaCalificacion(this.repositorioLibro, IDLIBRO, IDUSUARIO, calificacionAbuscar);
+
+        //ejecución
+        Calificacion calificacionObtenida = dadoQueObtengoUnaCalificacioPorIdUsurioIdLibro(IDUSUARIO,IDLIBRO);
+
+        //validación
+        verificoPorValorDeCalificacion(calificacionObtenida.getValoracion(), VALORACION);
+        verificoCoincidenciaPorIdLibro(calificacionObtenida.getLibro().getID(), IDLIBRO);
+    }
+
+    private void verificoCoincidenciaPorIdLibro(Long idLibroObtenido, Long idLibroBuscado) {
+        assertThat(idLibroObtenido, is(idLibroBuscado));
+    }
+
+    private void verificoPorValorDeCalificacion(Integer valoracionObtenida, Integer valoracionBuscada) {
+        assertThat(valoracionObtenida, is(valoracionBuscada));
+    }
+
+    private Calificacion dadoQueObtengoUnaCalificacioPorIdUsurioIdLibro(Long idusuario, Long idlibro) {
+        return this.servicioLibro.buscarCalificacion(idlibro,idusuario);
+    }
+
+    private void mockeoBuscarUnaCalificacion(RepositorioLibro repositorioLibro, Long idlibro, Long idusuario, Calificacion calificacionAbuscar) {
+        when(repositorioLibro.buscarCalificacion(idlibro, idusuario)).thenReturn(calificacionAbuscar);
+
+    }
+
+    private Usuario dadoQueCreoUnUsuario(Long idusuario) {
+        Usuario usuario = new Usuario();
+        usuario.setId(idusuario);
+        return usuario;
+    }
+
+
+    private Calificacion dadoQueCreoUnaCalificacion() {
+        Calificacion calificacion = new Calificacion();
+        return calificacion;
+    }
+
 
     private List<Libro> dadoQueCreoUnosLibros(Integer cantidad) {
         List<Libro> librosPedidos = new ArrayList<>();
@@ -127,7 +187,6 @@ public class ServicioLibroTest {
     private void mockeoUnaListaDeLibrosPorNombre(RepositorioLibro repositorioLibro, String nombre, List<Libro> listaLibros){
         when(repositorioLibro.obtenerLibroPorNombre(nombre)).thenReturn(listaLibros);
     }
-
 
     private List<Libro> dadoQueObtengoUnaListaDeLibrosDesdeServicio(){
       return this.servicioLibro.getLibros();
