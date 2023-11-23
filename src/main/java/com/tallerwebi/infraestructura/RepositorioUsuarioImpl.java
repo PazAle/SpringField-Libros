@@ -68,7 +68,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         //Hibernate.initialize(usuario.getCompras());
         usuario.getCompras().add(compra);
         this.sessionFactory.getCurrentSession().update(usuario);
-
+    }
     public Boolean actualizarPerfil(Long id, DatosFormulario datos) {
         Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
                 .createCriteria(Usuario.class)
