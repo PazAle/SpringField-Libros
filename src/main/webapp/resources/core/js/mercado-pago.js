@@ -24,13 +24,31 @@ function generarPreferencia(precioTotal) {
             mp.bricks().create("wallet", "wallet_container", {
                 initialization: {
                     preferenceId: response,
-                    redirectMode: "modal"
+                    redirectMode: "blank"
                 },
             });
+            setTimeout(function() {
+                finalizarCompra();
+            }, 15000);
         },
         error: function (xhr, status, error) {
             // Ocurrió un error al realizar la solicitud
             console.log(error);
         }
     });
+}
+
+function finalizarCompra(){
+    generarCompra();
+    vaciarCarrito();
+    irAlHome();
+}
+function irAlHome(){
+    window.location.href="/spring/home";
+}
+function generarCompra(){
+
+}
+function vaciarCarrito(){
+
 }

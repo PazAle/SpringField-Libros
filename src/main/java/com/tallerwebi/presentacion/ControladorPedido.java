@@ -76,6 +76,8 @@ public class ControladorPedido {
 
     }
 
+    /*@RequestMapping(path = "/generarCompra", method = RequestMethod.POST)
+    public void generarCompra*/
     private void eliminarLibro(Libro libro, Pedido pedidoActual) {
         this.servicioPedido.eliminarLibro(libro, pedidoActual);
     }

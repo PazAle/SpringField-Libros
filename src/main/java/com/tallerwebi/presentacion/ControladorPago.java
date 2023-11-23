@@ -1,5 +1,7 @@
 package com.tallerwebi.presentacion;
 
+import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
+import com.mercadopago.client.preference.PreferenceRequest;
 import com.tallerwebi.dominio.mercadoPago.ServicioMercadoPago;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,13 @@ public class ControladorPago {
         System.out.println("aca");
         try {
             String  idPreferencia =  this.servicioMercadoPago.pagarPedido(precioTotal);
+            PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
+                    .success("http://localhost:8080/spring/home")
+                    .failure("http://localhost:8080/spring/home").build();
+            PreferenceRequest prefRequest = PreferenceRequest.builder().autoReturn("approved")
+                    .backUrls(backUrls).build();
+
+
             return new ResponseEntity<>(idPreferencia, HttpStatus.OK);
         }catch(Exception e) {
             return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
