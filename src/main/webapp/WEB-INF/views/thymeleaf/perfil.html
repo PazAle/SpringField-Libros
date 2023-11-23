@@ -15,25 +15,8 @@
     <!-- FontAwesome -->
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
     <script th:src="@{https://code.jquery.com/jquery-3.6.0.min.js}"></script>
-    <style>
-        /* Estilo personalizado para el panel principal */
-        .main-panel {
-            min-height: 500px; /* Altura mínima del panel principal */
-            margin-top: 20px;
-        }
 
-        /* Estilo para distinguir el título de la sección */
-        .section-title {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .list-group-item-action.active {
-            background-color: rgb(221, 117, 25); /* Reemplaza "YourColor" con el color que desees */
-            color: #fff; /* Cambia el color del texto si es necesario */
-            /* Otros estilos que desees aplicar a la opción activa */
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}"/>
 
 </head>
 
@@ -97,29 +80,38 @@
             <div class="list-group">
                 <!-- Sección de Productos Digitales -->
                 <span class="list-group-item list-group-item-action section-title">
+                    <i class="fas fa-tablet-alt margin-right-5 fa-lg"></i>
                     Productos Digitales
                 </span>
                 <a href="#mis-libros" class="list-group-item list-group-item-action">Mis Libros</a>
                 <a href="#mis-audiolibros" class="list-group-item list-group-item-action">Mis Audiolibros</a>
 
                 <!-- Sección de Mis Datos -->
-                <span class="list-group-item list-group-item-action section-title">
+                <span class="list-group-item list-group-item-action section-title second_child">
+                    <i class="fas fa-cog margin-right-10 fa-lg"></i>
                     Mis Datos
                 </span>
                 <a href="#" class="list-group-item list-group-item-action active" onclick="ejecutarServicio('obtenerDatos')">Ajustar Datos Personales</a>
-                <a href="#cambio-clave" class="list-group-item list-group-item-action">Cambio de Clave</a>
-                <a href="#cambiar-email" class="list-group-item list-group-item-action">Cambiar Email Principal</a>
-                <span class="list-group-item list-group-item-action section-title">
-                    Mis Géneros
+                <a href="#" class="list-group-item list-group-item-action" onclick="ejecutarServicio('cambioClave')">Cambio de Clave</a>
+                <a href="#" class="list-group-item list-group-item-action" onclick="ejecutarServicio('cambiarEmail')">Cambiar Email Principal</a>
+                <span class="list-group-item list-group-item-action section-title" hidden>
+                    Datos ocultos
                 </span>
-                <!-- Puedes agregar géneros aquí -->
+                <input type="hidden" id="nombreUsuario" th:value="${nombreUsuario}">
+                <input type="hidden" id="apellidoUsuario" th:value="${apellidoUsuario}">
+                <input type="hidden" id="idUsuario" th:value="${idUsuario}">
+                <a href="#" class="list-group-item list-group-item-action section-title" onclick="mostrarConfirmacionEliminarCuenta()">
+                    <i class="fas fa-trash margin-right-10 fa-lg"></i>
+                    Eliminar cuenta
+                </a>
+
             </div>
         </div>
 
         <!-- Panel principal -->
         <div class="col-md-9 main-panel" id="panel-principal">
             <!-- Contenido dinámico según la selección en el panel izquierdo -->
-            <!-- Puedes agregar contenido específico aquí -->
+
         </div>
     </div>
 </div>

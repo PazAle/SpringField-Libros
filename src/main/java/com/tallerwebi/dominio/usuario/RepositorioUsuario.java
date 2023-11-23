@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio.usuario;
 
 import com.tallerwebi.dominio.usuario.Usuario;
+import com.tallerwebi.presentacion.DatosFormulario;
 
 public interface RepositorioUsuario {
 
@@ -10,5 +11,13 @@ public interface RepositorioUsuario {
     void modificar(Usuario usuario);
 
     Usuario buscarUsuarioPorId(Long id);
+
+    Boolean actualizarPerfil(Long id, DatosFormulario datos);
+
+    Boolean actualizarContrasenia(Long id, DatosFormulario datos);
+
+    Boolean actualizarEmail(Long id, DatosFormulario datos);
+
+    Boolean eliminar(Long id);
 }
 
