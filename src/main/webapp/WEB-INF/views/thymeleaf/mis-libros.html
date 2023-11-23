@@ -64,17 +64,16 @@
       <tr>
         <th>Título</th>
         <th>Categoría</th>
-        <th></th>
-        <th></th>
+
       </tr>
       </thead>
       <!-- Cuerpo de la tabla -->
       <tbody th:each="libro : ${libros}">
       <tr th:id="${libro.ID}">
         <td th:text="${libro.nombre}"></td>
-        <td th:text="${libro.categoria.nombre}"></td>
+        <td th:text="${libro.autor.nombre}"></td>
         <td>
-          <a  th:href="" type="button" class="btn btn-danger">Descargar PDF</a>
+          <a  href="#" type="button" class="btn btn-danger">Descargar PDF</a>
         </td>
       </tr>
       </tbody>

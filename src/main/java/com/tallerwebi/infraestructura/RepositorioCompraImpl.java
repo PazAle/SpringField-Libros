@@ -38,9 +38,9 @@ public class RepositorioCompraImpl implements RepositorioCompra {
     @Override
     public List<Libro> obtenerLibrosCompradosPorUsuario(Usuario usuario) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("SELECT DISTINCT l FROM Usuario u " +
-                "JOIN u.compras c " +
-                "JOIN c.librosComprados l " +
+        Query query = session.createQuery("SELECT DISTINCT l FROM Libro l " +
+                "JOIN l.compras c " +
+                "JOIN c.usuario u " +
                 "WHERE u.id = :usuarioId");
         query.setParameter("usuarioId", usuario.getId());
         List<Libro> libros = (List<Libro>) query.list();

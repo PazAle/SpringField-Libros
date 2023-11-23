@@ -3,6 +3,7 @@ package com.tallerwebi.dominio.libro;
 import com.tallerwebi.dominio.autor.Autor;
 import com.tallerwebi.dominio.categoria.Categoria;
 import com.tallerwebi.dominio.comentario.Comentario;
+import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.editorial.Editorial;
 import com.tallerwebi.dominio.pedido.Pedido;
 
@@ -40,13 +41,15 @@ public class Libro {
     //@ManyToMany(mappedBy = "libros")
     //private List<Pedido> pedidos;
 
-   // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JoinTable(name = "comentario")
-   //private List<Comentario> comentarios;
+    //private List<Comentario> comentarios;
     // Agrega una lista de comentarios relacionados con este libro
 
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios;
+    @ManyToMany(mappedBy = "librosComprados")
+    private List<Compra> compras;
 
     public Libro(){
         this.cantidad = 1;
