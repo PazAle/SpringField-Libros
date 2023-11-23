@@ -40,15 +40,32 @@ function generarPreferencia(precioTotal) {
 
 function finalizarCompra(){
     generarCompra();
-    vaciarCarrito();
     irAlHome();
 }
 function irAlHome(){
     window.location.href="/spring/home";
 }
 function generarCompra(){
-
+    $.ajax({
+        url: '/spring/generarCompra', // Reemplaza con la ruta real de tu servicio
+        method: 'POST',
+        success: function (response) {
+           vaciarCarrito();
+        },
+        error: function () {
+            alert('Error al obtener datos en ajax');
+        }
+    });
 }
 function vaciarCarrito(){
-
+    $.ajax({
+        url: '/spring/vaciarPedido', // Reemplaza con la ruta real de tu servicio
+        method: 'POST',
+        success: function (response) {
+            console.log("Aca 2");
+        },
+        error: function () {
+            alert('Error al obtener datos en ajax');
+        }
+    });
 }

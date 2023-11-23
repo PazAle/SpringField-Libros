@@ -11,6 +11,8 @@ import com.tallerwebi.dominio.pedido.ServicioPedido;
 import com.tallerwebi.dominio.usuario.ServicioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,8 +78,30 @@ public class ControladorPedido {
 
     }
 
-    /*@RequestMapping(path = "/generarCompra", method = RequestMethod.POST)
-    public void generarCompra*/
+    @RequestMapping(path = "/generarCompra", method = RequestMethod.POST)
+    public ResponseEntity<Void> generarCompra(){
+        System.out.println("acá11");
+        Pedido pedido = this.obtenerPedido();
+        Long idUsuario = this.obtenerIdDelUsuario();
+        Usuario usuario = this.servicioLogin.buscarUsuarioPorId(idUsuario);
+        if(usuario != null){
+            this.servicioPedido.generarCompra(pedido, usuario);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(path = "/vaciarPedido", method = RequestMethod.POST)
+    public ResponseEntity<Void> vaciarPedido(){
+        Pedido pedido = this.obtenerPedido();
+        if(pedido != null){
+            this.servicioPedido.vaciarPedido(pedido);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     private void eliminarLibro(Libro libro, Pedido pedidoActual) {
         this.servicioPedido.eliminarLibro(libro, pedidoActual);
     }

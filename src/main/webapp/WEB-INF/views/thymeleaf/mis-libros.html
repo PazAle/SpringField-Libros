@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>LibrArte App</title>
+
+  <!-- Boostrap core css -->
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}"/>
+
+  <!-- custom style -->
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <link rel="stylesheet" th:href="@{/css/carrito.css}"/>
+
+  <!-- FontAwesome -->
+  <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" rel="stylesheet"/>
+
+  <script th:src="@{https://code.jquery.com/jquery-3.6.4.min.js}" defer></script>
+  <script th:src="@{/js/mercado-pago.js}" defer></script>
+
+</head>
+<body>
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light backgroundNav">
+    <div class="container-fluid d-flex justify-content-between">
+      <div>
+        <a href="home.html" class="btn btn-light border-0" style="background-color: transparent;">
+          <img th:src="${imagenlogo.imagenBase64}" alt="Imagen"
+               style="max-width: 100px; max-height: 100px;" class="img-lg">
+        </a>
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-home"></i>
+        </a>
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a th:href="carrito" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <!--<a th:href="@{#}" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-bell"></i>-->
+        </a>
+        <a th:href="home" class="btn btn-primary btn-custom-primary btn-lg mx-2">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script type="text/javascript" th:src="@{webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+
+<!-- Boostrap core js -->
+<main class="container mt-5">
+  <h2>Mis Libros</h2>
+
+  <!-- Tabla de carrito de compras oculta por defecto -->
+  <div id="carritoTable">
+    <table class="table table-striped">
+      <!-- Encabezados de la tabla -->
+      <thead>
+      <tr>
+        <th>Título</th>
+        <th>Categoría</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <!-- Cuerpo de la tabla -->
+      <tbody th:each="libro : ${libros}">
+      <tr th:id="${libro.ID}">
+        <td th:text="${libro.nombre}"></td>
+        <td th:text="${libro.categoria.nombre}"></td>
+        <td>
+          <a  th:href="" type="button" class="btn btn-danger">Descargar PDF</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <!-- Botón para proceder al pago -->
+  </div>
+
+</main>
+</body>
+</html>

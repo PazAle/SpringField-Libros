@@ -23,7 +23,6 @@ public class ControladorPago {
 
     @RequestMapping(path = "/preferencia", method = RequestMethod.POST)
     public ResponseEntity<String> generarPreferencia(@RequestParam("precioTotal") Double precioTotal) {
-        System.out.println("aca");
         try {
             String  idPreferencia =  this.servicioMercadoPago.pagarPedido(precioTotal);
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()

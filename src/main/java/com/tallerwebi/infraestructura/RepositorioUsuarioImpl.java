@@ -1,7 +1,9 @@
 package com.tallerwebi.infraestructura;
 
+import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -53,6 +55,13 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         query.setParameter("id", id);
         Usuario usuario = (Usuario) query.uniqueResult();
         return usuario;
+    }
+
+    @Override
+    public void generarCompra(Compra compra, Usuario usuario) {
+        //Hibernate.initialize(usuario.getCompras());
+        usuario.getCompras().add(compra);
+        this.sessionFactory.getCurrentSession().update(usuario);
     }
 
 }

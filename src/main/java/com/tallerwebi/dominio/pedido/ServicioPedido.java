@@ -19,4 +19,8 @@ public interface ServicioPedido {
     void eliminarLibro(Libro libro, Pedido pedidoActual);
     void actualizarLibro(Libro libro);
     Double calcularTotal(List<Libro> libros);
+
+    void generarCompra(Pedido pedido, Usuario usuario);
+
+    void vaciarPedido(Pedido pedido);
 }

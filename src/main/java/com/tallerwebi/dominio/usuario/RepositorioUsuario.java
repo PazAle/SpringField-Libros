@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.usuario;
 
+import com.tallerwebi.dominio.compra.Compra;
 import com.tallerwebi.dominio.usuario.Usuario;
 
 public interface RepositorioUsuario {
@@ -10,5 +11,7 @@ public interface RepositorioUsuario {
     void modificar(Usuario usuario);
 
     Usuario buscarUsuarioPorId(Long id);
+
+    void generarCompra(Compra compra, Usuario usuario);
 }
 

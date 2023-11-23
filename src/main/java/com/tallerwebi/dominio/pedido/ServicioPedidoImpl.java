@@ -1,8 +1,11 @@
 package com.tallerwebi.dominio.pedido;
 
+import com.tallerwebi.dominio.compra.Compra;
+import com.tallerwebi.dominio.compra.RepositorioCompra;
 import com.tallerwebi.dominio.excepcion.StockInsuficienteException;
 import com.tallerwebi.dominio.libro.Libro;
 import com.tallerwebi.dominio.libro.RepositorioLibro;
+import com.tallerwebi.dominio.usuario.RepositorioUsuario;
 import com.tallerwebi.dominio.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,16 @@ public class ServicioPedidoImpl implements ServicioPedido{
 
     private RepositorioPedido repositorioPedido;
     private RepositorioLibro repositorioLibro;
+    private RepositorioCompra repositorioCompra;
+    private RepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public ServicioPedidoImpl(RepositorioPedido repositorioPedido, RepositorioLibro repositorioLibro){
+    public ServicioPedidoImpl(RepositorioPedido repositorioPedido, RepositorioLibro repositorioLibro,
+                              RepositorioCompra repositorioCompra, RepositorioUsuario repositorioUsuario){
         this.repositorioPedido = repositorioPedido;
         this.repositorioLibro = repositorioLibro;
+        this.repositorioCompra = repositorioCompra;
+        this.repositorioUsuario = repositorioUsuario;
     }
     @Override
     public Pedido obtenerPedidoPorUsuario(Usuario usuario) {
@@ -60,6 +68,17 @@ public class ServicioPedidoImpl implements ServicioPedido{
             total+= Math.round(libro.getPrecio()*libro.getCantidad());
         }
         return total;
+    }
+
+    @Override
+    public void generarCompra(Pedido pedido, Usuario usuario) {
+        Compra compra = this.repositorioCompra.generarCompra(pedido, usuario);
+        //this.repositorioUsuario.generarCompra(compra, usuario);
+    }
+
+    @Override
+    public void vaciarPedido(Pedido pedido) {
+        this.repositorioPedido.vaciarPedido(pedido);
     }
 
     private Boolean yaEstaEnElPedido(Pedido pedido, Libro libro) {
