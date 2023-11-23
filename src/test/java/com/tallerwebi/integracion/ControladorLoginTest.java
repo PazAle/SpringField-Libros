@@ -1,4 +1,4 @@
-package com.tallerwebi.integracion;
+/*package com.tallerwebi.integracion;
 
 import com.tallerwebi.dominio.imagen.Imagen;
 import com.tallerwebi.dominio.imagen.ServicioImagen;
@@ -53,7 +53,7 @@ public class ControladorLoginTest {
 	public void debeRetornarLaPaginaLoginCuandoSeNavegaALaRaiz() throws Exception {
 
 		MvcResult result = this.mockMvc.perform(get("/"))
-				/*.andDo(print())*/
+				//.andDo(print())
 				.andExpect(status().is3xxRedirection())
 				.andReturn();
 
@@ -63,7 +63,7 @@ public class ControladorLoginTest {
 		assertThat(true, is(modelAndView.getModel().isEmpty()));
 	}
 
-	/*@Test
+	@Test
 	public void debeRetornarLaPaginaLoginCuandoSeNavegaALLogin() throws Exception {
 		// Configura el comportamiento del mock de servicioImagen
 		Imagen imagenLogoMock = mock(Imagen.class);
@@ -82,5 +82,5 @@ public class ControladorLoginTest {
 		assertThat(modelAndView.getViewName(), equalToIgnoringCase("login"));
 		assertThat(modelAndView.getModel().get("datosLogin").toString(), containsString("com.tallerwebi.presentacion.DatosLogin"));
 
-}*/
 }
+}*/

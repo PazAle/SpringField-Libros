@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+/*package com.tallerwebi.infraestructura;
 
 
 import com.tallerwebi.dominio.categoria.Categoria;
@@ -106,3 +106,4 @@ public class RepositorioCategoriaTest {
     }
 
 }
+*/

@@ -1,9 +1,9 @@
 package com.tallerwebi.dominio.usuario;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.tallerwebi.dominio.pedido.Pedido;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -18,6 +18,13 @@ public class Usuario {
     private String repetir_password;
     private String rol;
     private Boolean activo = false;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pedido")
+    private Pedido pedido;
+
+    public Usuario(){
+        this.pedido = new Pedido();
+    }
 
     public Long getId() {
         return id;
@@ -81,5 +88,13 @@ public class Usuario {
 
     public void activar() {
         activo = true;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

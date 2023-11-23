@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+/*package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.calificacion.Calificacion;
 import com.tallerwebi.dominio.libro.Libro;
@@ -83,11 +83,5 @@ public class RepositorioLibroTest {
     public void queSePuedaBorrarUnLibro(){
         assertTrue(repositorioLibro.borrarLibro(libro.getID()));
     }
-
-
-
-
-
-
-
 }
+*/

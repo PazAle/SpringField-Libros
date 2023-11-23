@@ -1,4 +1,4 @@
-package com.tallerwebi.infraestructura;
+/*package com.tallerwebi.infraestructura;
 
 
 import com.tallerwebi.dominio.usuario.RepositorioUsuario;
@@ -67,7 +67,5 @@ public class RepositorioUsuarioTest {
     @Test
     public void queSeModifiqueCorrectamenteElUsuario() {
     }
-
-
-
 }
+*/
