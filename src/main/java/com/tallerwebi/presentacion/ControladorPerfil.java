@@ -49,8 +49,6 @@ public class ControladorPerfil {
     @RequestMapping(path = "/obtenerDatos", method = RequestMethod.POST)
     public ResponseEntity<Usuario> obtenerDatosParaAjuste(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
-        usuario.getCompras().size();
-        usuario.getCompras().forEach(compra -> compra.getLibrosComprados().size());
         usuario.setCompras(null);
         if (usuario != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
@@ -58,7 +56,8 @@ public class ControladorPerfil {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    /*
+    @Transactional
     @RequestMapping(path = "/cambioClave", method = RequestMethod.POST)
     public ResponseEntity<Usuario> ajustarContrasenia(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
@@ -70,6 +69,7 @@ public class ControladorPerfil {
         }
     }
 
+    @Transactional
     @RequestMapping(path = "/cambiarEmail", method = RequestMethod.POST)
     public ResponseEntity<Usuario> ajustarEmail(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
@@ -79,7 +79,7 @@ public class ControladorPerfil {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @RequestMapping(path = "/actualizarPerfil", method = RequestMethod.POST)
     public ResponseEntity<Boolean> actualizarPerfil(@RequestBody DatosFormulario datos) {

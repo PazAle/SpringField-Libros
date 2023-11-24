@@ -57,7 +57,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     @Override
     public Boolean eliminarUsuario(Long id) {
-        return this.repositorioUsuario.eliminar(id);
+        return this.repositorioUsuario.desactivar(id);
     }
 
     public static String hashPassword(String password) {

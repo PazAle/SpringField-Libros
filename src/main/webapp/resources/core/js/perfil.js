@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 window.onload = function () {
-    ejecutarServicio("obtenerDatos");
+    ejecutarServicio("obtenerDatosPerfil");
 };
 function ejecutarServicio(metodo) {
 
@@ -24,13 +24,13 @@ function ejecutarServicio(metodo) {
     idUsuario = obtenerIdUsuario();
 
     $.ajax({
-        url: '/spring/'+ metodo,
+        url: '/spring/obtenerDatos',
         method: 'POST',
         dataType: 'json',
         data: {idUsuario:idUsuario},
         success: function (response) {
             switch (metodo){
-                case "obtenerDatos":
+                case "obtenerDatosPerfil":
                     mostrarFormularioModificarPerfil(response);
                     break;
                 case 'cambioClave':
