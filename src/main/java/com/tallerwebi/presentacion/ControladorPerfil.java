@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -44,10 +45,13 @@ public class ControladorPerfil {
         modelo.put("datosLibro", new DatosLibro());
         return new ModelAndView("perfil",modelo);
     }
-
+    @Transactional
     @RequestMapping(path = "/obtenerDatos", method = RequestMethod.POST)
     public ResponseEntity<Usuario> obtenerDatosParaAjuste(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
+        usuario.getCompras().size();
+        usuario.getCompras().forEach(compra -> compra.getLibrosComprados().size());
+        usuario.setCompras(null);
         if (usuario != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } else {
@@ -58,6 +62,7 @@ public class ControladorPerfil {
     @RequestMapping(path = "/cambioClave", method = RequestMethod.POST)
     public ResponseEntity<Usuario> ajustarContrasenia(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
+        usuario.setCompras(null);
         if (usuario != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } else {
@@ -68,6 +73,7 @@ public class ControladorPerfil {
     @RequestMapping(path = "/cambiarEmail", method = RequestMethod.POST)
     public ResponseEntity<Usuario> ajustarEmail(@RequestParam("idUsuario") Long idUsuario) {
         Usuario usuario = this.servicioUsuario.obtenerDatosDeUsuario(idUsuario);
+        usuario.setCompras(null);
         if (usuario != null) {
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } else {

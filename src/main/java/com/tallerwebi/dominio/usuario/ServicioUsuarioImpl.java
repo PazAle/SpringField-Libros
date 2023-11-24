@@ -21,6 +21,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         this.repositorioUsuario = repositorioUsuario;
     }
     @Override
+    @Transactional
     public Usuario obtenerDatosDeUsuario(Long id) {
         return this.repositorioUsuario.buscarUsuarioPorId(id);
     }

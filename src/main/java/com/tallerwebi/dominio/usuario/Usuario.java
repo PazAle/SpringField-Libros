@@ -108,4 +108,9 @@ public class Usuario {
     public void setCompras(List<Compra> compras) {
         this.compras = compras;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{id=" + id + ", nombre='" + nombre + "', email='" + email + "', compras=" + compras + "}";
+    }
 }

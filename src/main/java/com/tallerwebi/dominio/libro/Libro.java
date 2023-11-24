@@ -167,4 +167,8 @@ public class Libro {
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
+    @Override
+    public String toString() {
+        return "Libro{id=" + ID + ", titulo='" + nombre + "'}";
+    }
 }
