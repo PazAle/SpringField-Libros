@@ -22,7 +22,7 @@ public interface RepositorioUsuario {
 
     Boolean actualizarEmail(Long id, DatosFormulario datos);
 
-    Boolean eliminar(Long id);
+    Boolean desactivar(Long id);
 
 }
 

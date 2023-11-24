@@ -33,6 +33,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         return (Usuario) session.createCriteria(Usuario.class)
                 .add(Restrictions.eq("email", email))
                 .add(Restrictions.eq("password", password))
+                .add(Restrictions.eq("activo", true))
                 .uniqueResult();
     }
 
@@ -123,7 +124,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
     }
 
     @Override
-    public Boolean eliminar(Long id) {
+    public Boolean desactivar(Long id) {
         Usuario usuarioObtenido = (Usuario) this.sessionFactory.getCurrentSession()
                 .createCriteria(Usuario.class)
                 .add(Restrictions.eq("id", id))
@@ -131,7 +132,8 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
         final Session session = sessionFactory.getCurrentSession();
 
         if (usuarioObtenido != null) {
-            session.delete(usuarioObtenido);
+            usuarioObtenido.setActivo(false);
+            session.update(usuarioObtenido);
             return true;
         }else{
             return false;

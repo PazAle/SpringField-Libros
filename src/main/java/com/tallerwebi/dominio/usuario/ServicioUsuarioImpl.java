@@ -21,6 +21,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
         this.repositorioUsuario = repositorioUsuario;
     }
     @Override
+    @Transactional
     public Usuario obtenerDatosDeUsuario(Long id) {
         return this.repositorioUsuario.buscarUsuarioPorId(id);
     }
@@ -56,7 +57,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 
     @Override
     public Boolean eliminarUsuario(Long id) {
-        return this.repositorioUsuario.eliminar(id);
+        return this.repositorioUsuario.desactivar(id);
     }
 
     public static String hashPassword(String password) {

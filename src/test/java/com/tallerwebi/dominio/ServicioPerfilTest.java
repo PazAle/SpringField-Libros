@@ -69,7 +69,7 @@ public class ServicioPerfilTest {
     public void queSePuedaEliminarUnUsuario(){
         //preparacion
         Usuario usuario1 = dadoQueSeCreaUnUsuario();
-        when(this.repositorioUsuario.eliminar(usuario1.getId())).thenReturn(true);
+        when(this.repositorioUsuario.desactivar(usuario1.getId())).thenReturn(true);
         //ejecucion
         Boolean resultado = this.servicioUsuario.eliminarUsuario(usuario1.getId());
         //validacion

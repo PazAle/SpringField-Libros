@@ -45,4 +45,9 @@ public class Compra {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    @Override
+    public String toString() {
+        return "Compra{id=" + id + ", librosComprados=" + librosComprados + "}";
+    }
 }
